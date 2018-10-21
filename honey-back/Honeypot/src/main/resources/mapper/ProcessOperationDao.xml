@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+<mapper namespace="com.honeypot.honeypot.dao.ProcessOperationDao">
+    <select id="getAllProcessOperation" resultType="com.honeypot.honeypot.entity.ProcessOperation">
+        SELECT *
+        from processoperation
+        where uniqueId = #{uniqueId}
+
+    </select>
+    <select id="getAimProcessOperation" resultType="com.honeypot.honeypot.entity.ProcessOperation">
+        SELECT *
+        from processoperation
+        where uniqueId = #{uniqueId} and currentProcessName  like concat('%',#{currentProcessName},'%') and currentProcessID  like concat('%',#{currentProcessID},'%') and opType  like concat('%',#{opType},'%') and objectProcessID  like concat('%',#{objectProcessID},'%') and objectProcessName  like concat('%',#{objectProcessName},'%') and `time`  like concat('%',#{time},'%')
+    </select>
+</mapper>

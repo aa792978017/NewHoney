@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+<mapper namespace="com.honeypot.honeypot.dao.SetRegValueKeyDao">
+
+    <select id="getAllSetRegValueKey" resultType="com.honeypot.honeypot.entity.SetRegValueKey">
+        select *
+        from setregvaluekey
+        where uniqueId = #{uniqueId}
+    </select>
+    <select id="getAimSetRegValueKey" resultType="com.honeypot.honeypot.entity.SetRegValueKey">
+        select *
+        from setregvaluekey
+        where uniqueId = #{uniqueId} and processID  like concat('%',#{processID},'%') and processName  like concat('%',#{processName},'%') and keyValue  like concat('%',#{keyValue},'%') and regPath  like concat('%',#{regPath},'%') and `time`  like concat('%',#{time},'%')
+    </select>
+</mapper>

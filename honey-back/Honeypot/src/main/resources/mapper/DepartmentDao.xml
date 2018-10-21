@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.DepartmentDao">
+    <resultMap id="departmentMap" type="com.honeypot.honeypot.entity.Department">
+        <id column="id" property="id"/>
+        <result column="dep_name" property="depName"/>
+        <result column="duty_name" property="dutyName"/>
+    </resultMap>
+    <!-- CRUD操作 -->
+    <!-- 获取全部部门信息 -->
+    <select id="getAllDepts" resultType="com.honeypot.honeypot.entity.Department">
+        SELECT *
+        FROM department
+    </select>
+    <!-- 根据部门名称获取单个部门信息 -->
+    <select id="getDeptByDepName" parameterType="string" resultType="com.honeypot.honeypot.entity.Department">
+        SELECT *
+        FROM department
+        WHERE dep_name=#{depName}
+    </select>
+    <!-- 根据部门id获取单个部门信息 -->
+    <select id="getDeptById" parameterType="int" resultType="com.honeypot.honeypot.entity.Department">
+        SELECT *
+        FROM department
+        WHERE id=#{id}
+    </select>
+    <!-- 增加部门 -->
+    <insert id="addDept" parameterType="com.honeypot.honeypot.entity.Department">
+        INSERT INTO department(id, dep_name, duty_name)
+        VALUES(#{id}, #{depName}, #{dutyName})
+    </insert>
+    <!-- 删除部门，根据id唯一确定 -->
+    <delete id="delDept" parameterType="string">
+        DELETE
+        FROM department
+        WHERE dep_name=#{depName}
+    </delete>
+    <!-- 更新部门信息 -->
+    <update id="updateDept" parameterType="com.honeypot.honeypot.entity.Department">
+        UPDATE department
+        SET duty_name=#{dutyName}
+        WHERE dep_name=#{depName}
+    </update>
+
+    <select id="getAllTypes" resultType="com.honeypot.honeypot.entity.Department">
+        SELECT *
+        FROM department
+    </select>
+</mapper>

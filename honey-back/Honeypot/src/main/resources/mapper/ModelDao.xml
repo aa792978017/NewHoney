@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.ModelDao">
+    <insert id="addModel" parameterType="com.honeypot.honeypot.entity.Model">
+        INSERT INTO model(id,name,type,ip,server,server_id,server_ip)
+        VALUES
+        (#{model.id},#{model.name},#{model.type},#{model.ip},#{model.server}
+        ,#{model.serverId},#{model.serverIp})
+    </insert>
+    <delete id="delectModel">
+        DELETE FROM
+        model
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getModelList" resultType="com.honeypot.honeypot.entity.Model">
+        SELECT *
+        FROM model
+    </select>
+
+
+</mapper>

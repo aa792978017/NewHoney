@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.HostDao">
+
+
+    <select id="getAllRowCountByState" resultType="com.honeypot.honeypot.entity.Host">
+        SELECT *
+        FROM host
+        WHERE state = #{state}
+    </select>
+    <select id="getAllRowCountByHostType" resultType="com.honeypot.honeypot.entity.HostType">
+        SELECT *
+        FROM host_type
+        WHERE id = #{hostType}
+    </select>
+    <select id="getAllTypes" resultType="com.honeypot.honeypot.entity.HostType">
+         SELECT *
+        FROM host_type
+    </select>
+    <select id="getHostByProvince" resultType="com.honeypot.honeypot.entity.Host">
+        SELECT *
+        FROM host
+        WHERE province = #{province}
+    </select>
+
+</mapper>

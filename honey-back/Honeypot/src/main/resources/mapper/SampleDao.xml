@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.SampleDao">
+
+
+    <select id="getAllSample" resultType="com.honeypot.honeypot.entity.Sample">
+      SELECT *
+      FROM sample
+    </select>
+    <select id="getSample" resultType="com.honeypot.honeypot.entity.Sample">
+        SELECT *
+        FROM sample
+        WHERE name = #{words} OR md5 = #{words} OR processName = #{words}
+              OR path = #{words} OR filePath = #{words} OR type = #{words}
+    </select>
+</mapper>
