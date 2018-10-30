@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.SecurityLogDao">
+    <!-- 获取所有审计日志信息 -->
+    <select id="getAllSecurityLog" resultType="com.honeypot.honeypot.entity.SecurityLog">
+       SELECT *
+       FROM security_log
+    </select>
+    <!-- 删除一个审计日志，根据id唯一确定来删除 -->
+    <delete id="delSecurityLog" parameterType="string">
+        DELETE
+        FROM security_log
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

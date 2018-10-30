@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class SystemSecurityConfServiceImpl implements SystemSecurityConfService {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private SystemSecurityConfDao systemSecurityConfDao;
 
