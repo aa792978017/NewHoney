@@ -10,7 +10,7 @@
                   <span class="el-dropdown-link" >
                       <span class="smallpeople">
                         <img src="../assets/smallpeople.png"/></span>
-                        <span style="color:grey ;font-size:14pt">系统管理员[SysAdmin]</span>&nbsp;{{administrator}}&nbsp;
+                        <span style="color:grey ;font-size:14pt">系统管理员[SysAdmin]</span>&nbsp;&nbsp;
                   </span>
                    <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>修改密码</el-dropdown-item>
@@ -199,13 +199,27 @@ import {formatDate} from './common/date.js';
 export default {
     data(){
         return{
-            date:{}
+            date:{},
+            identityName: ''
         }
 
     },
+    mounted() {
+        // alert(11)
+        this.setUserType();
+    },
   method:{
+    setUserType() {
+        // var j = sessionStorage.getItem("identityName");
+        var j = 1
+        alert(j)
+      if (j) {
+          this.identityName = "系统管理员[SysAdmin]"
+      } else {
+          this.identityName = "普通用户[ComUser]"
+      }
+    },
     cleanUserName() {
-        alert(1111)
         sessionStorage.setItem("username","0");
         window.location.href = "#/systemindex"
     },

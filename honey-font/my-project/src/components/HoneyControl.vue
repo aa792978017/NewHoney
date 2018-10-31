@@ -267,8 +267,9 @@
                                 <!-- *************************************** -->
                                 <!-- option所含的部门需要修改，不能写死，未完成 -->
                                 <el-form-item label="部门" :label-width="formLabelWidth">
-                                  <el-select v-model="form2_1.department" placeholder="">
-                                    <el-option v-for="dept in deptData" :key='dept.department' :label="dept.department" :value="dept.department">
+                                  <el-select v-model="form2_1.department" placeholder="" >
+                                    <el-option v-for="dept in deptData" :key='dept.department' :label="dept.department"
+                                               :value="dept.department" :disabled = true>
                                     </el-option>
                                   </el-select>
                                 </el-form-item>

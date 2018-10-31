@@ -10,7 +10,7 @@
                       <span class="el-dropdown-link" >
                           <span class="smallpeople">
                             <img src="../assets/smallpeople.png"/></span>
-                            <span style="color:grey ;font-size:14pt">系统管理员[SysAdmin]</span>&nbsp;{{administrator}}&nbsp;
+                            <span style="color:grey ;font-size:14pt">{{identityName}}</span>&nbsp;{{administrator}}&nbsp;
                       </span>
                         <!--<el-dropdown-menu slot="dropdown">-->
                             <!--<el-dropdown-item>修改密码</el-dropdown-item>-->
@@ -223,7 +223,8 @@
             return{
                 date:{},
                 username: "",
-                password: ""
+                password: "",
+                identityName:"未登录"
             }
 
         },
@@ -248,7 +249,11 @@
 
                     if (response.data.success) {
                         sessionStorage.setItem('username',"1");
+                        // sessionStorage.setItem("identityName",response.data.authority)
+                        // var cc = sessionStorage.getItem("identityName")
+                        // alert(cc)
                         alert("登录成功，准备跳转页面");
+
                         if (response.data.authority == "1") {
                             window.location.href="#/Checkstatus1";
                         }else {

@@ -14,7 +14,7 @@
         <el-row class="tac">
   <el-col :span="12">
       <el-menu>
-      <el-menu-item  v-for="ip in ipList" index="ip" @click="getSample(ip)" :ip="ip">
+      <el-menu-item  v-for="ip in ipList" index="ip" @click="getSample(ip)" :ip="ip" :key="ip">
         <span slot="title" >{{ip}}</span>
       </el-menu-item>
       <!--<el-menu-item index="2" >-->
@@ -136,8 +136,27 @@
     </el-tab-pane>
     <el-tab-pane label="样本分析" name="second">
         <div class="center">
-            样本上传:<el-input class="big" v-model="input" placeholder="请选择样本上传"></el-input>
-             <el-button  class="button5"  style="font-size:20px;background:#E95513;color:#ffffff;">&nbsp;&nbsp;&nbsp;分析样本&nbsp;&nbsp;&nbsp;</el-button>
+            样本上传:
+            <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/" style="display: inline-block;-webkit-appearance: none;
+
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    padding: 0 15px;
+position: relative;
+top: 5px">
+                <div class="el-upload__text" style="width: 300px; height: 40px;text-align: center">
+                    <em style="font-size: 15px; position: relative; top: -10px;">请选择样本上传</em></div>
+            </el-upload>
+             <el-button  class="button5"  style="font-size:20px;background:#E95513;color:#ffffff;position: relative; top: -6px">&nbsp;&nbsp;&nbsp;分析样本&nbsp;&nbsp;&nbsp;</el-button>
 
 
         </div>
@@ -473,93 +492,94 @@
      }
 </style>
 <script>
-    import "../assets/css/new.css";
+    import '../assets/css/new.css'
 export default {
-    data() {
-      return {
-        sampleName:'',
-        activeName2: 'first',
+    data () {
+        return {
+          sampleName: '',
+          activeName2: 'first',
           currentPage: 1,
-          jumper:1,
-          pagesize:10,
-        ipList:[],
-        administrator:'wulala',
-          times:'2018-5-21',
-         sampleData: [{
+          jumper: 1,
+          pagesize: 10,
+          ipList: [],
+          administrator: 'wulala',
+          times: '2018-5-21',
+          sampleData: [{
             name: '123.doc',
             md5: 'xxxxxxxxxxx ',
             filePath: 'C:\\file\\1\\123.doc',
-            type:'主机蜜罐',
-            time:'2018.8.1 10:21:53',
-            operator:'下载 详情'
-            },
-            ],
-          sampleAllData : [],
-          searchSample : []
-      };
-
-    },
+            type: '主机蜜罐',
+            time: '2018.8.1 10:21:53',
+            operator: '下载 详情'
+          }
+          ],
+          sampleAllData: [],
+          searchSample: []
+        }
+  },
     mounted () {
-      this.getAllSample();
-    },
+        this.getAllSample()
+  },
     watch: {
 
     },
     methods: {
-        //查询样本
-        selectSample() {
-            var words = this.sampleName
-            if (words == ""){
-                this.sampleData = this.sampleAllData;
-            } else {
-                var that = this;
-                this.$axios.get("/searchSample?words=" + words).then(function (response) {
-                    if (response.data.success){
-                        that.sampleData = response.data.sampleList;
-                    } else {
-                        alert("不存在该样本")
-                    }
-                })
-            }
-        },
-        handleSizeChange(size) {
-            this.pagesize = size;
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(currentPage) {
-            this.currentPage = currentPage;
-            console.log(`当前页: ${val}`);
-        },
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
+        uploadFile () {
 
-        //从后端获取所有样本数据
-      getAllSample () {
-          var that = this;
-          this.$axios.post("/getAllSample").then(function (response) {
-              that.sampleData = response.data;
-              that.sampleAllData = response.data;
-              for ( var i = 0; i < that.sampleData.length; i++){
-                  if (that.ipList.indexOf(that.sampleData[i].ip) == -1) {
-                      that.ipList.push(that.sampleData[i].ip);
-                  }
+        },
+        // 查询样本
+        selectSample () {
+          var words = this.sampleName
+          if (words == '') {
+            this.sampleData = this.sampleAllData
+          } else {
+            var that = this
+            this.$axios.get('/searchSample?words=' + words).then(function (response) {
+              if (response.data.success) {
+                that.sampleData = response.data.sampleList
+              } else {
+                alert('不存在该样本')
               }
-          });
-      },
-        //获取ip列表，用于动态生成左侧导航栏
-      getSample (ip,e) {
-          var json = [];
-
-          for( var i = 0; i < this.sampleAllData.length; i++) {
-              if (this.sampleAllData[i].ip == ip){
-                  json.push(this.sampleAllData[i]);
-              }
+            })
           }
-          this.sampleData = json;
-      }
+        },
+        handleSizeChange (size) {
+          this.pagesize = size
+          console.log(`每页 ${val} 条`)
+    },
+        handleCurrentChange (currentPage) {
+          this.currentPage = currentPage
+          console.log(`当前页: ${val}`)
+    },
+        handleClick (tab, event) {
+          console.log(tab, event)
+    },
+
+        // 从后端获取所有样本数据
+        getAllSample () {
+          var that = this
+          this.$axios.post('/getAllSample').then(function (response) {
+            that.sampleData = response.data
+            that.sampleAllData = response.data
+            for (var i = 0; i < that.sampleData.length; i++) {
+              if (that.ipList.indexOf(that.sampleData[i].ip) == -1) {
+                that.ipList.push(that.sampleData[i].ip)
+              }
+            }
+          })
+    },
+        // 获取ip列表，用于动态生成左侧导航栏
+        getSample (ip, e) {
+          var json = []
+
+          for (var i = 0; i < this.sampleAllData.length; i++) {
+            if (this.sampleAllData[i].ip == ip) {
+              json.push(this.sampleAllData[i])
+            }
+          }
+          this.sampleData = json
+    }
     }
 
-
-};
+}
 </script>
