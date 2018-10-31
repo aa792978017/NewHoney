@@ -24,5 +24,9 @@ public interface UserDao {
     public boolean delUser(String username);
     // 修改一个用户
     public boolean updateUser(User updateUser);
+    // 检查用户是否被锁定
+    public int isLocked(int id);
+    // 解锁用户
+    public boolean unlockUser(int id);
 }
 

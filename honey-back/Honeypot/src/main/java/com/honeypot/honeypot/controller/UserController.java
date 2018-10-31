@@ -119,4 +119,10 @@ public class UserController {
 
         return userService.updateUser(updateJson);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/unlockUser", method = RequestMethod.POST)
+    public JSONObject unlockUser(@RequestBody JSONObject unlockJson){
+        return userService.unlockUser(unlockJson);
+    }
 }
