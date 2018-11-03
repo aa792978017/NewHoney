@@ -59,7 +59,7 @@
                       <el-button
                         type="text"
                         size="mini"
-                        @click="delect">删除</el-button>
+                        @click="delHostPot">删除</el-button>
 
                     </template>
                   </el-table-column>
@@ -788,25 +788,35 @@
                     that.getServer()
                 })
             },
-            delect () {
-                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
+            delHostPot(){
+          this.$alert('是否删除这条记录', '信息删除', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',              
+          callback: action => {
+            var params = {
+            uniqueId: admindata.uniqueId
+            };
+            axios.post("/delHostPot", qs.stringify(params)).then((result) => {
+                console.info(result);
+                  if (result.data.success) {
                     this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
-                }).catch(() => {
+                      type: 'info',
+                      message: `已删除`
+                    });
+                  } 
+                  else {
                     this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    })
-                })
-            }
-
-        }
-
+                      type: 'info',
+                      message: `删除失败`
+                    });
+                  }
+              this.getListHostPot();
+            });
+ 
+          }
+        });
+      },
     }
+}
 </script>
