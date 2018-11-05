@@ -51,5 +51,6 @@ public interface UserDao {
      * @return
      */
      int updatePasswrod(@Param(("user")) User user);
+
 }
 

@@ -81,8 +81,4 @@
         SET password = #{user.password}
         WHERE username = #{user.username}
     </update>
-
-
-=======
->>>>>>> 0a128fb881345056441f49ff3c9b952b02eead4c
 </mapper>

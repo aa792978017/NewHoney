@@ -10,19 +10,14 @@ import java.util.List;
 public interface PotDao {
     /**
      * 通过类型获取蜜罐信息
-     * @param type
-     * 根据蜜罐的类型获取蜜罐信息
-     * @return
      */
     List<Pot> getPotByType(@Param("type") String type);
     /**
-     * 根据主机蜜罐的类型获取主机蜜罐信息
-     * @return
+     * 通过蜜罐id获取蜜罐信息
+     * 根据蜜罐的IP获取蜜罐信息
      */
     List<Pot> getHostPotByType(@Param("type") String type);
-
     /**
-     * 通过蜜罐id获取蜜罐信息
      * 根据蜜罐的IP获取蜜罐信息
      * @return
      */
