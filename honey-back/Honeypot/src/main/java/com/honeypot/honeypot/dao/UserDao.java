@@ -31,6 +31,7 @@ public interface UserDao {
     // 解锁用户
     public boolean unlockUser(int id);
 
+
     /**
      * 获取用户锁信息
      * @param id

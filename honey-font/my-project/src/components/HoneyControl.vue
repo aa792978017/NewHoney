@@ -71,31 +71,13 @@
                   </el-table-column>
                   <el-table-column
                           prop="operater"
-                          label="解锁/重置密码"
+                          label="解锁"
                   >
                     <template slot-scope="scope">
                       <el-button
                               type="text"
                               size="mini"
-
-                              @click="dialog = true">解锁/重置密码</el-button>
-                      <el-dialog title="查看更多" :visible.sync="dialog">
-                        <el-table
-                                :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"
-                                class="table1"
-                                id="table1"
-                                :data="potdata"
-                                style="width: 100%"><!--表的名字-->
-                          <!-- 选择框   -->
-
-                        </el-table>
-                        <div slot="footer" class="dialog-footer">
-                          <el-button class="button3" dialog = false>取 消</el-button>
-                          <el-button class="button2" @click="dialog = false">确 定</el-button>
-                        </div>
-                      </el-dialog>
-
-
+                              @click="unlockUser(scope.row)">解锁</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -1203,6 +1185,12 @@
         }
         this.deptData = fuzzyData
       },
+      checkPasswordLeagal(password){
+        if (password.length == this.num1)
+          return true
+        else
+          return false
+      },
       // 获取所有用户信息（除super外）
       getAllUsers () {
         var that = this
@@ -1216,11 +1204,12 @@
       },
       // 添加用户
       addUser () {
-        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } else {
+        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } 
+        else if (!this.checkPasswordLeagal(this.form.password))
+          alert('密码长度至少为' + this.num1 + '位')
+        else {
           var jsondata =
                       {
-                        // 不清楚id的由来，暂时用不超过1000的随机数标记
-                        'id': Math.floor(Math.random() * 1000),
                         'username': this.form.name,
                         'password': this.form.password,
                         'realName': this.form.truename,
@@ -1255,7 +1244,10 @@
       },
       confirmUpdateUser () {
         var that = this
-        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } else {
+        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } 
+        else if (!this.checkPasswordLegal(this.form1.newpassword))
+          alert('密码长度至少为' + this.num1 + '位')
+        else {
           var jsondata =
                       {
                         // 后端根据用户名唯一确定要修改的用户
@@ -1330,6 +1322,16 @@
           })
         })
       },
+      unlockUser(user){
+            var that = this
+            var jsondata = {'userId': user.id}
+            this.$axios.post('/honeycontrol/unlockUser', jsondata)
+                .then(function (response){
+                  alert(response.data['result'])
+                  that.getAllUsers()
+                })
+            
+          },
       // 获取所有部门信息
       getAllDepts () {
         var that = this
@@ -1345,8 +1347,6 @@
       addDept () {
         if (this.form2.department == '') { alert('部门名称不能为空') } else {
           var jsondata = {
-            // 同添加用户，暂时用不超过100的随机数
-            'id': Math.floor(Math.random() * 100),
             'depName': this.form2.department,
             'dutyName': this.form2.departmentman
           }

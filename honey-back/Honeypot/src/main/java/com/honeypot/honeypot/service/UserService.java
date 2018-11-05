@@ -23,5 +23,6 @@ public interface UserService {
     JSONObject delUser(JSONArray delArray);
     @Transactional
     JSONObject updateUser(JSONObject updateJson);
-
+    @Transactional
+    JSONObject unlockUser(JSONObject unlockJson);
 }
