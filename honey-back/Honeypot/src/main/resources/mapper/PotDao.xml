@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.PotDao">
+    <resultMap id="potMap" type="com.honeypot.honeypot.entity.Pot">
+        <id column="id" property="id"/>
+        <result column="ip" property="ip"/>
+        <result column="type" property="type"/>
+        <result column="cpu" property="cpu"/>
+        <result column="disk" property="disk"/>
+        <result column="memory" property="memory"/>
+    </resultMap>
+
+
+    <select id="getPotByType" resultType="com.honeypot.honeypot.entity.Pot">
+    SELECT *
+    FROM pot
+    WHERE type = "复合蜜罐" or type = "路由器蜜罐"
+</select>
+    <select id="getHostPotByType" resultType="com.honeypot.honeypot.entity.Pot">
+        SELECT ip,uniqueId,domainId,type
+        FROM pot
+        WHERE  uniqueId != "null"
+</select>
+    <select id="getPotByIp" resultType="com.honeypot.honeypot.entity.Pot">
+        SELECT *
+        FROM pot
+        WHERE ip LIKE #{ip}
+    </select>
+    <!-- 删除一个用户，根据id唯一确定来删除 -->
+    <delete id="delPot" parameterType="string">
+        DELETE
+        FROM ip
+        WHERE ip=#{ip}
+    </delete>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.WarnMsgDao">
+    <resultMap id="warnMsgMap" type="com.honeypot.honeypot.entity.AlarmInfo">
+        <id column="id" property="id"/>
+        <result column="Type" property="type"/>
+        <result column="time" property="time"/>
+    </resultMap>
+
+    <select id="getNewWarnMsg" resultType="com.honeypot.honeypot.entity.AlarmInfo">
+    SELECT id,`Type`,`time`
+    FROM alarminfo
+    where YEAR(`time`)=YEAR(NOW())
+    LIMIT 10
+    </select>
+</mapper>

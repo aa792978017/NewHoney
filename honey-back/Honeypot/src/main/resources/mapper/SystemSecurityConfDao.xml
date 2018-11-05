@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.SystemSecurityConfDao">
+    <resultMap id="systemSecurityConfMap" type="com.honeypot.honeypot.entity.SystemSecurityConf">
+        <id column="id" property="id"/>
+        <result column="conf_name" property="confName"/>
+        <result column="conf_value" property="confValue"/>
+        <result column="conf_ex1" property="confEx1"/>
+        <result column="conf_ex2" property="confEx2"/>
+    </resultMap>
+    <!-- CRUD操作 -->
+    <!-- 获取系统安全配置 -->
+    <select id="getSystemSecurityConf" resultType="com.honeypot.honeypot.entity.SystemSecurityConf">
+        SELECT *
+        FROM system_security_conf
+    </select>
+    <!-- 根据confName获取单个系统安全配置 -->
+    <select id="getAConfByName" parameterType="string" resultType="com.honeypot.honeypot.entity.SystemSecurityConf">
+        SELECT *
+        FROM system_security_conf
+        WHERE conf_name=#{confName}
+    </select>
+    <!-- 更新系统安全配置 -->
+    <update id="updateSystemSecurityConf" parameterType="com.honeypot.honeypot.entity.SystemSecurityConf">
+        UPDATE system_security_conf
+        SET conf_value=#{confValue}
+        WHERE conf_name=#{confName}
+    </update>
+    
+</mapper>

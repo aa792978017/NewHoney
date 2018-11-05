@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!--对应接口，写入sql语句-->
+<mapper namespace="com.honeypot.honeypot.dao.FileSystemInfoDao">
+    <select id="getAllFileOperation" resultType="com.honeypot.honeypot.entity.FileSystemInfo">
+        select *
+        from filesysteminfo
+        where uniqueId = #{uniqueId} and removable = 5
+
+    </select>
+    <select id="getAimFileOperation" resultType="com.honeypot.honeypot.entity.FileSystemInfo">
+        select *
+        from filesysteminfo
+        where uniqueId = #{uniqueId} and removable = 5 and opType  like concat('%',#{opType},'%') and state  like concat('%',#{state},'%') and filePath  like concat('%',#{filePath},'%') and processPath  like concat('%',#{processPath},'%') and processName  like concat('%',#{processName},'%') and `time`  like concat('%',#{time},'%')
+    </select>
+    <select id="getAllFileMapOperation" resultType="com.honeypot.honeypot.entity.FileSystemInfo">
+        select *
+        from filesysteminfo
+        where uniqueId =#{uniqueId} and removable = -1
+    </select>
+    <select id="getAimFileMapOperation" resultType="com.honeypot.honeypot.entity.FileSystemInfo">
+        select *
+        from filesysteminfo
+        where uniqueId =#{uniqueId} and removable = -1 and opType  like concat('%',#{opType},'%') and state  like concat('%',#{state},'%') and filePath  like concat('%',#{filePath},'%') and processPath  like concat('%',#{processPath},'%') and processName  like concat('%',#{processName},'%') and `time`  like concat('%',#{time},'%')
+    </select>
+    </mapper>
