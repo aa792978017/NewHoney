@@ -44,6 +44,12 @@ public class PotServiceImpl implements PotService {
         }
         return potList;
     }
+
+    @Override
+    public List<Pot> delPot(String uniqueId) {
+        return null;
+    }
+
     /**
      * 删除用户，前端勾选的用户个数不同，故按照JSONArray处理
      * 遍历array，对每一个JSONObject进行删除
@@ -54,7 +60,6 @@ public class PotServiceImpl implements PotService {
      * [{"id": 1}, {"id": 2}, ..., {"id": n}]
      * @return
      */
-    @Override
     public JSONObject delPot(JSONArray delArray) {
         JSONObject result = new JSONObject();
         for(int i = 0; i < delArray.size(); i++){

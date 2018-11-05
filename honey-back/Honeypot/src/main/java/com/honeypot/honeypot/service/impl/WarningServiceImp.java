@@ -21,7 +21,6 @@ public class WarningServiceImp implements WarningService {
         String day = df.format(today);
         int year = Integer.parseInt(day.substring(0, day.indexOf("-")));
         int month = Integer.parseInt(day.substring(day.indexOf("-") + 1));
-        System.out.println("year:" + year);
         List<WarningSum> sumsOfSensitive = warningDao.getWarningSum("%" + "" + "%", 1);
         List<WarningSum> sumsOfBA = warningDao.getWarningSum("%" + "" + "%", 0);
         List<WarningSum> sumsOfVirtual = warningDao.getWarningSum("%" + "" + "%", 2);
@@ -93,7 +92,6 @@ public class WarningServiceImp implements WarningService {
         }
         Collections.reverse(data);
         sensitiveItem.put("data", data);
-
         year = Integer.parseInt(day.substring(0, day.indexOf("-")));
         month = Integer.parseInt(day.substring(day.indexOf("-") + 1));
         virtualItem.put("className", ".main.l3");
@@ -131,7 +129,6 @@ public class WarningServiceImp implements WarningService {
         res.put("xScale", "time");
         res.put("yScale", "linear");
         List<Map<String, Object>> main = new ArrayList<Map<String, Object>>();
-//		main.add(BAItem);
         main.add(BAItem);
         main.add(sensitiveItem);
         main.add(virtualItem);

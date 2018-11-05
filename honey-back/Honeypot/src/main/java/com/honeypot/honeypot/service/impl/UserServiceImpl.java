@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
         for (User user : users){
             JSONObject one = new JSONObject();
-            one.put("id", user.getId());
             one.put("username", user.getUsername());
             one.put("realName", user.getRealName());
             one.put("role", roleMap.get(user.getAuthority()));
@@ -97,7 +96,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         Base64 base64 = new Base64();
         String delPassword = base64.encodeAsString(userJson.getString("password").getBytes());
-//        newUser.setId(userJson.getIntValue("id"));
+        newUser.setId(userJson.getIntValue("id"));
         newUser.setUsername(userJson.getString("username"));
         newUser.setPassword(delPassword);
         newUser.setRealName(userJson.getString("realName"));
@@ -172,22 +171,6 @@ public class UserServiceImpl implements UserService {
             result.put("result", "修改用户成功！");
         else
             result.put("result", "修改用户失败！");
-
-        return result;
-    }
-
-    @Override
-    public JSONObject unlockUser(JSONObject unlockJson){
-        JSONObject result = new JSONObject();
-        int userId = unlockJson.getIntValue("userId");
-        if (userDao.isLocked(userId) == 1){
-            if (userDao.unlockUser(userId))
-                result.put("result", "解锁成功！");
-            else
-                result.put("result", "解锁失败！");
-        }
-        else
-            result.put("result", "该用户未被锁定！");
 
         return result;
     }

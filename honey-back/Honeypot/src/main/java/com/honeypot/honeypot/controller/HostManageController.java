@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class HostManageController {
     private ModelService modelService;
     /**
      * 获取不同状态值的数量
-     * 没问题了
+     *
      * @return
      */
     @GetMapping(value = "/getStateCounts")
@@ -91,7 +92,7 @@ public class HostManageController {
     }
 
     /**
-     * 没问题了
+     * 获取操作系统数量信息
      * @return
      */
     @GetMapping("/getOsCounts")
@@ -109,7 +110,7 @@ public class HostManageController {
     }
 
     /**
-     * 暂时没有问题
+     * 功能已经被取消，暂时留住方法
      * @return
      */
     @GetMapping("/getWarnings")
@@ -137,7 +138,7 @@ public class HostManageController {
     }
 
     /**
-     * 查找服务器,还有问题
+     * 查找服务器
      * @param server
      * @return
      */
@@ -320,53 +321,44 @@ public class HostManageController {
      * @return
      */
     @PostMapping("/getModelList")
-    public List<ModelUtil> getModelList(){
-        List<Model> modelList = new ArrayList<>();
-        List<ModelUtil> modelUtilList = new ArrayList<>();
+    public ArrayList<ModelSet> getModelList(){
+        ArrayList<ModelSet> modelList = new ArrayList<>();
         modelList = modelService.getModelList();
         int i = 1;
-        for(Model model : modelList){
-            modelUtilList.add(new ModelUtil(i,model.getId(),model.getName(),model.getType(),
-                    model.getIp(),model.getServer(),
-                    model.getServerId(),model.getServerIp()));
+        for(ModelSet modelSet : modelList){
+            modelSet.setIndex(i);
             i++;
         }
-        return modelUtilList;
+        return modelList;
     }
 
     /**
      * 增加模板方法
-     *
      * @return
      */
     @PostMapping("/addModel")
-    public Map<String,Object> addModel(@RequestBody JSONObject jsonObject){
+    public Map<String,Object> addModel(@RequestBody JSONArray jsonArray){
         Map<String,Object> modelMap = new HashMap<>();
-        Model model = new Model();
-        model.setIp(jsonObject.getString("ip"));
-        model.setName(jsonObject.getString("modelName"));
-        model.setServerIp(jsonObject.getString("serverIp"));
-        model.setType(jsonObject.getString("honeyType"));
-        if (model != null && modelService.addModel(model) != 1){
+        JSONObject modelData;
+        ArrayList<Model> models = new ArrayList<>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            Model model = new Model();
+            modelData = jsonArray.getJSONObject(i);
+            model.setIp(modelData.getString("ip"));
+            model.setType(modelData.getString("type"));
+            model.setServerIp(modelData.getString("serverIp"));
+            model.setServer(modelData.getString("server"));
+            model.setServerId(modelData.getString("serverId"));
+            model.setName(modelData.getString("name"));
+            models.add(model);
+        }
+        if (models.size() != 0 && modelService.addModel(models) == 1){
             modelMap.put("success",true);
         }else{
             modelMap.put("success",false);
         }
         return modelMap;
     }
-//    @PostMapping(value = "/delectModel1")
-//    @ResponseBody
-//    public JSONObject delectModel(@RequestBody JSONObject id){
-//        JSONObject modelMap = new JSONObject();
-//        System.out.println(id);
-//        if (id == null &&modelService.delectModel(Integer.parseInt(String.valueOf(id))) != 1){
-//            modelMap.put("success",false);
-//        }else {
-//            modelMap.put("success",true);
-//        }
-//        return modelMap;
-//    }
-
     /**
      * 删除模板
      * @param

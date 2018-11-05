@@ -1,7 +1,9 @@
 package com.honeypot.honeypot.service;
 
 import com.honeypot.honeypot.entity.Model;
+import com.honeypot.honeypot.entity.ModelSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ModelService {
@@ -9,14 +11,14 @@ public interface ModelService {
      * 获取模板列表
      * @return
      */
-    List<Model> getModelList();
+    ArrayList<ModelSet> getModelList();
 
     /**
      * 添加模板
      * @param model
      * @return
      */
-    int addModel(Model model);
+    int addModel(ArrayList<Model> model);
 
     /**
      * 删除模板

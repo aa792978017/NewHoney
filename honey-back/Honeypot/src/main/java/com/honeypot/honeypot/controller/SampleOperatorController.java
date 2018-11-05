@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 功能：查询样本信息
+ * 页面：样本操作页面
+ * 开放人员：wangchang
+ */
 @RestController
 @CrossOrigin
 public class SampleOperatorController {
@@ -17,6 +22,10 @@ public class SampleOperatorController {
     @Autowired
     private SampleService sampleService;
 
+    /**
+     * 获取所有样本信息
+     * @return
+     */
     @PostMapping("/getAllSample")
     public List<Sample> getAllSample(){
         Map<String,Object> modelMap = new HashMap<>();
@@ -30,6 +39,12 @@ public class SampleOperatorController {
             modelMap.put("success",false);
         return sampleList;
     }
+
+    /**
+     *模糊查询样本信息
+     * @param words
+     * @return
+     */
     @GetMapping("/searchSample")
     public Map<String,Object> getSampleByWords(@RequestParam(value = "words") String words) {
         Map<String,Object> modelMap = new HashMap<>();

@@ -195,70 +195,55 @@
     /* ***************************************foot end */
 </style>
 <script>
-import {formatDate} from './common/date.js';
+import { formatDate } from './common/date.js'
 export default {
-    data(){
-        return{
-            date:{},
-            identityName: ''
-        }
-
-    },
-    mounted() {
-        // alert(11)
-        this.setUserType();
-    },
-  method:{
-    setUserType() {
-        // var j = sessionStorage.getItem("identityName");
-        var j = 1
-        alert(j)
+  data () {
+    return {
+      date: {},
+      identityName: ''
+    }
+  },
+  mounted () {
+    this.setUserType()
+  },
+  method: {
+    // 设置身份信息
+    setUserType () {
+      var j = 1
+      alert(j)
       if (j) {
-          this.identityName = "系统管理员[SysAdmin]"
+        this.identityName = '系统管理员[SysAdmin]'
       } else {
-          this.identityName = "普通用户[ComUser]"
+        this.identityName = '普通用户[ComUser]'
       }
     },
-    cleanUserName() {
-        sessionStorage.setItem("username","0");
-        window.location.href = "#/systemindex"
+    // 清除用户名
+    cleanUserName () {
+      sessionStorage.setItem('username', '0')
+      window.location.href = '#/systemindex'
     },
-    getUser(){
+    // 获取用户信息
+    getUser () {
       this.$axios.get('/getuser')
         .then(function (response) {
-          // handle success
-          // alert(response.data);     // 输出后端传过来的数据
-          var jsondata = [];
-          jsondata = response.data;
-          // data.temdata = jsondata[0];
+          var jsondata = []
+          jsondata = response.data
           alert(jsondata[0].username)
-
-
-        })
-        .catch(function (error) {
-          // handle error     //请求出错的时候运行的代码
-          alert('handle error')
-          console.log(error);
         })
         .then(function () {
-          // always executed
-          // alert('always executed');
-          //什么时候都执行的
-        });
-    },
+        })
+    }
   },
-  mounted: function () {
-    var _this = this;
-    setInterval(function(){
-      _this.date = new Date();  //修改数据date
-    },1000)
-
+  mounted () {
+    var _this = this
+    setInterval(function () {
+      _this.date = new Date() // 修改数据date
+    }, 1000)
   },
-
-  filters:{
-    formatDate(time) {
-      var data = new Date(time);
-      return formatDate(time, 'yyyy-MM-dd hh:mm');
+  // 获取当前日期
+  filters: {
+    formatDate (time) {
+      return formatDate(time, 'yyyy-MM-dd hh:mm')
     }
   }
 

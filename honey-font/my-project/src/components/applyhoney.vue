@@ -408,98 +408,96 @@
     }
 </style>
 <script>
-    import "../assets/css/new.css";
-    export default {
+    import '../assets/css/new.css'
+export default {
 
+      data () {
+        return {
 
-        data() {
-            return {
-
-                dialog:false,
-                dialogFormVisible: false,
-                dialogText: false,
-                dialogTable: false,
-                form: {
-                    name: '',
-                    IP:'',
-                    temserver:'',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
-                },
-                formLabelWidth: '120px',
-                // 表的名字
-                potdata_ip:'',
-                currentPage: 1,
-                jumper:1,
-                pagesize:10,
-                potdata:[]
+          dialog: false,
+          dialogFormVisible: false,
+          dialogText: false,
+          dialogTable: false,
+          form: {
+            name: '',
+            IP: '',
+            temserver: '',
+            region: '',
+            date1: '',
+            date2: '',
+            delivery: false,
+            type: [],
+            resource: '',
+            desc: ''
+          },
+          formLabelWidth: '120px',
+          // 表的名字
+          potdata_ip: '',
+          currentPage: 1,
+          jumper: 1,
+          pagesize: 10,
+          potdata: []
+        }
+      },
+      mounted: function () {
+        this.getListPot()
+      },
+      methods: {
+        // 获取应用蜜罐信息
+        getListPot () {
+          var that = this
+          this.$axios.get('/getListHost')
+            .then(function (response) {
+              that.potdata = response.data
+            })
+            .catch(function (error) {
+              alert('handle error')
+              console.log(error)
+            })
+            .then(function () {
+            })
+        },
+        // 蜜罐信息查询
+        getPotList () {
+          var that = this
+          this.$axios.get('/getPotByIp', {
+            params: {
+              ip: that.potdata_ip
             }
+          })
+            .then(function (response) {
+              that.potdata = response.data
+            })
+            .then(function () {
+              // 什么时候都执行的
+            })
         },
-        mounted:function(){
-            this.getListPot();
+        // 删除功能交互
+        open2 () {
+          this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
         },
-        methods: {
-            // 获取应用蜜罐信息
-            getListPot(){
-                var that = this;
-                this.$axios.get('/getListHost')
-                    .then(function (response) {
-                        that.potdata = response.data;
-                    })
-                    .catch(function (error) {
-                        alert('handle error')
-                        console.log(error);
-                    })
-                    .then(function () {
-                    });
-            },
-            getPotList(){
-                var that = this;
-                this.$axios.get('/getPotByIp',{
-                    params: {
-                        ip: that.potdata_ip
-                    }
-                })
-                    .then(function (response) {
-                        that.potdata = response.data;
-                    })
-                    .catch(function (error) {
-                        alert('handle error')
-                    })
-                    .then(function () {
-                        //什么时候都执行的
-                    });
-            },
-            open2() {
-                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
-            },
-            handleSizeChange(size) {
-                this.pagesize = size;
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(currentPage) {
-                this.currentPage = currentPage;
-                console.log(`当前页: ${val}`);
-            }
+        // 分页功能
+        handleSizeChange (size) {
+          this.pagesize = size
         },
-    };
+        // 页面跳转
+        handleCurrentChange (currentPage) {
+          this.currentPage = currentPage
+        }
+      }
+    }
 </script>

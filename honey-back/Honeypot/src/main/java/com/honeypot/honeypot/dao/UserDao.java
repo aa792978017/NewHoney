@@ -2,7 +2,9 @@
 package com.honeypot.honeypot.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.honeypot.honeypot.entity.LockUser;
 import com.honeypot.honeypot.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +30,26 @@ public interface UserDao {
     public int isLocked(int id);
     // 解锁用户
     public boolean unlockUser(int id);
+
+    /**
+     * 获取用户锁信息
+     * @param id
+     * @return
+     */
+    LockUser getLockInfo(int id);
+
+    /**
+     * 更新用户锁信息
+     * @param lockUser
+     * @return
+     */
+    int updateLockInfo(@Param("lockUser") LockUser lockUser);
+
+    /**
+     * 通过用户名修改密码
+     * @param user
+     * @return
+     */
+     int updatePasswrod(@Param(("user")) User user);
 }
 

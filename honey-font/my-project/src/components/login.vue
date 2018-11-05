@@ -73,15 +73,15 @@
 </style>
 <script>
 export default {
-    data() {
+  data () {
     return {
       username: '',
       password: ''
     }
   },
-    methods: {
+  methods: {
 
-    }
+  }
 
 }
 </script>

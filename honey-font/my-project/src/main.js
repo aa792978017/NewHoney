@@ -8,61 +8,58 @@ import 'element-ui/lib/theme-chalk/index.css'
 import echarts from 'echarts'
 import VueResource from 'vue-resource'
 
-
 /* eslint-disable no-new */
-Vue.use(ElementUI);
-Vue.prototype.$echarts = echarts;
-Vue.use(VueResource);
+Vue.use(ElementUI)
+Vue.prototype.$echarts = echarts
+Vue.use(VueResource)
 
 // 跨域设置
-var axios = require('axios');
-axios.defaults.baseURL = 'http://127.0.0.1:8433';
-Vue.prototype.$axios = axios;
-Vue.config.productionTip = false;
+var axios = require('axios')
+axios.defaults.baseURL = 'http://127.0.0.1:8433'
+Vue.prototype.$axios = axios
+Vue.config.productionTip = false
 
 // http request 拦截器
 axios.interceptors.request.use(
-    config => {
-        if (sessionStorage.getItem("username") == "1") {
+  config => {
+    if (sessionStorage.getItem('username') == '1') {
 
-        }
-        return config
-    },
-    err => {
-        return Promise.reject(err)
-    },
+    }
+    return config
+  },
+  err => {
+    return Promise.reject(err)
+  }
 )
 // http response 拦截器
 axios.interceptors.response.use(
-    response => {
-        return response
-    },
-    error => {
-        if (error.response) {
-            switch (error.response.status) {
-                case 401:
-                    // 401 清除token信息并跳转到登录页面
-                    sessionStorage.setItem("username","");
+  response => {
+    return response
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          // 401 清除token信息并跳转到登录页面
+          sessionStorage.setItem('username', '')
 
-                    // 只有在当前路由不是登录页面才跳转
-                    router.currentRoute.path !== '/systemindex' &&
+          // 只有在当前路由不是登录页面才跳转
+          router.currentRoute.path !== '/systemindex' &&
                     router.replace({
-                        path: '/systemindex',
-                        query: { redirect: router.currentRoute.path },
+                      path: '/systemindex',
+                      query: { redirect: router.currentRoute.path }
                     })
-            }
-        }
-        // console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
-        return Promise.reject(error.response.data)
-    },
+      }
+    }
+    // console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
+    return Promise.reject(error.response.data)
+  }
 )
-
 
 // // 设置axios请求的token
 // axios.defaults.headers.common['token'] = 'f4c902c9ae5a2a9d8f84868ad064e706'
 // //设置请求头
 // axios.defaults.headers.post["Content-type"] = "application/json"
-
 
 new Vue({
   el: '#app',

@@ -494,7 +494,7 @@ top: 5px">
 <script>
     import '../assets/css/new.css'
 export default {
-    data () {
+      data () {
         return {
           sampleName: '',
           activeName2: 'first',
@@ -517,20 +517,15 @@ export default {
           searchSample: []
         }
   },
-    mounted () {
+      mounted () {
         this.getAllSample()
-  },
-    watch: {
+      },
 
-    },
-    methods: {
-        uploadFile () {
-
-        },
+      methods: {
         // 查询样本
         selectSample () {
           var words = this.sampleName
-          if (words == '') {
+          if (words === '') {
             this.sampleData = this.sampleAllData
           } else {
             var that = this
@@ -543,17 +538,13 @@ export default {
             })
           }
         },
+        // 分页功能
         handleSizeChange (size) {
           this.pagesize = size
-          console.log(`每页 ${val} 条`)
-    },
+        },
         handleCurrentChange (currentPage) {
           this.currentPage = currentPage
-          console.log(`当前页: ${val}`)
-    },
-        handleClick (tab, event) {
-          console.log(tab, event)
-    },
+        },
 
         // 从后端获取所有样本数据
         getAllSample () {
@@ -562,24 +553,23 @@ export default {
             that.sampleData = response.data
             that.sampleAllData = response.data
             for (var i = 0; i < that.sampleData.length; i++) {
-              if (that.ipList.indexOf(that.sampleData[i].ip) == -1) {
+              if (that.ipList.indexOf(that.sampleData[i].ip) === -1) {
                 that.ipList.push(that.sampleData[i].ip)
               }
             }
           })
-    },
+        },
         // 获取ip列表，用于动态生成左侧导航栏
         getSample (ip, e) {
           var json = []
-
           for (var i = 0; i < this.sampleAllData.length; i++) {
-            if (this.sampleAllData[i].ip == ip) {
+            if (this.sampleAllData[i].ip === ip) {
               json.push(this.sampleAllData[i])
             }
           }
           this.sampleData = json
-    }
-    }
+        }
+      }
 
 }
 </script>

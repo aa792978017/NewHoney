@@ -5,7 +5,7 @@
 
 	<groupId>com.honeypot</groupId>
 	<artifactId>honeypot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>honeypot</name>
@@ -25,6 +25,7 @@
 	</properties>
 
 	<dependencies>
+		<!--springboot依赖-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -66,6 +67,7 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<!--json数据转化接收工具-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -79,6 +81,7 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<!--用户密码加密工具-->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>

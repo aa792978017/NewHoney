@@ -275,248 +275,226 @@
 
 </style>
 <script>
-
     export default {
 
+      data () {
+        return {
+          // 实时警告板更多警告信息
+          moreAlarmInfoData: [],
+          // 分页变量
+          currentPage: 1,
+          jumper: 1,
+          pagesize: 10,
+          // 实施警告版更多页面是否显示
+          moreAlarmInfoDisplay: false,
+          // 一周警告走势
+          chart1_timeList2: [0, 0, 0, 0],
+          chart1_sumList2: [0, 0, 0, 0],
+          myChart2_data: [1, 1, 5000],
+          administrator: 'wulala',
+          times: '2018-5-21',
+          // ***************表格数据start
+          newAlarmData: [{
+            date: '2016-05-03',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }, {
+            date: '2016-05-03',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }, {
+            date: '2016-05-02',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告',
+            tag: ''
+          }, {
+            date: '2016-05-02',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告'
+          }, {
+            date: '2016-05-01',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }, {
+            date: '2016-05-01',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }, {
+            date: '2016-05-01',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }, {
+            date: '2016-05-01',
+            realtimewarning: '王小虎',
+            warningtype: '可疑序列警告 ',
+            tag: ''
+          }
+          ],
+          // *****************表格数据end
 
-        data() {
-            return {
-                //实时警告板更多警告信息
-                moreAlarmInfoData:[],
-                //分页变量
-                currentPage: 1,
-                jumper:1,
-                pagesize:10,
-                //实施警告版更多页面是否显示
-                moreAlarmInfoDisplay:false,
-                //一周警告走势
-                chart1_timeList2 :[0,0,0,0],
-                chart1_sumList2 : [0,0,0,0],
-                myChart2_data:[1,1,5000],
-                administrator:'wulala',
-                times:'2018-5-21',
-                // ***************表格数据start
-                newAlarmData: [{
-                    date: '2016-05-03',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                },{
-                    date: '2016-05-03',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                },{
-                    date: '2016-05-02',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告',
-                    tag: ''
-                },   {
-                    date: '2016-05-02',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告',
-                },{
-                    date: '2016-05-01',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                },{
-                    date: '2016-05-01',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                },{
-                    date: '2016-05-01',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                },{
-                    date: '2016-05-01',
-                    realtimewarning: '王小虎',
-                    warningtype: '可疑序列警告 ',
-                    tag: ''
-                }
-                ],
-                // *****************表格数据end
-
-                // 总体走势表格数据
-                chart3_timeList: [],
-                chart3_sumList: [],
-
-            }
-
-        },
-        mounted(){
-            // *****************echarts图  2个折线图，一个柱状图
-            this.getNewWarnMsg();
-            this.getMoreWarnMsg();
-            this.getWarningSum();
-            this.getAllWarningSum();
-            this.getWarnMsgNum();
-            this.drawLine();
-        },
-        methods: {
-            cleanUserName() {
-                // alert(1111)
-                // sessionStorage.setItem("username","0");
-                // window.location.href = "#/systemindex"
-            },
-            getMoreWarnMsg(){
-                var that = this;
-                this.$axios.get("/getMoreWarnMsg").then(function (response) {
-                    that.moreAlarmInfoData = response.data;
-                })
-            },
-            //实时警告板表格的警告信息获取方法
-            getNewWarnMsg(){
-                var that = this;
-                this.$axios.get("/getNewWarnMsg").then(function (response) {
-                    that.newAlarmData = response.data;
-                })
-            },
-
-            getWarnMsgNum() {
-                var that = this;
-                this.$axios.get("/getWarnMsgNum").then(function (response) {
-                    that.chart1_timeList2 = response.data.timeList;
-                    that.chart1_sumList2 = response.data.sumList;
-                    // alert(that.timeList2)
-                    that.drawLine();
-                })
-
-                // // alert(this.timeList2)
-                // alert(this.timeList2+"numlist")
-            },
-            getAllWarningSum(){
-                var that = this;
-                this.$axios.get("/getAllWarningSum").then(function (response) {
-                    // alert(response.data);
-                    that.chart3_timeList = response.data.timeList;
-                    that.chart3_sumList = response.data.numList;
-                    // alert(that.timeList);
-                    that.drawLine();
-                })
-
-            },
-            //获取实时警告板信息（柱形图）
-            getWarningSum(){
-                var that = this;
-                this.$axios.get("/getWarningSum").then(function (response) {
-                    that.myChart2_data = response.data;
-                    that.drawLine();
-
-                });
-            },
-            handleSizeChange(size) {
-                this.pagesize = size;
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(currentPage) {
-                this.currentPage = currentPage;
-                console.log(`当前页: ${val}`);
-            },
-            drawLine(){
-                // 基于准备好的dom，初始化echarts实例
-                let myChart = this.$echarts.init(document.getElementById('myChart'))//单折线图
-                let myChart2 = this.$echarts.init(document.getElementById('myChart2'))// 柱状图
-                let myChart3 = this.$echarts.init(document.getElementById('myChart3'))// 双折线图
-                // 绘制图表
-                //双折线图
-                myChart3.setOption({
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: this.chart3_timeList
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                    legend: {
-                        data:['流量','降雨量'],
-                        x: 'left'
-                    },
-                        series: [{
-                            data: this.chart3_sumList,
-                            type: 'line',
-                            areaStyle: {
-                                normal:{
-                                    color:'rgba(112, 168, 255, 0.5)'
-                                }
-                            },
-                            symbolSize: 10,
-                            itemStyle: {
-                                normal: {
-                                    color: "#70A8FF",
-                                    lineStyle: {
-                                        color: "#70A8FF"
-                                    }
-                                }
-                            },
-                        }]
-                    }
-
-                );
-                //柱状图
-                myChart2.setOption({
-                    title: {  },
-                    tooltip: { },
-                    // legend:{
-                    //     data:['告警数量']
-                    // },
-
-                    xAxis: {
-                        data: ["可疑序列告警","敏感行为告警","虚拟机告警"]
-                    },
-                    yAxis: {},
-                    series: [{
-                        name: '告警数量',
-                        type: 'bar',
-                        data: this.myChart2_data,
-                    }]
-                })
-                // 单折线图
-                myChart.setOption({
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: this.chart1_timeList2
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: this.chart1_sumList2,
-                        type: 'line',
-                        areaStyle: {
-                            normal:{
-                                color:'rgba(112, 168, 255, 0.5)'
-                            }
-                        },
-                        symbolSize: 10,
-                        itemStyle: {
-                            normal: {
-                                color:"#70A8FF",
-                                lineStyle: {
-                                    color: "#70A8FF"
-                                }
-                            }
-                        }
-                    }]
-                });
-                // echart自适应
-                window.addEventListener("resize", function() {
-                    //     myChart1.setOption(option1);
-                    myChart.resize();
-                    myChart2.resize();
-                    myChart3.resize();
-
-                });
-
-            },
+          // 总体走势表格数据
+          chart3_timeList: [],
+          chart3_sumList: []
 
         }
+      },
+      mounted () {
+        // *****************echarts图  2个折线图，一个柱状图
+        this.getNewWarnMsg()
+        this.getMoreWarnMsg()
+        this.getWarningSum()
+        this.getAllWarningSum()
+        this.getWarnMsgNum()
+        this.drawLine()
+      },
+      methods: {
+        // 实时警告版获取更多警告信息
+        getMoreWarnMsg () {
+          var that = this
+          this.$axios.get('/getMoreWarnMsg').then(function (response) {
+            that.moreAlarmInfoData = response.data
+          })
+        },
+        // 实时警告板表格的警告信息获取方法
+        getNewWarnMsg () {
+          var that = this
+          this.$axios.get('/getNewWarnMsg').then(function (response) {
+            that.newAlarmData = response.data
+          })
+        },
+        // 一周警告走势获取数据
+        getWarnMsgNum () {
+          var that = this
+          this.$axios.get('/getWarnMsgNum').then(function (response) {
+            that.chart1_timeList2 = response.data.timeList
+            that.chart1_sumList2 = response.data.sumList
+            that.drawLine()
+          })
+        },
+        // 告警总体走势数据获取
+        getAllWarningSum () {
+          var that = this
+          this.$axios.get('/getAllWarningSum').then(function (response) {
+            that.chart3_timeList = response.data.timeList
+            that.chart3_sumList = response.data.numList
+            that.drawLine()
+          })
+        },
+        // 获取实时警告板信息（柱形图）
+        getWarningSum () {
+          var that = this
+          this.$axios.get('/getWarningSum').then(function (response) {
+            that.myChart2_data = response.data
+            that.drawLine()
+          })
+        },
+        // 分页功能
+        handleSizeChange (size) {
+          this.pagesize = size
+        },
+        // 表格分页跳转
+        handleCurrentChange (currentPage) {
+          this.currentPage = currentPage
+        },
+        // echart 图表绘制
+        drawLine () {
+          // 基于准备好的dom，初始化echarts实例
+          let myChart = this.$echarts.init(document.getElementById('myChart'))// 单折线图
+          let myChart2 = this.$echarts.init(document.getElementById('myChart2'))// 柱状图
+          let myChart3 = this.$echarts.init(document.getElementById('myChart3'))// 双折线图
+          // 绘制图表
+          // 双折线图
+          myChart3.setOption({
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: this.chart3_timeList
+            },
+            yAxis: {
+              type: 'value'
+            },
+            legend: {
+              data: ['流量', '降雨量'],
+              x: 'left'
+            },
+            series: [{
+              data: this.chart3_sumList,
+              type: 'line',
+              areaStyle: {
+                normal: {
+                  color: 'rgba(112, 168, 255, 0.5)'
+                }
+              },
+              symbolSize: 10,
+              itemStyle: {
+                normal: {
+                  color: '#70A8FF',
+                  lineStyle: {
+                    color: '#70A8FF'
+                  }
+                }
+              }
+            }]
+          }
+
+          )
+          // 柱状图
+          myChart2.setOption({
+            title: { },
+            tooltip: { },
+            xAxis: {
+              data: ['可疑序列告警', '敏感行为告警', '虚拟机告警']
+            },
+            yAxis: {},
+            series: [{
+              name: '告警数量',
+              type: 'bar',
+              data: this.myChart2_data
+            }]
+          })
+          // 单折线图
+          myChart.setOption({
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: this.chart1_timeList2
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [{
+              data: this.chart1_sumList2,
+              type: 'line',
+              areaStyle: {
+                normal: {
+                  color: 'rgba(112, 168, 255, 0.5)'
+                }
+              },
+              symbolSize: 10,
+              itemStyle: {
+                normal: {
+                  color: '#70A8FF',
+                  lineStyle: {
+                    color: '#70A8FF'
+                  }
+                }
+              }
+            }]
+          })
+          // echart自适应
+          window.addEventListener('resize', function () {
+            myChart.resize()
+            myChart2.resize()
+            myChart3.resize()
+          })
+        }
+
+      }
 
     }
-
-
 </script>

@@ -120,9 +120,18 @@ public class UserController {
         return userService.updateUser(updateJson);
     }
 
+
+    /**
+     * 管理员解锁被锁定的账户
+     * @param unlockJson
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/unlockUser", method = RequestMethod.POST)
     public JSONObject unlockUser(@RequestBody JSONObject unlockJson){
+
         return userService.unlockUser(unlockJson);
     }
+
+
 }

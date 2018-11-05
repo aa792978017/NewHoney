@@ -9,11 +9,26 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 @Mapper
 public interface WarningDao {
-
+    /**
+     * 根据时间和类型获取警告信息
+     * @param time
+     * @param flag
+     * @return
+     */
     List<WarningSum> getWarningSum(@Param("time") String time,@Param("flag") Integer flag);
 
+    /**
+     * 根据警告类型和警告时间获取警告信息
+     * @param time
+     * @param flag
+     * @return
+     */
     Integer getNumForOneDay(@Param("warn_time") String time, @Param("flag") Integer flag);
 
+    /**
+     * 根据警告类型获取警告信息
+     * @return
+     */
     List<WarningCriterial> getLastWarning();
 
     @Select(" SELECT *\n" +

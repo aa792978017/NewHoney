@@ -14,7 +14,17 @@ public interface CityDao {
      */
     List<City> getAllTypes();
 
+    /**
+     * 通过省份id获取省份信息
+     * @param provinceId
+     * @return
+     */
     List<City> getAllTypeByProvinceId(@Param("provinceId") Integer provinceId);
 
+    /**
+     * 通过城市id获取城市信息
+     * @param cityId
+     * @return
+     */
     City getCity(@Param("cityId") Integer cityId);
 }

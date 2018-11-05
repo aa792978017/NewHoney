@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 功能：主机蜜罐信息获取
+ * 前端页面：主机蜜罐页面
+ * 开发人员：Tahir
+ */
 @RestController
 @CrossOrigin
 public class HostHoneypotController {
@@ -33,11 +37,8 @@ public class HostHoneypotController {
     }
 
     /**
-     * 删除用户，前端可能勾选多个，故按JSONArray处理
-     * @param delArray
-     * [{"id": 1}, {"id": 2}, ..., {"id": x}]
+     * 删除主机蜜罐
      * @return result
-     * eg. {"result": "success"}
      */
     @ResponseBody
     @RequestMapping(value = "/delUser", method = RequestMethod.POST)
