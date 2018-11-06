@@ -1202,7 +1202,7 @@
       },
       // 检查密码长度是否合法，与系统安全配置中最短密码长度对应
       // 用于添加新用户，修改用户密码时候做检查
-      checkPasswordLeagal(password){
+      checkPasswordLegal(password){
         if (password.length == this.num1)
           return true
         else
@@ -1222,7 +1222,7 @@
       // 添加用户
       addUser () {
         if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } 
-        else if (!this.checkPasswordLeagal(this.form.password))
+        else if (!this.checkPasswordLegal(this.form.password))
           alert('密码长度至少为' + this.num1 + '位')
         else {
           var jsondata =
