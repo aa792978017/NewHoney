@@ -20,9 +20,9 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
      * 调用departmentDao的getAllDepts方法，会得到List<Department>
      * 将每一个Department对象解析成一个JSONObject，添加进JSONArray
      * @return JSONArray 形式为
-     * [{"number": xx, "department": xx, "departmentman": xx},
+     * [{"id": xx, "department": xx, "departmentman": xx},
      *  ...,
-     *  {"number": xx, "department": xx, "departmentman": xx}]
+     *  {"id": xx, "department": xx, "departmentman": xx}]
      * 其内容是根据前端而定的
      */
     @Override
@@ -40,10 +40,7 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
 
         return array;
     }
-    /**
-     * 接下来两个getDeptByXX方法，在其他方法中会用到
-     * 也可作为前端“查询”button对应的处理方法 需再确定
-     */
+    // 接下来两个getDeptByXX方法，在其他方法中会用到
     /**
      * 根据部门名称获得部门信息
      * @param depName
@@ -68,7 +65,6 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
      * 添加部门，解析前端json赋给一个Department对象，调用departmentDao的方法即可
      * @param deptJson 形式为
      *                 {
-     *                  "id": x,
      *                  "depName": y,
      *                  "dutyName": z
      *                 }
@@ -78,7 +74,6 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
     public JSONObject addDept(JSONObject deptJson){
         JSONObject result = new JSONObject();
         Department department = new Department();
-        department.setId(deptJson.getIntValue("id"));
         department.setDepName(deptJson.getString("depName"));
         department.setDutyName(deptJson.getString("dutyName"));
 
@@ -92,10 +87,10 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
 
     /**
      * 删除部门，由于前端可以勾选多个，故按JSONArray处理
-     * 将每一个JSONObject中的"id"取出，调用departmentDao的delDept方法删除即可
+     * 将每一个JSONObject中的"depName"取出，调用departmentDao的delDept方法删除即可
      * @param delArray
      * @return result
-     * 同delUser，失败则返回发生错误的id，成功则返回success
+     * 同delUser，失败则返回发生错误的部门名称，成功则返回success
      */
     @Override
     public JSONObject delDept(JSONArray delArray){
@@ -113,7 +108,7 @@ public class DepartmentManagementServiceImpl implements DepartmentManagementServ
 
     /**
      * 修改部门信息
-     * 根据"id"获得要修改的部门对象  （考虑到option不能写死，这里的方法可能也需要修改）
+     * 根据"depName"获得要修改的部门对象
      * 修改其负责人后调用departmentDao的updateDept方法即可
      * @param updateJson
      * @return

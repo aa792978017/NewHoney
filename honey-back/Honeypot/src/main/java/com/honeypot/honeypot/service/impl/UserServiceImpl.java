@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
      * 获取所有用户信息
      * 调用UserDao中的方法获得List<User>
      * 需要将user表中取得的department和authority由数字转换成对应的文字
-     * 由UserCriteria完成 （名字按信工所代码取的）
-     *
+     * 其中department名称需要利用department的service去查询
      * @return JSONArray
      * 根据前端要求，返回如下形式的JSONArray
      *       [{"id": xx, "username": xx, "realName": xx, "role": xx, "department": xx},
@@ -61,11 +60,7 @@ public class UserServiceImpl implements UserService {
         return array;
     }
 
-    /**
-     * 接下来两个getUser的方法会在其他方法中用到
-     * 也可以作为前端“查询”按钮对应的功能，视情况扩展
-     */
-
+    // 接下来两个getUser的方法会在其他方法中用到
     /**
      * 根据用户名获取单个用户信息，直接调用userDao中方法即可
      * @param username
@@ -119,7 +114,7 @@ public class UserServiceImpl implements UserService {
      * 否则删除成功，返回"success"供前端处理
      * @param delArray
      * 前端传来jsonArray形式为
-     * [{"id": 1}, {"id": 2}, ..., {"id": n}]
+     * [{"username": xx}, {"username": yy}, ..., {"username": nn}]
      * @return
      */
     @Override
@@ -147,10 +142,9 @@ public class UserServiceImpl implements UserService {
      *     "newrealname": xxxx,
      *     "newdept": xx
      * }
-     * 由id获得需要修改的用户对象，根据不同键对应的值是否为空来确定是否对该对象的对应属性进行修改
+     * 由username获得需要修改的用户对象，根据不同键对应的值是否为空,来确定是否对对应属性进行修改
      * 至少有一项会被修改，故最后调用userDao的updateUser方法进行更新即可
-     * @return result
-     * 返回json供前端显示结果
+     * @return 返回json供前端显示结果
      */
     @Override
     public JSONObject updateUser(JSONObject updateJson){
@@ -176,6 +170,12 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * 解锁用户，首先判断该用户是否被锁定，若为被锁定返回即可
+     * 若锁定，则继续执行解锁操作
+     * @param unlockJson
+     * @return 一个json对象，返回是否被锁定，以及是否成功解锁
+     */
     @Override
     public JSONObject unlockUser(JSONObject unlockJson){
         JSONObject result = new JSONObject();
