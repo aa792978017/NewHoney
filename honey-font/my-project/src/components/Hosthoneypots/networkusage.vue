@@ -80,6 +80,7 @@ export default {
         this.getAllNetInfo()
   },
     methods: {
+        /* 获取全部网络使用信息 */
         getAllNetInfo () {
           var that = this
     this.$axios.get('/getAllNetInfo',

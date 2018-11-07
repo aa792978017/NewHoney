@@ -293,6 +293,7 @@
   },
     methods: {
       // key值与value值映射
+      // 文件类型
       change () {
         for (var i = 0; i < this.filemap.length; i++) {
           switch (this.filemap[i].state) {
@@ -339,6 +340,7 @@
               this.filemap[i].state = 'ERROR'
               break
           }
+          // 文件操作
           switch (this.filemap[i].opType) {
             case 1:
               this.filemap[i].opType = '读文件'
@@ -425,7 +427,7 @@
             that.change()
           })
           .catch(function (error) {
-              alert('未选择uniqueId')
+            alert('未选择uniqueId')
             console.log('error')
           })
           .then(function () {

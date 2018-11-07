@@ -100,6 +100,7 @@ export default {
         this.getAllReginfo()
     },
     methods: {
+        /* 获取全部注册表基本信息 */
         getAllReginfo () {
           var that = this
     this.$axios.get('/getAllReginfo'
@@ -120,7 +121,6 @@ export default {
             })
     },
         // 分页
-
         handleSizeChange (size) {
           this.pagesize = size
     console.log(`每页 ${val} 条`)
@@ -129,13 +129,6 @@ export default {
           this.currentPage = currentPage
     console.log(`当前页: ${val}`)
     },
-        //      handleSizeChange(val) {
-        //     console.log(`每页 ${val} 条`);
-        //   },
-        //   handleCurrentChange(val) {
-        //     console.log(`当前页: ${val}`);
-        //   }
-        // },
         onSubmit () {
           console.log('submit!')
     }
