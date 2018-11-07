@@ -180,7 +180,7 @@ export default {
     },
     mounted: function () {
         this.getAllModule()
-  },
+  }, /* 模块操作类型Key与value匹配 */
     methods: {
         change () {
             for (var i = 0; i < this.filemap.length; i++) {
@@ -197,12 +197,13 @@ export default {
                 }
             }
         },
+        /* 获取全部模块操作信息 */
         getAllModule () {
           var that = this
-    this.$axios.get('/getAllModule',{
-        params:{
+    this.$axios.get('/getAllModule', {
+        params: {
             uniqueId:
-                sessionStorage.getItem("uniqueId")
+                sessionStorage.getItem('uniqueId')
         }
     })
             .then(function (response) {
@@ -216,6 +217,7 @@ export default {
             .then(function () {
             })
     },
+        /* 模糊查询获取目标模块操作 */
         getAimModule () {
           var that = this
     this.$axios.get('/getAimModule', {
@@ -254,13 +256,6 @@ export default {
           this.currentPage = currentPage
     console.log(`当前页: ${val}`)
     },
-        //      handleSizeChange(val) {
-        //     console.log(`每页 ${val} 条`);
-        //   },
-        //   handleCurrentChange(val) {
-        //     console.log(`当前页: ${val}`);
-        //   }
-        // },
         onSubmit () {
           console.log('submit!')
     }

@@ -196,7 +196,7 @@ export default {
         this.getAllCreateThread()
   },
     methods: {
-      // 获取全部进程操作线程信息
+      /* 获取全部进程操作线程信息 */
         getAllCreateThread () {
           var that = this
     this.$axios.get('/getAllCreateThread',
@@ -226,6 +226,7 @@ export default {
           this.currentPage = currentPage
     console.log(`当前页: ${val}`)
     },
+        /* 模糊查询获取目标进程操作线程信息 */
         getAimCreateThread () {
           var that = this
     this.$axios.get('/getAimCreateThread', {

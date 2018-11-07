@@ -276,6 +276,7 @@ export default {
   },
     methods: {
         // key值与value值映射
+        // 文件类型
         change () {
           for (var i = 0; i < this.fileoperation.length; i++) {
             switch (this.fileoperation[i].state) {
@@ -322,6 +323,7 @@ export default {
                 this.fileoperation[i].state = 'ERROR'
                 break
             }
+            // 文件操作类型
             switch (this.fileoperation[i].opType) {
               case 1:
                 this.fileoperation[i].opType = '读文件'
@@ -359,7 +361,7 @@ export default {
             }
           }
         },
-        // 获取全部文件操作信息
+        /* 获取全部文件操作信息 */
         getAllFileOperation () {
           var that = this
     this.$axios.get('/getAllFileOperation',
@@ -375,7 +377,7 @@ export default {
               that.change()
             })
             .catch(function (error) {
-                alert('未选择uniqueId')
+              alert('未选择uniqueId')
               // console.log('error')
             })
             .then(function () {
@@ -409,7 +411,7 @@ export default {
               that.change()
             })
             .catch(function (error) {
-                alert('未选择uniqueId')
+              alert('未选择uniqueId')
               console.log('error')
             })
             .then(function () {
@@ -422,15 +424,7 @@ export default {
     },
         handleCurrentChange (currentPage) {
           this.currentPage = currentPage
-
     },
-        //      handleSizeChange(val) {
-        //     console.log(`每页 ${val} 条`);
-        //   },
-        //   handleCurrentChange(val) {
-        //     console.log(`当前页: ${val}`);
-        //   }
-        // },
         onSubmit () {
           console.log('submit!')
     }

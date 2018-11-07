@@ -8,5 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface NetInfoDao {
+
+    /**
+     * 根据uniqueid,获取全部网络使用情况
+     * @param uniqueId
+     * @return
+     * */
     List<NetInfo> getAllNetInfo(@Param("uniqueId") Integer uniqueId);
 }

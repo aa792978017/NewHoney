@@ -207,12 +207,14 @@ export default {
           filemap: []
         }
     },
-    created () {
+  created () {
         this.getAllPendingThread()
     },
-    mounted: function () {
+  mounted: function () {
         this.getAllPendingThread()
   },
+
+    /* 获取全部挂起线程操作信息 */
     methods: {
         getAllPendingThread () {
           var that = this
@@ -232,6 +234,7 @@ export default {
             .then(function () {
             })
     },
+        /* 模糊查询获取目标挂起线程操作信息 */
         getAimPendingThread () {
           var that = this
     this.$axios.get('/getAimPendingThread', {
@@ -271,13 +274,6 @@ export default {
           this.currentPage = currentPage
     console.log(`当前页: ${val}`)
     },
-        //      handleSizeChange(val) {
-        //     console.log(`每页 ${val} 条`);
-        //   },
-        //   handleCurrentChange(val) {
-        //     console.log(`当前页: ${val}`);
-        //   }
-        // },
         onSubmit () {
           console.log('submit!')
     }

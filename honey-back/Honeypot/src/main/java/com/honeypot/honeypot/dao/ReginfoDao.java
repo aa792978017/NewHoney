@@ -8,8 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface ReginfoDao {
+
     /**
-    * 获取注册表基本信息
-    * */
+     * 根据uniqueid,获取全部注册表基本信息
+     * @param uniqueId
+     * @return
+     * */
     List<Reginfo> getAllReginfo(@Param("uniqueId")Integer uniqueId);
 }

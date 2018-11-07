@@ -222,6 +222,7 @@ export default {
         this.getAllSetRegValueKey()
     },
     methods: {
+        /* 获取全部注册表赋值操作 */
         getAllSetRegValueKey () {
           var that = this
     this.$axios.get('/getAllSetRegValueKey', {
@@ -240,6 +241,7 @@ export default {
             .then(function () {
             })
     },
+        /* 模糊查询获取目标注册表赋值操作 */
         getAimSetRegValueKey () {
           var that = this
     this.$axios.get('/getAimSetRegValueKey', {
@@ -270,7 +272,6 @@ export default {
             })
     },
         // 分页
-
         handleSizeChange (size) {
           this.pagesize = size
     console.log(`每页 ${val} 条`)
@@ -279,13 +280,6 @@ export default {
           this.currentPage = currentPage
     console.log(`当前页: ${val}`)
     },
-        //      handleSizeChange(val) {
-        //     console.log(`每页 ${val} 条`);
-        //   },
-        //   handleCurrentChange(val) {
-        //     console.log(`当前页: ${val}`);
-        //   }
-        // },
         onSubmit () {
           console.log('submit!')
     }
