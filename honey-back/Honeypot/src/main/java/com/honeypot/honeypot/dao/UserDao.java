@@ -14,21 +14,60 @@ import java.util.Map;
 
 public interface UserDao {
 //    @Select("Select id,username,password from user")
-    // 获取全部用户，用来呈现在面板上
+
+    /**
+     * 获取全部用户，用来前端table显示
+     * @return
+     */
     public List<User> getAllUsers();
-    // 获取单个用户，根据用户名来检查是否已有该用户
+
+    /**
+     * 获取单个用户，根据用户名来检查是否已有该用户
+     * @param username
+     * @return
+     */
     public User getUserByUsername(String username);
-    // 获取单个用户，根据id来检查是否已有该用户
+
+    /**
+     * 获取单个用户，根据id来检查是否已有该用户
+     * @param id
+     * @return
+     */
     public User getUserById(int id);
-    // 添加一个新用户
+
+    /**
+     * 添加一个新用户
+     * @param newUser 一个用户对象
+     * @return
+     */
     public boolean addUser(User newUser);
-    // 删除一个用户
+
+    /**
+     * 删除一个用户
+     * @param username
+     * @return
+     */
     public boolean delUser(String username);
-    // 修改一个用户
+
+    /**
+     * 修改一个用户
+     * @param updateUser 一个用户对象
+     * @return
+     */
     public boolean updateUser(User updateUser);
-    // 检查用户是否被锁定
+
+    /**
+     * 检查用户是否被锁定
+     * @param id
+     * @return
+     */
     public int isLocked(int id);
-    // 解锁用户
+
+    /**
+     * 解锁用户
+     * @param id
+     * @return
+     */
     public boolean unlockUser(int id);
 
     /**

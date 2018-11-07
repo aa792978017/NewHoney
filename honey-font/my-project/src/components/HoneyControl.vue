@@ -25,7 +25,6 @@
                   <el-button   class="button1" @click="updateUser">修改</el-button>
                   <el-button   class="button1"  @click="delUser">删除</el-button>
                 </el-row>
-
               </div><!--table-1-1-->
               <div class="tab-1-2" style="margin-left: 30px;
     margin-right: 30px;">
@@ -77,7 +76,7 @@
                       <el-button
                               type="text"
                               size="mini"
-                              @click="unlockUser(scope.row)">解锁</el-button>
+                              @click="unlockUser(scope.row)">解锁</el-button> <!-- 点击解锁后，将当前行传给unlockUser方法，scope.row即将要解锁的用户 -->
                     </template>
                   </el-table-column>
                 </el-table>
@@ -246,8 +245,6 @@
 
                             <el-dialog title="修改部门" :visible.sync="dialogFormVisible2_1"  >
                               <el-form :model="form2_1">
-                                <!-- *************************************** -->
-                                <!-- option所含的部门需要修改，不能写死，未完成 -->
                                 <el-form-item label="部门" :label-width="formLabelWidth">
                                   <el-select v-model="form2_1.department" placeholder="" >
                                     <el-option v-for="dept in deptData" :key='dept.department' :label="dept.department"
@@ -862,16 +859,23 @@
         multipleSelectionUser: [],
         // 配置管理/部门管理表格的勾选项
         multipleSelectionDept: [],
+        // 用户管理的分页跳转
         jumperUser: 1,
+        // 用户管理的页大小
         pagesizeUser: 10,
+        // 用户管理的当前页
         currentPageUser: 1,
+        // 部门管理的分页跳转
         jumperDept: 1,
+        // 部门管理的的页大小
         pagesizeDept: 10,
+        // 部门管理的当前页
         currentPageDept: 1,
+        // 用于存储每次获取的完整用户数据
         save_userData: [],
         save_SysLogData: [],
         save_SecLogData: [],
-        userData: [], // 用户管理表格所需的数据
+        userData: [], // 用户管理表格显示所需的数据，并非完整的数据，模糊查询时会修改此项
         temdata3: [], // 系统日志表格所需数据
         temdata4: [], // 审计日志表格所需数据
         options: [{
@@ -882,8 +886,9 @@
           label: '20'
         }
         ],
-
+        // 用户管理页 模糊查询的输入
         searchUser: '',
+        // 部门管理也 模糊查询的输入
         searchDept: '',
         searchSystemLog: '',
         searchSecLog: '',
@@ -917,8 +922,9 @@
 
         dialogFormVisible2_0: false, // 添加部门对应对话框
         dialogFormVisible2_1: false, // 修改部门信息对应对话框
+        // 用于存储每次获取的完整部门数据
         save_deptData: [],
-        deptData: [], // 管理配置/部门管理的表格所需数据
+        deptData: [], // 管理配置/部门管理的表格所需数据，并非完整数据，模糊查询时会修改此项
         // 添加部门对应的form
         form2: {
           department: '',
@@ -1112,25 +1118,33 @@
           message: ''
         }
         ], */
-        num1: 2,
-        num2: 2,
-        num3: 2,
-        num4: 2
+        // 安全配置对应的四项数据，这四个初值没用，获取数据后覆盖掉
+        num1: 2,    
+        num2: 2,    
+        num3: 2,    
+        num4: 2     
 
       }
   },
     mounted: function () {
+      // 打开平台管理界面时，就会调用以下方法
+      // 获取全部用户信息
       this.getAllUsers()
+      // 获取全部部门信息
       this.getAllDepts()
+      // 获取系统安全配置
       this.getSystemSecurityConf()
       this.getSystemLog()
       this.getSecurityLog()
     },
     watch: {
+      // 当模糊查询的输入框清空时，会调用下列方法
+      // 监视用户管理页面的模糊查询输入清空
       searchUser (newValue, oldValue) {
         this.userData = this.save_userData
         this.currentPageUser = 1
       },
+      // 监视部门管理页面的模糊查询输入清空
       searchDept (newValue, oldValue) {
         this.deptData = this.save_deptData
         this.currentPageDept = 1
@@ -1177,6 +1191,7 @@
         }
         this.userData = fuzzyData
       },
+      // 模糊查询部门信息
       fuzzyQueryDept () {
         var fuzzyData = []
         for (var i = 0; i < this.save_deptData.length; i++) {
@@ -1185,13 +1200,15 @@
         }
         this.deptData = fuzzyData
       },
-      checkPasswordLeagal(password){
+      // 检查密码长度是否合法，与系统安全配置中最短密码长度对应
+      // 用于添加新用户，修改用户密码时候做检查
+      checkPasswordLegal(password){
         if (password.length == this.num1)
           return true
         else
           return false
       },
-      // 获取所有用户信息（除super外）
+      // 获取所有用户信息（除super、superadmin外）
       getAllUsers () {
         var that = this
         this.$axios.get('/honeycontrol/getAllUsers')
@@ -1205,7 +1222,7 @@
       // 添加用户
       addUser () {
         if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } 
-        else if (!this.checkPasswordLeagal(this.form.password))
+        else if (!this.checkPasswordLegal(this.form.password))
           alert('密码长度至少为' + this.num1 + '位')
         else {
           var jsondata =
@@ -1242,6 +1259,7 @@
           this.dialogFormVisible1 = true
         }
       },
+      // 确认修改
       confirmUpdateUser () {
         var that = this
         if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } 
@@ -1272,6 +1290,7 @@
             })
         }
       },
+      // 取消修改
       cancelUpdateUser () {
         this.form1.password0 = ''
         this.form1.newpassword = ''
@@ -1322,6 +1341,7 @@
           })
         })
       },
+      // 解锁用户，参数为scope.row，即点击了“解锁”的那一行用户
       unlockUser(user){
             var that = this
             var jsondata = {'userId': user.id}
@@ -1450,7 +1470,7 @@
             that.getSystemSecurityConf()
           })
       },
-      // 以上 用户管理和配置管理 项宇涵进行
+      // 以上 用户管理和配置管理 xyh完成
       // --------------------------------------------------------------------------
       fuzzyQuerySystemLog () {
         var fuzzysysData = []
