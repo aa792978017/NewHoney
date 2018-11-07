@@ -10,7 +10,7 @@
                       <span class="el-dropdown-link" >
                           <span class="smallpeople">
                             <img src="../assets/smallpeople.png"/></span>
-                            <span style="color:grey ;font-size:14pt">{{identityName}}</span>&nbsp;{{administrator}}&nbsp;
+                            <span style="color:grey ;font-size:14pt">{{identityName}}</span>
                       </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item><router-link to="updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
@@ -228,7 +228,7 @@ export default {
         }
       },
       beforeCreate () {
-        sessionStorage.setItem('username', '0')
+        sessionStorage.clear()
       },
       mounted: function () {
         var _this = this

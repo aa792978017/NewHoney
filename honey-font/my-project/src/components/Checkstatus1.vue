@@ -351,6 +351,10 @@
         this.getAllWarningSum()
         this.getWarnMsgNum()
         this.drawLine()
+        var _this = this
+        setInterval(function () {
+          _this.getNewWarnMsg() // 每隔1000毫秒更新一次最新的警告信息
+        }, 1000)
       },
       methods: {
         // 实时警告版获取更多警告信息
