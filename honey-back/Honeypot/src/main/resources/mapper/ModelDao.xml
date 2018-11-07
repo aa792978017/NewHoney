@@ -5,10 +5,10 @@
 <!--对应接口，写入sql语句-->
 
 <mapper namespace="com.honeypot.honeypot.dao.ModelDao">
-    <insert id="addModel" parameterType="com.honeypot.honeypot.entity.Model">
-        INSERT INTO model(id,name,type,ip,server,server_id,server_ip)
+    <insert id="addModel" parameterType="com.honeypot.honeypot.entity.Model" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO model(name,type,ip,server,server_id,server_ip)
         VALUES
-        (#{model.id},#{model.name},#{model.type},#{model.ip},#{model.server}
+        (#{model.name},#{model.type},#{model.ip},#{model.server}
         ,#{model.serverId},#{model.serverIp})
     </insert>
     <delete id="delectModel">

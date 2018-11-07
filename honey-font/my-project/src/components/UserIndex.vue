@@ -16,6 +16,7 @@
                             <el-dropdown-item>修改密码</el-dropdown-item>
                             <el-dropdown-item><router-link to="systemindex" style="text-decoration: none;" >注销账号</router-link></el-dropdown-item>
                         </el-dropdown-menu>
+
                     </el-dropdown>
                     <el-dropdown>
                     <span class="el-dropdown-link">
@@ -195,69 +196,50 @@
     /* ***************************************foot end */
 </style>
 <script>
-    import {formatDate} from './common/date.js';
-    export default {
-        data(){
-            return{
-                date:{},
-                identityName: ''
-            }
-
-        },
-        // mounted() {
-        //     this.setUserType();
-        // },
-        method:{
-            // setUserType() {
-            //     if (sessionStorage.getItem("identityName")) {
-            //         this.identityName = "系统管理员[SysAdmin]"
-            //     } else {
-            //         this.identityName = "普通用户[ComUser]"
-            //     }
-            // },
-            cleanUserName() {
-                // alert(1111)
-                sessionStorage.setItem("username","0");
-                window.location.href = "#/systemindex"
-            },
-            getUser(){
-                this.$axios.get('/getuser')
-                    .then(function (response) {
-                        // handle success
-                        // alert(response.data);     // 输出后端传过来的数据
-                        var jsondata = [];
-                        jsondata = response.data;
-                        // data.temdata = jsondata[0];
-                        alert(jsondata[0].username)
-
-
-                    })
-                    .catch(function (error) {
-                        // handle error     //请求出错的时候运行的代码
-                        alert('handle error')
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                        // alert('always executed');
-                        //什么时候都执行的
-                    });
-            },
-        },
-        mounted: function () {
-            var _this = this;
-            setInterval(function(){
-                _this.date = new Date();  //修改数据date
-            },1000)
-
-        },
-
-        filters:{
-            formatDate(time) {
-                var data = new Date(time);
-                return formatDate(time, 'yyyy-MM-dd hh:mm');
-            }
+    import { formatDate } from './common/date.js'
+export default {
+      data () {
+        return {
+          date: {},
+          identityName: ''
         }
+      },
+      method: {
+        cleanUserName () {
+          // alert(1111)
+          sessionStorage.setItem('username', '0')
+          window.location.href = '#/systemindex'
+        },
+        getUser () {
+          this.$axios.get('/getuser')
+            .then(function (response) {
+              var jsondata = []
+              jsondata = response.data
+              // data.temdata = jsondata[0];
+              alert(jsondata[0].username)
+            })
+            .catch(function (error) {
+              // handle error     //请求出错的时候运行的代码
+              alert('handle error')
+              console.log(error)
+            })
+            .then(function () {
+            })
+        }
+      },
+      mounted: function () {
+        var _this = this
+        setInterval(function () {
+          _this.date = new Date() // 修改数据date
+        }, 1000)
+      },
+
+      filters: {
+        formatDate (time) {
+          var data = new Date(time)
+          return formatDate(time, 'yyyy-MM-dd hh:mm')
+        }
+      }
 
     }
 </script>

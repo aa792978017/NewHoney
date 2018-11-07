@@ -30,10 +30,10 @@
                                     <el-form :model="form" v-for="form in forms" :key="form.ip">
                                         <div>
                                             <el-form-item label="IP" :label-width="formLabelWidth">
-                                                <el-input v-model="form.IP" auto-complete="off" style="display: inline-block;width: 70%"></el-input>
+                                                <el-input v-model="form.ip" auto-complete="off" style="display: inline-block;width: 70%"></el-input>
                                             </el-form-item>
                                             <el-form-item label="服务器" :label-width="formLabelWidth">
-                                                <el-select v-model="form.serverName" placeholder="请选择">
+                                                <el-select v-model="form.serverIp" placeholder="请选择">
                                                     <el-option
                                                             v-for="item in serverType"
                                                             :key="item.serverIp"
@@ -52,7 +52,7 @@
                                                             :value="item.value">
                                                     </el-option>
                                                 </el-select>
-                                                <el-select v-model="form.honeyTypeValue2" placeholder="请选择">
+                                                <el-select v-model="form.type" placeholder="请选择">
                                                     <el-option
                                                             v-for="item in honeyType2"
                                                             :key="item.value"
@@ -67,7 +67,7 @@
                                     </el-form>
                                     <div slot="footer" class="dialog-footer">
                                         <el-button class="button3" @click="dialogText1 = false">取 消</el-button>
-                                        <el-button class="button2" @click="dialogText1 = false">确 定</el-button>
+                                        <el-button class="button2" @click="addModel">确 定</el-button>
                                     </div>
                                 </el-dialog>
                                 <el-button class="button4" @click="dialogText = true" style="background-color:#E95513">部署网络</el-button>
@@ -97,7 +97,7 @@
                                             :index="indexMethod">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="name"
+                                            prop="modelName"
                                             label="模板名"
                                             width="250">
                                     </el-table-column>
@@ -109,14 +109,14 @@
                                                     type="text"
                                                     size="mini"
                                                     style="font-weight: bold"
-                                                    @click="getModuleDetail(scope.row.id)">查看详情</el-button>
+                                                    @click="getModuleDetail(scope.row.modelName)">查看详情</el-button>
                                             <el-dialog title="查看详情" :visible.sync="dialog">
                                                 <div class="parent_div">
                                                     <div class="div_table">
                                                        <span class="table_cell">模板名称</span>
-                                                        <span class="table_cell table_cell_right">{{selectModuleData[0].name}}</span>
+                                                        <span class="table_cell table_cell_right">{{selectModuleData.modelName}}</span>
                                                     </div>
-                                                    <div v-for="item in selectModuleData" class="div_table">
+                                                    <div v-for="item in selectModuleData.models" class="div_table" >
                                                         <span class="table_cell">IP</span>
                                                         <span class="table_cell table_cell_right">{{item.ip}}</span><br>
                                                         <span class="table_cell">服务器</span>
@@ -127,47 +127,6 @@
                                                     </div>
 
                                                 </div>
-                                                <!--<el-table-->
-                                                        <!--:header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"-->
-                                                        <!--class="table1"-->
-                                                        <!--:data="serverData"-->
-                                                        <!--@selection-change="handleSelectionChange"-->
-                                                        <!--style="width: 100%">&lt;!&ndash;表的名字&ndash;&gt;-->
-                                                    <!--&lt;!&ndash; 选择框   &ndash;&gt;-->
-                                                    <!--<el-table-column-->
-                                                            <!--type="index"-->
-                                                            <!--label="编号"-->
-                                                            <!--:index="indexMethod">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="template"-->
-                                                            <!--label="模板名">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="IP"-->
-                                                            <!--label="IP">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="server_name"-->
-                                                            <!--label="服务器">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="region"-->
-                                                            <!--label="蜜罐类型">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="IP"-->
-                                                            <!--label="IP">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="server_name"-->
-                                                            <!--label="服务器">-->
-                                                    <!--</el-table-column>-->
-                                                    <!--<el-table-column-->
-                                                            <!--prop="region"-->
-                                                            <!--label="蜜罐类型">-->
-                                                    <!--</el-table-column>-->
-                                                <!--</el-table>-->
                                                 <div slot="footer" class="dialog-footer">
                                                     <el-button class="button3" @click="dialog = false">取 消</el-button>
                                                     <el-button class="button2" @click="dialog = false">确 定</el-button>
@@ -620,18 +579,7 @@ export default {
 
       data () {
         return {
-          selectModuleData: [{
-            ip: '192.168.1.1',
-            server: '服务器1',
-            type: '主机蜜罐',
-            name: '模板1'
-          },
-          {
-            ip: '192.168.1.2',
-            server: '服务器2',
-            type: '路由器蜜罐',
-            name: '模板1'
-          }],
+          selectModuleData: {},
           form1: {
             name: '',
             IP: '',
@@ -713,15 +661,11 @@ export default {
           dialog: false,
           forms: [{
             name: '',
-            IP: '',
-            serverName: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
+            ip: '',
+            server: '',
+            type: '',
+            serverIp: '',
+            serverId: ''
           }],
           formLabelWidth: '120px',
           // 表的名字
@@ -736,79 +680,82 @@ export default {
           addServerForm: {
             server: '',
             serverIp: ''
-          },
-          currentPage: 1
-
+          }
         }
       },
-      updated () {
-        // if(this.honeyType2 != null){
-        //     this.addModel();
-        // }
-      },
-
       mounted () {
         this.getModel()
         this.getServer()
-        // this.initChart();
-    },
+      },
 
       methods: {
-        getModuleDetail (id) {
+        // 获取模板详细信息方法
+        getModuleDetail (modelName) {
           this.dialog = true
-          var json = []
           for (var i = 0; i < this.modeldata.length; i++) {
-            if (id == this.modeldata[i].id) {
-              if (this.modeldata[i].server == null) {
-                this.modeldata[i].server = '未设置'
+            if (modelName === this.modeldata[i].modelName) {
+              for (var j = 0; j < this.modeldata[i].models.length; j++) {
+                if (this.modeldata[i].models[j].server == null) {
+                  this.modeldata[i].models[j].server = '未设置'
+                }
               }
-              json.push(this.modeldata[i])
+              var json = this.modeldata[i]
+              break
             }
           }
-          // alert(json);
           this.selectModuleData = json
         },
-    delHoneypot () {
+        // 删除一个蜜罐模板
+        delHoneypot () {
           this.forms.pop()
         },
+        // 添加一个蜜罐模板
         addHoneypot () {
           var json = {
             name: '',
-            IP: '',
-            serverName: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
+            ip: '',
+            server: '',
+            type: '',
+            serverIp: '',
+            serverId: ''
           }
           this.forms.push(json)
         },
+        // 蜜罐类型二级分类方法
         changeType (type) {
           // alert(type)
-          if (type == 'hostPot') {
+          if (type === 'hostPot') {
             this.honeyType2 = this.hostPot
-          } else if (type == 'applyPot') {
+          } else if (type === 'applyPot') {
             this.honeyType2 = this.applyPot
           }
         },
         // 增加模板的方法
         addModel () {
-          var jsondata = {
-            'modelName': this.form1.name,
-            'ip': this.form1.IP,
-            'honeyType': this.form1.honeyTypeValue2,
-            'serverIp': this.form1.serverTypeValue
+          var jsondata = []
+          for (var i = 0; i < this.forms.length; i++) {
+            this.forms[i].name = this.moduleName
+            for (var j = 0; j < this.serverData.length; j++) {
+              if (this.forms[i].serverIp === this.serverData[j].serverIp) {
+                this.forms[i].server = this.serverData[j].server
+                this.forms[i].serverId = this.serverData[j].id
+              }
+            }
+            jsondata.push(this.forms[i])
           }
           var that = this
           this.$axios.post('/addModel', jsondata).then(function (response) {
             alert('模板添加成功')
-            that.form1.name = ''
-            that.form1.IP = ''
-            that.form1.honeyTypeValue2 = ''
-            that.form1.serverTypeValue = ''
+            var json = [{
+              name: '',
+              ip: '',
+              server: '',
+              type: '',
+              serverIp: '',
+              serverId: ''
+            }]
+            that.modelName = ''
+            that.forms = json
             that.getModel()
           })
           that.dialogText1 = false
@@ -817,8 +764,8 @@ export default {
         handleSelectionChange (val) {
           this.multipleSelection = val
         },
-    // 处理分页的两个方法
-    handleSizeChange (size) {
+        // 处理分页的两个方法
+        handleSizeChange (size) {
           this.pagesize = size
         },
         handleCurrentChange (currentPage) {
@@ -831,7 +778,6 @@ export default {
           for (var i = 0; i < this.multipleSelection.length; i++) {
             json.push(this.multipleSelection[i].id)
           }
-          alert(json)
           this.$axios.post('/delServer', json).then(function (response) {
             alert('删除成功')
             that.getServer()
@@ -848,7 +794,6 @@ export default {
         // 添加服务器方法
         addServer () {
           var that = this
-          var server = this.addServerForm
           this.$axios.post('/addServer?serverIp=' + that.addServerForm.serverIp + '&' + 'server=' + that.addServerForm.server + '&' + 'id=' + (that.serverData.length + 1)).then(function (response) {
             alert('服务器添加成功')
             that.dialogFormVisible = false
@@ -856,14 +801,13 @@ export default {
           })
           that.addServerForm.server = ''
           that.addServerForm.serverIp = ''
-    },
+        },
         // 获取模板列表方法
         getModel () {
           var that = this
 
           this.$axios.post('/getModelList').then(function (response) {
             that.modeldata = response.data
-            // alert(response.data);
           })
         },
         // 删除模板方法
@@ -883,7 +827,6 @@ export default {
         },
         // 原来删除键的方法
         open2 () {
-          var that = this
           this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -898,37 +841,6 @@ export default {
               type: 'info',
               message: '已取消删除'
             })
-          })
-    },
-        initChart () {
-          this.chart = echarts.init(document.getElementById('orgManagement'))
-          this.chart.on('contextmenu', params => {
-            console.log(params)
-            if (params.componentType === 'series') {
-              this.selectedOrg = params.data
-              this.popoverPanelShow = true
-            } else {
-
-            }
-          }),
-          this.Chart.setOption({
-            tooltip: {
-              trigger: 'item',
-              triggerOn: 'mousemove'
-            },
-            series: [
-              {
-                type: 'tree',
-                data: [this.chartData],
-                top: '1%',
-                bottom: '11%',
-                layout: 'radial',
-                symbol: 'emptyCircle',
-                symbolSize: 7,
-                initialTreeDepth: 3,
-                animationDurationUpdate: 750
-              }
-            ]
           })
         },
         hidePopoverPanel () {

@@ -4,8 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 日期工具类
+ */
 public class DateUtil {
-//    获取某一时间的前n天的日期
+    /**
+     * 获取某一时间的前n天的日期
+      * @param specifiedDay
+     * @param n
+     * @return
+     */
     public static String getSpecifiedDayBefore(String specifiedDay, int n){
 
         StringBuilder stringBuilder = new StringBuilder(specifiedDay);
@@ -17,14 +25,12 @@ public class DateUtil {
         Date date=null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
-//            System.out.print(date);
         } catch (Exception e) {
             e.printStackTrace();
         }
         c.setTime(date);
         int day=c.get(Calendar.DATE);
         c.set(Calendar.DATE,day-n);
-
         String dayBefore=new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
         return dayBefore;
     }

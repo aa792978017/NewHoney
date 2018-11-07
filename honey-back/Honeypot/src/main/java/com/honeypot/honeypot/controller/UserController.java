@@ -18,6 +18,11 @@ import java.security.MessageDigest;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 功能：接收平台管理-用户管理界面的请求，做出响应
+ * 前端页面：平台管理-用户管理
+ * 开发人员：XiangYuhan
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/honeycontrol")
@@ -25,18 +30,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 获取数据库中所有用户信息（除super、superadmin用户外）
+     * @return 包含所有用户信息的JSONArray，每个用户的信息是一个JSONObject
+     */
     @RequestMapping(value = "/getAllUsers")
     public JSONArray getAllUsers(){
         return userService.getAllUsers() ;
     }
 
     /**
-     * 接收前端添加新用户的请求
-     * 先判断新用户的用户名（和id）是否被占用  （关于id，目前前端用随机数赋值，最终处理方法需要修改）
-     * 之后若为被占用则调用userService的addUser方法添加用户
+     * 添加一个新用户
+     * 先判断新用户的用户名是否被占用
+     * 若未被占用则调用userService的addUser方法添加用户
      * @param userJson 前端传来的json数据，包括一个User的各项信息，形式如下
      *        {
-     *            "id": x,
      *            "username": xx,
      *            "password": xx,
      *            "realName": xx,
@@ -44,7 +52,7 @@ public class UserController {
      *            "dept": xx
      *        }
      *        其中，"authority"和"dept"为相应角色和部门对应的数值
-     * @return result 返回一个json对象，表示状态。
+     * @return 返回一个json对象，表示状态。
      *         若已有该用户，则提示被占用；若无，则返回userService的addUser方法返回添加结果
      */
     @ResponseBody
@@ -55,9 +63,6 @@ public class UserController {
         // 若用户名被占用
         if(userService.getUserByUsername(userJson.getString("username")) != null)
             usernameOccupied = true;
-        // 若id被占用  （此处应该不是这么处理的，存疑）
-        if(userService.getUserById(userJson.getIntValue("id")) != null)
-            idOccupied = true;
         if(usernameOccupied && idOccupied)
         {
             result.put("result", "用户名和id都已经被使用");
@@ -78,11 +83,11 @@ public class UserController {
     }
 
     /**
-     * 删除用户，前端可能勾选多个，故按JSONArray处理
+     * 删除（若干）用户。前端可能勾选多个，故按JSONArray处理
      * @param delArray
      * [{"id": 1}, {"id": 2}, ..., {"id": x}]
-     * @return result
-     * eg. {"result": "success"}
+     * @return 一个json对象，表示状态
+     * e.g. {"result": "success"}
      */
     @ResponseBody
     @RequestMapping(value = "/delUser", method = RequestMethod.POST)
@@ -95,13 +100,12 @@ public class UserController {
      * 然后核对输入的原始密码的md5与数据库中的md5是否一致，一致即可修改
      * @param updateJson
      * {
-     *   "id": x,
      *   "oldpassword": xxxxx,
      *   "newpassword": xxxxxx,
      *   "newrealname": xxxx,
      *   "newdept": xx
      * }
-     * @return result
+     * @return 一个json对象，表示状态
      */
     @ResponseBody
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
@@ -118,5 +122,17 @@ public class UserController {
         }
 
         return userService.updateUser(updateJson);
+    }
+
+    /**
+     * 管理员解锁被锁定的账户
+     * @param unlockJson 包含用户的id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/unlockUser", method = RequestMethod.POST)
+    public JSONObject unlockUser(@RequestBody JSONObject unlockJson){
+
+        return userService.unlockUser(unlockJson);
     }
 }

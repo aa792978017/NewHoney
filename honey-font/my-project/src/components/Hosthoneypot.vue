@@ -59,7 +59,7 @@
                       <el-button
                         type="text"
                         size="mini"
-                        @click="delect">删除</el-button>
+                        @click="delHostPotFromHtml(admindata.uniqueId)">删除</el-button>
 
                     </template>
                   </el-table-column>
@@ -738,6 +738,7 @@
         },
         created () {
             this.getListHostPot()
+            this.delHostPot()
         },
         mounted: function () {
             this.getListHostPot()
@@ -788,25 +789,64 @@
                     that.getServer()
                 })
             },
-            delect () {
-                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    })
-                })
-            }
+           delHostPotFromHtml (uniqueId) {
+          //从前端删除
+            this.$confirm('此操作将永久删除用户,是否继续?', '提示', { type: 'warning' })             
+					  .then(() => {
+              this.$message({
+                      type: 'info',
+                      message: `已删除`});
+                      var index = this.admindata.indexOf(uniqueId)
+                      this.admindata.splice(index, 1);
+            });
+      },
 
-        }
+          /*this.$confirm('此操作将永久删除用户,是否继续?', '提示', { type: 'warning' }) 
+          .then(() => { // 向请求服务端删除 
+             var resource = this.$resource(this.url + "{/uniqueId}"); 
+             var params = {uniqueId:admindata.unqueId}; 
+             axios.post("/delHostPot", qs.stringify(params))
+                 .then((response) => { 
+                    this.$message.success('成功删除了用户' + user.username + '!');    
+                    this.getUsers(); }) 
+                 .catch((response) => { 
+                    this.$message.error('删除失败!'); 
+                  }); 
+          }) .catch(() => { 
+              this.$message.info('已取消操作!');
+             }); 
 
-    }
+        },
+    }*/
+      /*delHostPot(uniqueId){
+        this.$alert('是否删除这条记录', '信息删除', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',              
+          callback: action => {
+            var params = {
+            uniqueId: admindata.uniqueId
+            };
+            axios.post("/delHostPot", qs.stringify(params)).then((result) => {
+                console.info(result);
+                  if (result.data.success) {
+                    this.$message({
+                      type: 'info',
+                      message: `已删除`
+                    });
+                  } 
+                  else {
+                    this.$message({
+                      type: 'info',
+                      message: `删除失败`
+                    });
+                  }
+          //    this.getListHostPot();
+            });
+ 
+          }
+        });
+      },*/
+  }
+}
 </script>

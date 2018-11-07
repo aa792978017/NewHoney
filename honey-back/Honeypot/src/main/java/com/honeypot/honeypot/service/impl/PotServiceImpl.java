@@ -44,31 +44,5 @@ public class PotServiceImpl implements PotService {
         }
         return potList;
     }
-    /**
-     * 删除用户，前端勾选的用户个数不同，故按照JSONArray处理
-     * 遍历array，对每一个JSONObject进行删除
-     * 若其中有某个用户删除失败，则返回其ID并停止删除
-     * 否则删除成功，返回"success"供前端处理
-     * @param delArray
-     * 前端传来jsonArray形式为
-     * [{"id": 1}, {"id": 2}, ..., {"id": n}]
-     * @return
-     */
-    @Override
-    public JSONObject delPot(JSONArray delArray) {
-        JSONObject result = new JSONObject();
-        for(int i = 0; i < delArray.size(); i++){
-            JSONObject obj = delArray.getJSONObject(i);
-            if(!potDao.delPot(obj.getString("ip"))){
-                result.put("result", obj.getString("ip"));
-                return result;
-            }
-        }
-        result.put("result", "success");
-        return result;
-    }
-
-
-
 
 }

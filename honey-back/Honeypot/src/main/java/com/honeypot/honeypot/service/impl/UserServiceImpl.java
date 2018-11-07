@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
      * 获取所有用户信息
      * 调用UserDao中的方法获得List<User>
      * 需要将user表中取得的department和authority由数字转换成对应的文字
-     * 由UserCriteria完成 （名字按信工所代码取的）
-     *
+     * 其中department名称需要利用department的service去查询
      * @return JSONArray
      * 根据前端要求，返回如下形式的JSONArray
      *       [{"id": xx, "username": xx, "realName": xx, "role": xx, "department": xx},
@@ -51,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
         for (User user : users){
             JSONObject one = new JSONObject();
+            one.put("id", user.getId());
             one.put("username", user.getUsername());
             one.put("realName", user.getRealName());
             one.put("role", roleMap.get(user.getAuthority()));
@@ -60,11 +60,7 @@ public class UserServiceImpl implements UserService {
         return array;
     }
 
-    /**
-     * 接下来两个getUser的方法会在其他方法中用到
-     * 也可以作为前端“查询”按钮对应的功能，视情况扩展
-     */
-
+    // 接下来两个getUser的方法会在其他方法中用到
     /**
      * 根据用户名获取单个用户信息，直接调用userDao中方法即可
      * @param username
@@ -96,7 +92,7 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         Base64 base64 = new Base64();
         String delPassword = base64.encodeAsString(userJson.getString("password").getBytes());
-        newUser.setId(userJson.getIntValue("id"));
+//        newUser.setId(userJson.getIntValue("id"));
         newUser.setUsername(userJson.getString("username"));
         newUser.setPassword(delPassword);
         newUser.setRealName(userJson.getString("realName"));
@@ -118,7 +114,7 @@ public class UserServiceImpl implements UserService {
      * 否则删除成功，返回"success"供前端处理
      * @param delArray
      * 前端传来jsonArray形式为
-     * [{"id": 1}, {"id": 2}, ..., {"id": n}]
+     * [{"username": xx}, {"username": yy}, ..., {"username": nn}]
      * @return
      */
     @Override
@@ -146,10 +142,9 @@ public class UserServiceImpl implements UserService {
      *     "newrealname": xxxx,
      *     "newdept": xx
      * }
-     * 由id获得需要修改的用户对象，根据不同键对应的值是否为空来确定是否对该对象的对应属性进行修改
+     * 由username获得需要修改的用户对象，根据不同键对应的值是否为空,来确定是否对对应属性进行修改
      * 至少有一项会被修改，故最后调用userDao的updateUser方法进行更新即可
-     * @return result
-     * 返回json供前端显示结果
+     * @return 返回json供前端显示结果
      */
     @Override
     public JSONObject updateUser(JSONObject updateJson){
@@ -171,6 +166,28 @@ public class UserServiceImpl implements UserService {
             result.put("result", "修改用户成功！");
         else
             result.put("result", "修改用户失败！");
+
+        return result;
+    }
+
+    /**
+     * 解锁用户，首先判断该用户是否被锁定，若为被锁定返回即可
+     * 若锁定，则继续执行解锁操作
+     * @param unlockJson
+     * @return 一个json对象，返回是否被锁定，以及是否成功解锁
+     */
+    @Override
+    public JSONObject unlockUser(JSONObject unlockJson){
+        JSONObject result = new JSONObject();
+        int userId = unlockJson.getIntValue("userId");
+        if (userDao.isLocked(userId) == 1){
+            if (userDao.unlockUser(userId))
+                result.put("result", "解锁成功！");
+            else
+                result.put("result", "解锁失败！");
+        }
+        else
+            result.put("result", "该用户未被锁定！");
 
         return result;
     }

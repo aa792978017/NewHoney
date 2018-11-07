@@ -2,6 +2,9 @@ package com.honeypot.honeypot.util;
 
 import com.honeypot.honeypot.entity.AlarmInfo;
 
+/**
+ * 编写映射工具类
+ */
 public class AlarmInfoUtil {
     public static String typeMap(AlarmInfo alarmInfo){
         String typeReturn = ""+alarmInfo.getId()+"/";

@@ -9,13 +9,24 @@ import java.util.List;
 
 public interface PotService {
     /**
-     * 应该根据类型获取蜜罐信息，暂时写死
-     * getHostPotByType 是主机蜜罐管理页面的方法
+     * 根据类型获取蜜罐信息
      * @return
      */
     List<Pot> getPotByType(String type);
+    /**
+     * 应该根据类型获取主机蜜罐信息
+     * getHostPotByType 是主机蜜罐管理页面的方法
+     * @return
+     */
     List<Pot> getHostPotByType(String type);
+    /**
+     *根据IP获取蜜罐信息
+     * @return
+     */
     List<Pot> getPotByIp(String ip);
-    @Transactional
-    JSONObject delPot(JSONArray delArray);
+    /**
+     *删除主机蜜罐信息
+     * @return
+     */
+
 }

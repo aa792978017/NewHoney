@@ -10,12 +10,12 @@
                       <span class="el-dropdown-link" >
                           <span class="smallpeople">
                             <img src="../assets/smallpeople.png"/></span>
-                            <span style="color:grey ;font-size:14pt">{{identityName}}</span>&nbsp;{{administrator}}&nbsp;
+                            <span style="color:grey ;font-size:14pt">{{identityName}}</span>
                       </span>
-                        <!--<el-dropdown-menu slot="dropdown">-->
-                            <!--<el-dropdown-item>修改密码</el-dropdown-item>-->
-                            <!--<el-dropdown-item><router-link to="systemindex" style="text-decoration: none;">注销账号</router-link></el-dropdown-item>-->
-                        <!--</el-dropdown-menu>-->
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item><router-link to="updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
+                            <el-dropdown-item><router-link to="systemindex" style="text-decoration: none;">注销账号</router-link></el-dropdown-item>
+                        </el-dropdown-menu>
                     </el-dropdown>
                     <el-dropdown>
                         <span class="el-dropdown-link">
@@ -215,67 +215,59 @@
 </style>
 
 <script>
-    import "../assets/css/new.css";
-    import {formatDate} from './common/date.js';
+    import '../assets/css/new.css'
+import { formatDate } from './common/date.js'
 
-    export default {
-        data(){
-            return{
-                date:{},
-                username: "",
-                password: "",
-                identityName:"未登录"
-            }
-
-        },
-        beforeCreate() {
-          sessionStorage.setItem("username","0");
-        },
-        mounted: function () {
-            var _this = this;
-            setInterval(function(){
-                _this.date = new Date();  //修改数据date
-            },1000)
-
-        },
-        methods : {
-            login() {
-                var that = this;
-                var json = {
-                    "username" : this.username,
-                    "password" : this.password
-                }
-                this.$axios.post("/login",json).then(function (response) {
-
-                    if (response.data.success) {
-                        sessionStorage.setItem('username',"1");
-                        // sessionStorage.setItem("identityName",response.data.authority)
-                        // var cc = sessionStorage.getItem("identityName")
-                        // alert(cc)
-                        alert("登录成功，准备跳转页面");
-
-                        if (response.data.authority == "1") {
-                            window.location.href="#/Checkstatus1";
-                        }else {
-                            window.location.href="#/userindex/Checkstatus1";
-                        }
-                    } else {
-                        alert("登录失败，用户名或密码错误,清重新输入")
-                    }
-                    that.username = "";
-                    that.password = "";
-
-                })
-            }
-        },
-
-        filters:{
-            formatDate(time) {
-                var data = new Date(time);
-                return formatDate(time, 'yyyy-MM-dd hh:mm');
-            }
+export default {
+      data () {
+        return {
+          date: {},
+          username: '',
+          password: '',
+          identityName: '未登录'
         }
-
+      },
+      beforeCreate () {
+        sessionStorage.clear()
+      },
+      mounted: function () {
+        var _this = this
+        setInterval(function () {
+          _this.date = new Date() // 修改数据date
+        }, 1000)
+      },
+      methods: {
+        // 用户登录
+        login () {
+          var that = this
+          var json = {
+            'username': this.username,
+            'password': this.password
+          }
+          this.$axios.post('/login', json).then(function (response) {
+            if (response.data.statusCode === 200) {
+              sessionStorage.setItem('username', '1')
+              alert('登录成功，准备跳转页面')
+              if (response.data.authority === 1) {
+                window.location.href = '#/Checkstatus1'
+              } else {
+                window.location.href = '#/userindex/Checkstatus1'
+              }
+            } else {
+              alert(response.data.message)
+            }
+            that.username = ''
+            that.password = ''
+          })
+        }
+      },
+      // 设置当前时间
+      filters: {
+        formatDate (time) {
+          // var data = new Date(time)
+          return formatDate(time, 'yyyy-MM-dd hh:mm')
+        }
+      }
 
     }
 </script>

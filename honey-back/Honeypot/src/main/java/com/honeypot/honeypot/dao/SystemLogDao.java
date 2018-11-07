@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 import java.util.List;
-//@Mapper
+
 public interface SystemLogDao {
     // 获取全部系统日志，用来呈现在面板上
     public List<SystemLog> getAllSystemLog();

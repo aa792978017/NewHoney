@@ -2,6 +2,20 @@
     position: relative;
     left:5px;
     height: 30px;
+
+}
+.common_input1>.el-input__inner{
+    position: relative;
+    left:5px;
+    height: 40px;
+    width: 400px;
+}
+.demo-ruleForm>.el-input__inner{
+    height: 40px;
+    width: 400px;
+}
+.demo-ruleForm.el-form-item__label{
+    color: #E95513;
 }
 .el-tabs--left.el-tabs__item.is-left, .el-tabs--left.el-tabs__item.is-left {
     text-align: left;

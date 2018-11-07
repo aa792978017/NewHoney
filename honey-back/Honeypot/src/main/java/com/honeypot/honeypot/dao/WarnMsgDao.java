@@ -12,9 +12,18 @@ public interface WarnMsgDao {
 
     List<AlarmInfo> getNewWarnMsg();
 
+    /**
+     * 获取最新一年里面的警告信息
+     * @return
+     */
     @Select("Select * from alarminfo where YEAR(time)=YEAR(NOW());")
     List<AlarmInfo> getWarnMsgNum();
 
+    /**
+     * 实时警告版获取更多信息，
+     * 这里获取一年里的，因为数据库里面的数据没有最新一个月的
+     * @return
+     */
     @Select("Select * from alarminfo where YEAR(time)=YEAR(NOW());")
     List<AlarmInfo> getMoreWarnMsg();
 }

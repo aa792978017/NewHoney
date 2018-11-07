@@ -27,7 +27,6 @@ public class WarnMsgServiceImpl implements WarnMsgService {
         Map<String,Object> modelMap = new HashMap<>();
         List<AlarmInfo> alarmInfos = new ArrayList<>();
         alarmInfos = warnMsgDao.getWarnMsgNum();
-//        Date now = new Date();
         DateFormat dateFormat = DateFormat.getDateInstance();
         String now = dateFormat.format(new Date());
         int warnDayOne = 0;
