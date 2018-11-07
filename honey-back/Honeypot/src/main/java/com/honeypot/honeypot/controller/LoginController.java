@@ -42,7 +42,7 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
+    
     @PostMapping("/login")
     public Map<String,Object> login(@RequestBody JSONObject updateJson) throws UnsupportedEncodingException, NoSuchAlgorithmException, ParseException {
         Map<String,Object> modelMap = new HashMap<>();
