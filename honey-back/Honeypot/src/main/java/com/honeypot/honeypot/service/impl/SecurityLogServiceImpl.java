@@ -13,6 +13,20 @@ import java.util.List;
 public class SecurityLogServiceImpl implements SecurityLogService {
     @Autowired
     private SecurityLogDao securityLogDao;
+    /**
+
+     * 获取所有审计日志
+     * 调用SecurityLogDao中的方法获得List<SecurityLog>
+     * @return JSONArray
+     * 根据前端要求，返回如下形式的JSONArray
+
+     *       [{"id": xx, "operationTime": xx, "operationUser": xx, "userDuty":xx,"operationName": xx, "remark": xx},
+
+     *       ......,
+
+     *       {"id": xx, "operationTime": xx, "operationUser": xx, "userDuty":xx,"operationName": xx, "remark": xx}]
+
+     */
 
     public JSONArray getAllSecurityLog() {
         List<SecurityLog> securityLogs = securityLogDao.getAllSecurityLog();
@@ -30,6 +44,26 @@ public class SecurityLogServiceImpl implements SecurityLogService {
         }
         return array;
     }
+
+    /**
+
+     * 删除审计日志，前端勾选的审计日志个数不同，故按照JSONArray处理
+
+     * 遍历array，对每一个JSONObject进行删除
+
+     * 若其中有某个审计日志删除失败，则返回其ID并停止删除
+
+     * 否则删除成功，返回"success"供前端处理
+
+     * @param delArray
+
+     * 前端传来jsonArray形式为
+
+     * [{"id": xx}, {"id": yy}, ..., {"id": nn}]
+
+     * @return
+
+     */
     @Override
     public JSONObject delSecurityLog(JSONArray delArray) {
         JSONObject result = new JSONObject();

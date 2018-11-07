@@ -8,11 +8,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface SystemLogService {
-   /* int delSystemLog(int id);
-    SystemLog findSystemLogById(int id);
-    List<SystemLog> findSystemLogList();*/
+   /**
+
+    * 获取所有系统日志
+
+    * @return
+
+    */
    @Transactional
    JSONArray getAllSystemLog();
+   /**
+
+    * 删除系统日志
+
+    * @param delArray
+
+    * @return
+
+    */
    @Transactional
    JSONObject delSystemLog(JSONArray delArray);
 }

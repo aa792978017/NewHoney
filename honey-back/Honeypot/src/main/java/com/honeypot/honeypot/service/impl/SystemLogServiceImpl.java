@@ -14,7 +14,20 @@ import java.util.List;
 public class SystemLogServiceImpl implements SystemLogService {
     @Autowired
     private SystemLogDao systemLogDao;
-//    @Override
+    /**
+
+     * 获取所有系统日志
+     * 调用SystemLogDao中的方法获得List<SystemLog>
+     * @return JSONArray
+     * 根据前端要求，返回如下形式的JSONArray
+
+     *       [{"id": xx, "operationTime": xx, "operationUser": xx, "operationName": xx, "remark": xx},
+
+     *       ......,
+
+     *       {"id": xx, "operationTime": xx, "operationUser": xx, "operationName": xx, "remark": xx}]
+
+     */
     public JSONArray getAllSystemLog() {
         List<SystemLog> systemLogs = systemLogDao.getAllSystemLog();
         JSONArray array = new JSONArray();
@@ -30,7 +43,25 @@ public class SystemLogServiceImpl implements SystemLogService {
         }
         return array;
     }
+    /**
 
+     * 删除系统日志，前端勾选的系统日志个数不同，故按照JSONArray处理
+
+     * 遍历array，对每一个JSONObject进行删除
+
+     * 若其中有某个系统日志删除失败，则返回其ID并停止删除
+
+     * 否则删除成功，返回"success"供前端处理
+
+     * @param delArray
+
+     * 前端传来jsonArray形式为
+
+     * [{"id": xx}, {"id": yy}, ..., {"id": nn}]
+
+     * @return
+
+     */
     @Override
     public JSONObject delSystemLog(JSONArray delArray) {
         JSONObject result = new JSONObject();

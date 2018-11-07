@@ -340,8 +340,6 @@
                   <el-button  class="button1"  @click="delSysLog">删除</el-button>
                 </el-row>
                 <el-container style="height:100%;" direction="vertrcal">
-                  <!-- header -->
-                  <!-- main -->
                   <el-main class="el-main-2" >
                     <div style="margin-left: 30px;
     margin-right: 30px;">
@@ -352,7 +350,7 @@
                         row-style="30px"
                         cell-style="padding:0"
                         id="table3"
-                        :data="temdata3.slice((currentPageUser-1)*pagesizeUser,currentPageUser*pagesizeUser)"
+                        :data="systemlogData.slice((currentPageUser-1)*pagesizeUser,currentPageUser*pagesizeUser)"
                         @selection-change="handleSelectionChangeUser"
                         style="width: 100%;left:-33px">
                         <el-table-column
@@ -389,9 +387,9 @@
                     </div>
                   </el-main>
                 </el-container>
-              </div><!--table-1-2-->
-            </div><!--table-1-->
-            <div class="p-page" style="font-size: 12px;padding-left: 34px">显示第{{(currentPageUser-1)*pagesizeUser+1}}到第{{(currentPageUser*pagesizeUser < temdata3.length)?currentPageUser*pagesizeUser:temdata3.length}}条记录，总共{{temdata3.length}}条记录
+              </div>
+            </div>
+            <div class="p-page" style="font-size: 12px;padding-left: 34px">显示第{{(currentPageUser-1)*pagesizeUser+1}}到第{{(currentPageUser*pagesizeUser < systemlogData.length)?currentPageUser*pagesizeUser:systemlogData.length}}条记录，总共{{systemlogData.length}}条记录
               <span style="position: relative;left: 33px;font-size: 12px;">每页显示</span>
               <el-select v-model="pagesizeUser" slot="prepend" placeholder="" id="pagesize" style="width: 65px;height: 30px;border-radius: 0px;font-size: 12px;left: 35px;">
                 <el-option label="10" value="10"></el-option>
@@ -412,10 +410,9 @@
                 :current-page="currentPageUser"
                 :page-sizes="[1,2,3]"
                 :page-size="pagesizeUser"
-                :total="temdata3.length"
+                :total="systemlogData.length"
 
                 layout="slot, prev, pager, next, total">
-                <!-- <slot name="as">dddd</slot> -->
               </el-pagination>
             </div>
           </el-tab-pane>
@@ -429,8 +426,6 @@
                   <el-button  class="button1"  @click="delSecLog">删除</el-button>
                 </el-row>
                 <el-container style="height:100%;" direction="vertrcal">
-                  <!-- header -->
-                  <!-- main -->
                   <el-main class="el-main-2" >
                     <div style="margin-left: 30px;
     margin-right: 30px;">
@@ -441,7 +436,7 @@
                         row-style="30px"
                         cell-style="padding:0"
                         id="table4"
-                        :data="temdata4.slice((currentPageUser-1)*pagesizeUser,currentPageUser*pagesizeUser)"
+                        :data="securitylogData.slice((currentPageUser-1)*pagesizeUser,currentPageUser*pagesizeUser)"
                         @selection-change="handleSelectionChangeUser"
                         style="width: 100%;left:-33px">
                         <el-table-column
@@ -486,7 +481,7 @@
               </div>
             </div>
 
-            <div class="p-page" style="font-size: 12px;padding-left: 34px">显示第{{(currentPageUser-1)*pagesizeUser+1}}到第{{(currentPageUser*pagesizeUser < temdata4.length)?currentPageUser*pagesizeUser:temdata4.length}}条记录，总共{{temdata4.length}}条记录
+            <div class="p-page" style="font-size: 12px;padding-left: 34px">显示第{{(currentPageUser-1)*pagesizeUser+1}}到第{{(currentPageUser*pagesizeUser < securitylogData.length)?currentPageUser*pagesizeUser:securitylogData.length}}条记录，总共{{securitylogData.length}}条记录
               <span style="position: relative;left: 33px;font-size: 12px;">每页显示</span>
               <el-select v-model="pagesizeUser" slot="prepend" placeholder="" id="pagesize" style="width: 65px;height: 30px;border-radius: 0px;font-size: 12px;left: 35px;">
                 <el-option label="10" value="10"></el-option>
@@ -508,17 +503,15 @@
                 :current-page="currentPageUser"
                 :page-sizes="[1,2,3]"
                 :page-size="pagesizeUser"
-                :total="temdata4.length"
+                :total="securitylogData.length"
                 layout="slot,prev, pager, next, total">
-                <!-- <slot name="as">dddd</slot> -->
               </el-pagination>
             </div>
           </el-tab-pane>
         </el-tabs>
-      </div> <!--main-1-->
+      </div>
 
     </el-main>
-    <!-- footer -->
 
   </el-container>
 
@@ -876,8 +869,8 @@
         save_SysLogData: [],
         save_SecLogData: [],
         userData: [], // 用户管理表格显示所需的数据，并非完整的数据，模糊查询时会修改此项
-        temdata3: [], // 系统日志表格所需数据
-        temdata4: [], // 审计日志表格所需数据
+        systemlogData: [], // 系统日志表格所需数据
+        securitylogData: [], // 审计日志表格所需数据
         options: [{
           value: '选项1',
           label: '10'
@@ -943,186 +936,12 @@
           resource: '',
           desc: ''
         },
-        // 系统日志
-        /* temdata3: [{
-          number: '1',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '删除部门',
-          message: '被删除部门名称为test'
-        },
-        {
-          number: '2',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          operationName: '修改部门负责人',
-          message: ''
-        },
-        {
-          number: '3',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '添加部门',
-          message: ''
-        },
-        {
-          number: '4',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        },
-        {
-          number: '5',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        },
-        {
-          number: '6',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        },
-        {
-          number: '7',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        },
-        {
-          number: '8',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        },
-        {
-          number: '9',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        }, {
-          number: '10',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        }, {
-          number: '111',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '',
-          message: ''
-        }
-        ],
-        // 审计日志数据表
-        temdata4: [{
-          number: '1',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: '被删除部门名称为test'
-        },
-        {
-          number: '2',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '3',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '4',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '5',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '6',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '7',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        },
-        {
-          number: '8',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '修改密码',
-          message: "用户'super'信息被修改"
-        },
-        {
-          number: '9',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        }, {
-          number: '10',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        }, {
-          number: '111',
-          time: '2018-02-01 15:53:58',
-          operator: 'super',
-          role: '系统管理员',
-          operationName: '用户登录',
-          message: ''
-        }
-        ], */
+
         // 安全配置对应的四项数据，这四个初值没用，获取数据后覆盖掉
-        num1: 2,    
-        num2: 2,    
-        num3: 2,    
-        num4: 2     
+        num1: 2,
+        num2: 2,
+        num3: 2,
+        num4: 2
 
       }
   },
@@ -1149,12 +968,14 @@
         this.deptData = this.save_deptData
         this.currentPageDept = 1
       },
+      // 监视系统日志页面的模糊查询输入清空
       searchSystemLog (newValue, oldValue) {
-        this.temdata3 = this.save_SysLogData
+        this.systemlogData = this.save_SysLogData
         this.currentPageUser = 1
       },
+      // 监视审计日志页面的模糊查询输入清空
       searchSecLog (newValue, oldValue) {
-        this.temdata4 = this.save_SecLogData
+        this.securitylogData = this.save_SecLogData
         this.currentPageUser = 1
       }
     },
@@ -1202,11 +1023,8 @@
       },
       // 检查密码长度是否合法，与系统安全配置中最短密码长度对应
       // 用于添加新用户，修改用户密码时候做检查
-      checkPasswordLegal(password){
-        if (password.length == this.num1)
-          return true
-        else
-          return false
+      checkPasswordLegal (password) {
+        if (password.length == this.num1) { return true } else { return false }
       },
       // 获取所有用户信息（除super、superadmin外）
       getAllUsers () {
@@ -1221,10 +1039,7 @@
       },
       // 添加用户
       addUser () {
-        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } 
-        else if (!this.checkPasswordLegal(this.form.password))
-          alert('密码长度至少为' + this.num1 + '位')
-        else {
+        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form.password)) { alert('密码长度至少为' + this.num1 + '位') } else {
           var jsondata =
                       {
                         'username': this.form.name,
@@ -1262,10 +1077,7 @@
       // 确认修改
       confirmUpdateUser () {
         var that = this
-        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } 
-        else if (!this.checkPasswordLegal(this.form1.newpassword))
-          alert('密码长度至少为' + this.num1 + '位')
-        else {
+        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form1.newpassword)) { alert('密码长度至少为' + this.num1 + '位') } else {
           var jsondata =
                       {
                         // 后端根据用户名唯一确定要修改的用户
@@ -1342,16 +1154,15 @@
         })
       },
       // 解锁用户，参数为scope.row，即点击了“解锁”的那一行用户
-      unlockUser(user){
-            var that = this
-            var jsondata = {'userId': user.id}
-            this.$axios.post('/honeycontrol/unlockUser', jsondata)
-                .then(function (response){
-                  alert(response.data['result'])
-                  that.getAllUsers()
-                })
-            
-          },
+      unlockUser (user) {
+        var that = this
+        var jsondata = { 'userId': user.id }
+        this.$axios.post('/honeycontrol/unlockUser', jsondata)
+          .then(function (response) {
+            alert(response.data['result'])
+            that.getAllUsers()
+          })
+      },
       // 获取所有部门信息
       getAllDepts () {
         var that = this
@@ -1471,47 +1282,51 @@
           })
       },
       // 以上 用户管理和配置管理 xyh完成
-      // --------------------------------------------------------------------------
+      // -----------------------------------
+      // 以下系统日志和审计日志由阿力木完成
+      // 模糊查询系统日志
       fuzzyQuerySystemLog () {
         var fuzzysysData = []
         for (var i = 0; i < this.save_SysLogData.length; i++) {
           if (this.save_SysLogData[i].operationName.indexOf(this.searchSystemLog) != -1 || this.save_SysLogData[i].operationUser.indexOf(this.searchSystemLog) != -1 ||
                     this.save_SysLogData[i].operationTime.indexOf(this.searchSystemLog) != -1 || this.save_SysLogData[i].remark.indexOf(this.searchSystemLog) != -1) { fuzzysysData.push(this.save_SysLogData[i]) }
         }
-        this.temdata3 = fuzzysysData
+        this.systemlogData = fuzzysysData
       },
-      /* 审计日志查询表有空值，所以模糊查询的时候把有空值的列注释了 */
+      // 模糊查询审计日志
       fuzzyQuerySecLog () {
         var fuzzysecData = []
         for (var i = 0; i < this.save_SecLogData.length; i++) {
-          if (this.save_SecLogData[i].operationName.indexOf(this.searchSecLog) != -1 /* || this.save_SecLogData[i].operationUser.indexOf(this.searchSecLog) != -1 */ ||
-                    this.save_SecLogData[i].operationTime.indexOf(this.searchSecLog) != -1 || this.save_SecLogData[i].remark.indexOf(this.searchSecLog) != -1 /* || this.save_SecLogData[i].userDuty.indexOf(this.searchSecLog) != -1 */) {
+          if (this.save_SecLogData[i].operationName.indexOf(this.searchSecLog) != -1 || this.save_SecLogData[i].operationUser.indexOf(this.searchSecLog) != -1 ||
+                    this.save_SecLogData[i].operationTime.indexOf(this.searchSecLog) != -1 || this.save_SecLogData[i].remark.indexOf(this.searchSecLog) != -1 || this.save_SecLogData[i].userDuty.indexOf(this.searchSecLog) != -1) {
             fuzzysecData.push(this.save_SecLogData[i])
           }
         }
-        this.temdata4 = fuzzysecData
+        this.securitylogData = fuzzysecData
       },
+      // 获取系统日志
       getSystemLog () {
         var that = this
         this.$axios.get('/system_log/AllSystemLog')
           .then(function (response) {
             var jsondata = []
             jsondata = response.data
-            that.temdata3 = jsondata
-            that.save_SysLogData = that.temdata3
+            that.systemlogData = jsondata
+            that.save_SysLogData = that.systemlogData
           })
       },
+      // 获取审计日志
       getSecurityLog () {
         var that = this
         this.$axios.get('/security_log/AllSecurityLog')
           .then(function (response) {
             var jsondata = []
             jsondata = response.data
-            that.temdata4 = jsondata
-            that.save_SecLogData = that.temdata4
+            that.securitylogData = jsondata
+            that.save_SecLogData = that.securitylogData
           })
       },
-
+      // 删除勾选的系统日志
       delSysLog () {
         var that = this
         this.$confirm('确定删除这条系统日志吗', '警告', {
@@ -1548,7 +1363,7 @@
             })
         })
       },
-
+      // 删除勾选的审计日志
       delSecLog () {
         var that = this
         this.$confirm('您确定要删除这条审计日志信息吗', '警告', {

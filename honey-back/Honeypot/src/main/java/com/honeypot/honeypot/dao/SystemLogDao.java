@@ -8,10 +8,25 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 public interface SystemLogDao {
-    // 获取全部系统日志，用来呈现在面板上
+    /**
+
+     * 获取全部系统日志，用来前端table显示
+
+     * @return
+
+     */
+
     public List<SystemLog> getAllSystemLog();
-    // 删除一个系统日志
+
+    /**
+
+     * 删除系统日志
+
+     * @param operationUser
+
+     * @return
+
+     */
     public boolean delSystemLog(String operationUser);
-   /* @Select( "select * from atad.system_log" )
-    List<SystemLog> findSystemLogList();*/
+
 }
