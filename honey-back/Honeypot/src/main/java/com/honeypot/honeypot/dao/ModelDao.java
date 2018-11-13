@@ -2,6 +2,7 @@ package com.honeypot.honeypot.dao;
 
 import com.honeypot.honeypot.entity.Model;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -25,4 +26,12 @@ public interface ModelDao {
      * @return
      */
     int delectModel(@Param("id") Integer id);
+
+    /**
+     * 通过modelName查找模板信息
+     * @param modelName
+     * @return
+     */
+    @Select("select * from model where name = #{modelName}" )
+    List<Model> getModelListByName(@Param("modelName") String modelName);
 }

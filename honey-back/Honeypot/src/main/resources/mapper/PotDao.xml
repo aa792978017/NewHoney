@@ -13,6 +13,11 @@
         <result column="disk" property="disk"/>
         <result column="memory" property="memory"/>
     </resultMap>
+    <insert id="addPot">
+        INSERT INTO  VALUES (#{pot.id},#{pot.ip},#{pot.type},#{pot.cpu},#{pot.memory}
+        ,#{pot.disk},#{pot.server},#{pot.serverId},#{pot.uniqueId},#{pot.domainId},#{pot.serverIp},
+        #{pot.state})
+    </insert>
 
 
     <select id="getPotByType" resultType="com.honeypot.honeypot.entity.Pot">

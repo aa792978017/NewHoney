@@ -1,6 +1,7 @@
 package com.honeypot.honeypot.dao;
 
 import com.honeypot.honeypot.entity.Pot;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +29,15 @@ public interface PotDao {
      * @return
      */
     public boolean delPot(String uniqueId);
+
+//    /**
+//     * 增加蜜罐信息
+//     * @param pot
+//     * @return
+//     */
+//    @Insert("insert into pot values(" +
+//            "#{pot.id},#{pot.ip},#{pot.type},#{pot.cpu},#{pot.memory},#{" +
+//            "pot.disk},#{pot.server},#{pot.serverId},#{pot.uniqueId}," +
+//            "#{pot.domainId), #{pot.serverIp},#{pot.state})")
+    public int addPot(@Param("pot") Pot pot);
 }

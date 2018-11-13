@@ -1,9 +1,11 @@
 package com.honeypot.honeypot.dao;
 
 import com.honeypot.honeypot.entity.Department;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+@Mapper
 public interface DepartmentDao {
     /**
      * 获取全部部门信息
@@ -30,7 +32,7 @@ public interface DepartmentDao {
      * @param newDepartment
      * @return
      */
-    public boolean addDept(Department newDepartment);
+    public boolean addDept(@Param("newDepartment") Department newDepartment);
 
     /**
      * 删除部门

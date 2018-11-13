@@ -45,4 +45,14 @@ public class PotServiceImpl implements PotService {
         return potList;
     }
 
+    /**
+     * 添加蜜罐信息
+     * @param pot
+     * @return
+     */
+    @Override
+    public int addPot(Pot pot) {
+        return potDao.addPot(pot);
+    }
+
 }

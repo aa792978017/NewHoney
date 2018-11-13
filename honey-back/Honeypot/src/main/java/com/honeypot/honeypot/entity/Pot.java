@@ -14,6 +14,24 @@ public class Pot {
     private Integer serverId;
     private String uniqueId;
     private String domainId;
+    private String serverIp;
+    private int state;
+
+    public String getServerIp() {
+        return serverIp;
+    }
+
+    public void setServerIp(String serverIp) {
+        this.serverIp = serverIp;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public int getId() {
         return id;

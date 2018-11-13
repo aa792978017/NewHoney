@@ -70,7 +70,7 @@
                                         <el-button class="button2" @click="addModel">确 定</el-button>
                                     </div>
                                 </el-dialog>
-                                <el-button class="button4" @click="dialogText = true" style="background-color:#E95513">部署网络</el-button>
+                                <el-button class="button4" @click="addNetWork" style="background-color:#E95513">部署网络</el-button>
 
                                 &nbsp;&nbsp;
                                 <el-button class="button4"  @click="delectModel" >删除</el-button>
@@ -683,12 +683,30 @@ export default {
           }
         }
       },
+      created () {
+          this.getModel()
+          this.getServer()
+      },
+
       mounted () {
-        this.getModel()
-        this.getServer()
+
       },
 
       methods: {
+
+        addNetWork () {
+          // var that = this
+          var modelName = this.multipleSelection[0].modelName
+          var json = {
+              "modelName" : modelName
+          }
+          alert(modelName)
+          this.$axios.post('/setNetWork', json).then(function (response) {
+            if (response.data == 'success') {
+                alert("部署成功")
+            }
+          })
+        },
         // 获取模板详细信息方法
         getModuleDetail (modelName) {
           this.dialog = true

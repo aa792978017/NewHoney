@@ -6,13 +6,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.honeypot.honeypot.entity.ModelUtil;
 import com.honeypot.honeypot.entity.*;
 import com.honeypot.honeypot.service.*;
+import com.honeypot.honeypot.util.BuildXmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.honeypot.honeypot.entity.ModelUtil;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -379,6 +382,60 @@ public class HostManageController {
             modelMap.put("success",false);
         }
         return modelMap;
+    }
+
+    /**
+     * 部署网络功能，需要调用client.py脚本
+     * @return
+     */
+    @PostMapping("/setNetWork")
+    public String addPot(@RequestBody String modelName){
+        List<Model> models =  modelService.getModelListByName(modelName);
+        BuildXmlUtil buildXmlUtil = new BuildXmlUtil();
+//		String pyPath = "C:\\Users\\DELL\\Desktop\\client.py";
+//		String xmlPath = "C:\\Users\\DELL\\Desktop\\xxx.xml";
+        String pyPath = "D:\\github repository\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\client.py";
+        String xmlPath = "D:\\github repository\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\xxx.xml";
+        for (Model m : models){
+            buildXmlUtil.buildNode(m);
+        }
+        buildXmlUtil.buildXml(xmlPath);
+        String[] command = new String[]{"python", pyPath, xmlPath};
+        List<String> pythonResult = new ArrayList<>();
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null && !"done".equals(line)) {
+                pythonResult.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] array = new String[7];
+        for (String result : pythonResult){
+            System.out.println("result="+result);
+            array = result.split(":");
+            Pot pot = new Pot();
+            pot.setCpu("1cpu");
+            pot.setMemory("5g");
+            pot.setDisk("100g");
+            pot.setIp(array[3]);
+            pot.setUniqueId(array[0]);
+            pot.setDomainId(array[1]);
+            pot.setServer(array[5]);
+            pot.setServerId(Integer.valueOf(array[4]));
+            pot.setServerIp(array[6]);
+            pot.setState(1);
+            if(array[2].equals("t-pot")){
+                pot.setType("复合蜜罐");
+            }
+            else{
+                pot.setType(array[2]);
+            }
+            potService.addPot(pot);
+        }
+        return "success";
     }
 
 }

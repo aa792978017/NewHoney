@@ -61,4 +61,9 @@ public class ModelServiceImpl implements ModelService {
     public int delectModel(Integer id) {
         return modelDao.delectModel(id);
     }
+
+    @Override
+    public ArrayList<Model> getModelListByName(String modelName) {
+        return (ArrayList<Model>) modelDao.getModelListByName(modelName);
+    }
 }

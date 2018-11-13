@@ -29,4 +29,11 @@ public interface PotService {
      * @return
      */
 
+    /**
+     * 添加蜜罐信息
+     * @param pot
+     * @return
+     */
+    int addPot(Pot pot);
+
 }

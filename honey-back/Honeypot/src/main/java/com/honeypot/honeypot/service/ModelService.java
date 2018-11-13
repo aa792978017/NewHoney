@@ -27,6 +27,13 @@ public interface ModelService {
      */
     int delectModel(Integer id);
 
+    /**
+     * 通过模板名字查找模板信息
+     * @return
+     */
+    ArrayList<Model> getModelListByName(String modelName);
+
+
 
 
 }
