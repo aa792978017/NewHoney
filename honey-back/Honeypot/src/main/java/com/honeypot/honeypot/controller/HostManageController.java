@@ -394,8 +394,8 @@ public class HostManageController {
         BuildXmlUtil buildXmlUtil = new BuildXmlUtil();
 //		String pyPath = "C:\\Users\\DELL\\Desktop\\client.py";
 //		String xmlPath = "C:\\Users\\DELL\\Desktop\\xxx.xml";
-        String pyPath = "D:\\github repository\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\client.py";
-        String xmlPath = "D:\\github repository\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\xxx.xml";
+        String pyPath = "D:\\GitHub\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\client.py";
+        String xmlPath = "D:\\GitHub\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\xxx.xml";
         for (Model m : models){
             buildXmlUtil.buildNode(m);
         }

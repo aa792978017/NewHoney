@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import java.util.Date;
+
 /**
  * Created by xiejing on 18/4/12.
  */
@@ -16,6 +18,24 @@ public class Pot {
     private String domainId;
     private String serverIp;
     private int state;
+    private String description;
+    private Date time;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
     public String getServerIp() {
         return serverIp;
