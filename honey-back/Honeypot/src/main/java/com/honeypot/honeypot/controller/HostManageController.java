@@ -384,10 +384,10 @@ public class HostManageController {
         return modelMap;
     }
 
-    /**
-     * 部署网络功能，需要调用client.py脚本
-     * @return
-     */
+//    /**
+//     * 部署网络功能，需要调用client.py脚本
+//     * @return
+//     */
     @PostMapping("/setNetWork")
     public String addPot(@RequestBody String modelName){
         List<Model> models =  modelService.getModelListByName(modelName);
