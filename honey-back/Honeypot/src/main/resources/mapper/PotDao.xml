@@ -14,7 +14,9 @@
         <result column="memory" property="memory"/>
     </resultMap>
     <insert id="addPot">
-        INSERT INTO  VALUES (#{pot.id},#{pot.ip},#{pot.description},#{pot.uniqueId},#{pot.type},
+        INSERT INTO pot
+         VALUES
+        (#{pot.id},#{pot.ip},#{pot.description},#{pot.uniqueId},#{pot.type},
         #{pot.domainId},
         #{pot.state},#{pot.time},#{pot.cpu},#{pot.memory}
         ,#{pot.disk},#{pot.serverId},#{pot.serverIp},#{pot.server})
