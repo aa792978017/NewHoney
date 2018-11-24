@@ -23,7 +23,7 @@
 
                                     <div style="position: relative;left: 50px;margin-bottom: 20px">
                                         <span>模板名称</span>
-                                        <el-input v-model="moduleName" auto-complete="off" label="模板名称" style="width: 800px;margin-left: 10px;"></el-input>
+                                        <el-input v-model="modelName" auto-complete="off" label="模板名称" style="width: 85%;margin-left: 10px;"></el-input>
                                     </div>
 
 
@@ -66,7 +66,7 @@
                                         </div>
                                     </el-form>
                                     <div slot="footer" class="dialog-footer">
-                                        <el-button class="button3" @click="dialogText1 = false">取 消</el-button>
+                                        <el-button class="button3" @click="closeView">取 消</el-button>
                                         <el-button class="button2" @click="addModel">确 定</el-button>
                                     </div>
                                 </el-dialog>
@@ -110,9 +110,9 @@
                                                     size="mini"
                                                     style="font-weight: bold"
                                                     @click="getModuleDetail(scope.row.modelName)">查看详情</el-button>
-                                            <el-dialog title="查看详情" :visible.sync="dialog">
-                                                <div class="parent_div">
-                                                    <div class="div_table">
+                                            <el-dialog title="查看详情" :visible.sync="dialogDetail" style="overflow:hidden;max-height:100%">
+                                                <div class="parent_div" style="overflow-y:scroll; max-height: 500px">
+                                                    <div class="div_table" >
                                                        <span class="table_cell">模板名称</span>
                                                         <span class="table_cell table_cell_right">{{selectModuleData.modelName}}</span>
                                                     </div>
@@ -125,12 +125,12 @@
                                                         <span class="table_cell table_cell_right">{{item.type}}</span>
 
                                                     </div>
+                                                    <div slot="footer" class="dialog-footer" style="width: 100%;display: inline-block;text-align: right;">
+                                                        <el-button class="button3" @click="dialogDetail = false" >取 消</el-button>
+                                                        <el-button class="button2" @click="dialogDetail = false" style="margin-right: 15%">确 定</el-button>
+                                                    </div>
+                                                </div>
 
-                                                </div>
-                                                <div slot="footer" class="dialog-footer">
-                                                    <el-button class="button3" @click="dialog = false">取 消</el-button>
-                                                    <el-button class="button2" @click="dialog = false">确 定</el-button>
-                                                </div>
                                             </el-dialog>
                                         </template>
 
@@ -181,7 +181,7 @@
                                             <el-input v-model="addServerForm.serverIp" auto-complete="off"></el-input>
                                         </el-form-item>
                                     </el-form>
-                                    <div slot="footer" class="dialog-footer">
+                                    <div slot="footer" class="dialog-footer" >
                                         <el-button class="button3" @click="dialogFormVisible = false">取 消</el-button>
                                         <el-button class="button2" @click="addServer">确 定</el-button>
                                     </div>
@@ -554,7 +554,7 @@
         background-color: #EDEDED;
         display: inline-block;
         border: 1px solid #d0cccc;
-        width: 180px;
+        width: 20%;
         height:34px;
         text-align: left;
         line-height: 34px;
@@ -562,7 +562,7 @@
     .table_cell_right{
         position: relative;
         left: -5px;
-        width: 450px;
+        width: 70%;
     }
     .div_table {
         margin: 6.5px 0px 10px 0px;
@@ -658,7 +658,7 @@ export default {
           dialogFormVisible: false,
           dialogText1: false,
           dialogText: false,
-          dialog: false,
+          dialogDetail: false,
           forms: [{
             name: '',
             ip: '',
@@ -684,8 +684,8 @@ export default {
         }
       },
       created () {
-          this.getModel()
-          this.getServer()
+        this.getModel()
+        this.getServer()
       },
 
       mounted () {
@@ -698,18 +698,18 @@ export default {
           // var that = this
           var modelName = this.multipleSelection[0].modelName
           var json = {
-              "modelName" : modelName
+            'modelName': modelName
           }
           alert(modelName)
           this.$axios.post('/setNetWork', json).then(function (response) {
             if (response.data == 'success') {
-                alert("部署成功")
+              alert('部署成功')
             }
           })
         },
         // 获取模板详细信息方法
         getModuleDetail (modelName) {
-          this.dialog = true
+          this.dialogDetail = true
           for (var i = 0; i < this.modeldata.length; i++) {
             if (modelName === this.modeldata[i].modelName) {
               for (var j = 0; j < this.modeldata[i].models.length; j++) {
@@ -725,7 +725,9 @@ export default {
         },
         // 删除一个蜜罐模板
         delHoneypot () {
-          this.forms.pop()
+          if (this.forms.length > 1) {
+            this.forms.pop()
+          }
         },
         // 添加一个蜜罐模板
         addHoneypot () {
@@ -748,11 +750,15 @@ export default {
             this.honeyType2 = this.applyPot
           }
         },
+        closeView () {
+          this.dialogText1 = false
+          this.returnFormData()
+        },
         // 增加模板的方法
         addModel () {
           var jsondata = []
           for (var i = 0; i < this.forms.length; i++) {
-            this.forms[i].name = this.moduleName
+            this.forms[i].name = this.modelName
             for (var j = 0; j < this.serverData.length; j++) {
               if (this.forms[i].serverIp === this.serverData[j].serverIp) {
                 this.forms[i].server = this.serverData[j].server
@@ -764,19 +770,23 @@ export default {
           var that = this
           this.$axios.post('/addModel', jsondata).then(function (response) {
             alert('模板添加成功')
-            var json = [{
-              name: '',
-              ip: '',
-              server: '',
-              type: '',
-              serverIp: '',
-              serverId: ''
-            }]
-            that.modelName = ''
-            that.forms = json
+
             that.getModel()
           })
+          that.returnFormData()
           that.dialogText1 = false
+        },
+        returnFormData () {
+          var json = [{
+            name: '',
+            ip: '',
+            server: '',
+            type: '',
+            serverIp: '',
+            serverId: ''
+          }]
+          this.modelName = ''
+          this.forms = json
         },
         // 获取表格选中项信息的方法
         handleSelectionChange (val) {
@@ -831,12 +841,12 @@ export default {
         // 删除模板方法
         delectModel () {
           var that = this
-          var json = []
+          var jsonDelectId = []
+          alert(this.multipleSelection.length)
           for (var i = 0; i < this.multipleSelection.length; i++) {
-            json.push(this.multipleSelection[i].id)
+            jsonDelectId.push(this.multipleSelection[i].models[0].id)
           }
-
-          this.$axios.post('/delectModel', json).then(function (response) {
+          this.$axios.post('/delectModel', jsonDelectId).then(function (response) {
             if (response.data) {
               alert('删除成功')
               that.getModel()

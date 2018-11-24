@@ -514,7 +514,8 @@ export default {
           }
           ],
           sampleAllData: [],
-          searchSample: []
+          searchSample: [],
+          dialog: false
         }
   },
       mounted () {

@@ -58,6 +58,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    @Transactional
     public int delectModel(Integer id) {
         return modelDao.delectModel(id);
     }

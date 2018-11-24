@@ -8,6 +8,8 @@ import com.honeypot.honeypot.util.SecurityUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -110,6 +112,7 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
+    @Transactional
     public Map<String, Object> updatePassword(User user) {
         Map<String,Object> resultMap = new HashMap<>();
         int ifSuccess = userDao.updatePasswrod(user);

@@ -16,6 +16,8 @@ import java.util.Map;
  * 功能：各种警告信息获取
  * 前端页面：监测状态页面
  * 开发人员：wangchang
+ * @author wc
+ *
  */
 @RestController
 @CrossOrigin

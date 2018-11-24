@@ -343,7 +343,7 @@
 
         }
       },
-      mounted () {
+      beforeMount () {
         // *****************echarts图  2个折线图，一个柱状图
         this.getNewWarnMsg()
         this.getMoreWarnMsg()

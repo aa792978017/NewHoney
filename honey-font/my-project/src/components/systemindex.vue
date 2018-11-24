@@ -14,7 +14,7 @@
                       </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item><router-link to="updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
-                            <el-dropdown-item><router-link to="systemindex" style="text-decoration: none;">注销账号</router-link></el-dropdown-item>
+                            <el-dropdown-item v-if="dialog"><router-link to="systemindex" style="text-decoration: none;" >注销账号</router-link></el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <el-dropdown>
@@ -221,6 +221,7 @@ import { formatDate } from './common/date.js'
 export default {
       data () {
         return {
+          dialog: false,
           date: {},
           username: '',
           password: '',
@@ -247,6 +248,7 @@ export default {
           this.$axios.post('/login', json).then(function (response) {
             if (response.data.statusCode === 200) {
               sessionStorage.setItem('username', '1')
+              that.dialog = true
               alert('登录成功，准备跳转页面')
               if (response.data.authority === 1) {
                 window.location.href = '#/Checkstatus1'
@@ -255,6 +257,9 @@ export default {
               }
             } else {
               alert(response.data.message)
+              if (response.data.statusCode === 1) {
+                window.location.href = '#/updatepassword'
+              }
             }
             that.username = ''
             that.password = ''
