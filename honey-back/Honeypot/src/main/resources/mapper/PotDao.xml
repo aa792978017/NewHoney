@@ -31,7 +31,7 @@
     <select id="getHostPotByType" resultType="com.honeypot.honeypot.entity.Pot">
         SELECT ip,uniqueId,domainId,type
         FROM pot
-        WHERE  uniqueId != "null"
+        WHERE  type = "win732" or type = "win764" or type = "centos"
 </select>
     <select id="getPotByIp" resultType="com.honeypot.honeypot.entity.Pot">
         SELECT *

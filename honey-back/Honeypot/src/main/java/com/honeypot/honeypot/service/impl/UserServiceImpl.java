@@ -4,18 +4,16 @@ package com.honeypot.honeypot.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.honeypot.honeypot.dao.UserDao;
-import com.honeypot.honeypot.entity.Department;
 import com.honeypot.honeypot.entity.User;
-import com.honeypot.honeypot.entity.UserCriteria;
+
 import com.honeypot.honeypot.service.DepartmentManagementService;
 import com.honeypot.honeypot.service.UserService;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
 
-import java.security.MessageDigest;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

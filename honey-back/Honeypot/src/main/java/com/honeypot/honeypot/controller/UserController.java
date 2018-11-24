@@ -11,7 +11,6 @@ import com.honeypot.honeypot.service.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
 
 import java.security.MessageDigest;
 

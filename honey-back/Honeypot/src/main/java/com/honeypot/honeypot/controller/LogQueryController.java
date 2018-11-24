@@ -328,7 +328,7 @@ public class LogQueryController {
     @GetMapping("/getAllModule")
     public Map<String, Object> getAllModule(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<Module> AllModule = logQueryService.getAllModule(Integer.valueOf(uniqueId));
+        List< com.honeypot.honeypot.entity.Module> AllModule = logQueryService.getAllModule(Integer.valueOf(uniqueId));
         modelMap.put("AllModule", AllModule);
         if (AllModule.size() > 0) {
             modelMap.put("success", true);
@@ -346,7 +346,7 @@ public class LogQueryController {
     @GetMapping("/getAimModule")
     public Map<String, Object> getAimModule(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "opType", required = false, defaultValue = "") String opType, @RequestParam(value = "processNum", required = false, defaultValue = "") String processNum, @RequestParam(value = "processName", required = false, defaultValue = "") String processName, @RequestParam(value = "regeditName", required = false, defaultValue = "") String regeditName, @RequestParam(value = "time", required = false, defaultValue = "") String time) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<Module> AimModule = logQueryService.getAimModule(Integer.valueOf(uniqueId),opType,processName,processNum,regeditName,time);
+        List< com.honeypot.honeypot.entity.Module> AimModule = logQueryService.getAimModule(Integer.valueOf(uniqueId),opType,processName,processNum,regeditName,time);
         modelMap.put("AimModule", AimModule);
         if (AimModule.size() > 0) {
             modelMap.put("success", true);

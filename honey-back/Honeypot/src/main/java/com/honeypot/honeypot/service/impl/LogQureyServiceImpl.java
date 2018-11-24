@@ -3,6 +3,7 @@ package com.honeypot.honeypot.service.impl;
 import com.honeypot.honeypot.controller.LogQueryController;
 import com.honeypot.honeypot.dao.*;
 import com.honeypot.honeypot.entity.*;
+import com.honeypot.honeypot.entity.Module;
 import com.honeypot.honeypot.service.LogQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

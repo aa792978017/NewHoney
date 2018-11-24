@@ -1,6 +1,7 @@
 package com.honeypot.honeypot.service;
 
 import com.honeypot.honeypot.entity.*;
+import com.honeypot.honeypot.entity.Module;
 import org.apache.ibatis.annotations.Param;
 
 import javax.xml.crypto.Data;
@@ -178,5 +179,5 @@ public interface LogQueryService {
      * @param regeditName
      * @return
      * */
-    List<Module> getAimModule(Integer uniqueid,String opType,String processName,String processNum,String regeditName,String time);
+    List<Module> getAimModule(Integer uniqueid, String opType, String processName, String processNum, String regeditName, String time);
 }

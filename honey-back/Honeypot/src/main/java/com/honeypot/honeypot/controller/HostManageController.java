@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.honeypot.honeypot.entity.ModelUtil;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -394,26 +391,40 @@ public class HostManageController {
         BuildXmlUtil buildXmlUtil = new BuildXmlUtil();
 //		String pyPath = "C:\\Users\\DELL\\Desktop\\client.py";
 //		String xmlPath = "C:\\Users\\DELL\\Desktop\\xxx.xml";
-        String pyPath = "D:\\GitHub\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\client.py";
-        String xmlPath = "D:\\GitHub\\NewHoney\\honey-back\\Honeypot\\src\\main\\java\\com\\honeypot\\honeypot\\util\\xxx.xml";
+        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+      //  InputStream inputStream=this.getClass().getResourceAsStream("");
+
+       // System.out.println(inputStream);
+        String pyPath = path+"client.py";
+        String xmlPath ="xxx.xml";
+        System.out.println(pyPath);
+        System.out.println(xmlPath);
         for (Model m : models){
             buildXmlUtil.buildNode(m);
         }
         buildXmlUtil.buildXml(xmlPath);
+        System.out.println("进来了1");
         String[] command = new String[]{"python", pyPath, xmlPath};
         List<String> pythonResult = new ArrayList<>();
+        System.out.println("进来了2");
         try {
+            System.out.println("进来了3");
             Process process = Runtime.getRuntime().exec(command);
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = in.readLine()) != null && !"done".equals(line)) {
                 pythonResult.add(line);
             }
+            for (String result : pythonResult){
+                System.out.println("result"+result);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         String[] array = new String[7];
         for (String result : pythonResult){
+            System.out.println("进来了");
             System.out.println("result="+result);
             array = result.split(":");
             Pot pot = new Pot();
