@@ -381,21 +381,21 @@ public class HostManageController {
         return modelMap;
     }
 
-//    /**
-//     * 部署网络功能，需要调用client.py脚本
-//     * @return
-//     */
+    /**
+     * 部署网络功能，需要调用client.py脚本
+     * @return
+     */
     @PostMapping("/setNetWork")
     public String addPot(@RequestBody String modelName){
         List<Model> models =  modelService.getModelListByName(modelName);
         BuildXmlUtil buildXmlUtil = new BuildXmlUtil();
 //		String pyPath = "C:\\Users\\DELL\\Desktop\\client.py";
 //		String xmlPath = "C:\\Users\\DELL\\Desktop\\xxx.xml";
-        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-      //  InputStream inputStream=this.getClass().getResourceAsStream("");
+        //String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        //  InputStream inputStream=this.getClass().getResourceAsStream("");
 
-       // System.out.println(inputStream);
-        String pyPath = path+"client.py";
+        // System.out.println(inputStream);
+        String pyPath ="client.py";
         String xmlPath ="xxx.xml";
         System.out.println(pyPath);
         System.out.println(xmlPath);
@@ -403,10 +403,10 @@ public class HostManageController {
             buildXmlUtil.buildNode(m);
         }
         buildXmlUtil.buildXml(xmlPath);
-        System.out.println("进来了1");
+        //  System.out.println("进来了1");
         String[] command = new String[]{"python", pyPath, xmlPath};
         List<String> pythonResult = new ArrayList<>();
-        System.out.println("进来了2");
+        // System.out.println(command);
         try {
             System.out.println("进来了3");
             Process process = Runtime.getRuntime().exec(command);
@@ -422,7 +422,7 @@ public class HostManageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String[] array = new String[7];
+        String[] array = new  String[7];
         for (String result : pythonResult){
             System.out.println("进来了");
             System.out.println("result="+result);
