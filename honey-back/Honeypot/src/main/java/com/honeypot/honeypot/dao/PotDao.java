@@ -14,8 +14,7 @@ public interface PotDao {
      */
     List<Pot> getPotByType(@Param("type") String type);
     /**
-     * 通过蜜罐id获取蜜罐信息
-     * 根据蜜罐的IP获取蜜罐信息
+     * 通过蜜罐type获取蜜罐信息
      */
     List<Pot> getHostPotByType(@Param("type") String type);
     /**
@@ -28,7 +27,7 @@ public interface PotDao {
      * @param uniqueId
      * @return
      */
-    public boolean delPot(String uniqueId);
+    public boolean delPot(int uniqueId);
 
 //    /**
 //     * 增加蜜罐信息

@@ -23,8 +23,10 @@ public class HostHoneypotController {
     private PotService potService;
     @Autowired
     private HostManagementService hostManagementService;
+
     /**
      * 主机蜜罐-主机蜜罐管理信息页面
+     *
      * @return
      */
     @GetMapping("/getListHostPot")
@@ -32,12 +34,22 @@ public class HostHoneypotController {
     public List<Pot> listHostPot() {
         List<Pot> potList = potService.getHostPotByType("");   //暂时把type写死
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        modelMap.put("potList",potList);
+        modelMap.put("potList", potList);
         return potService.getHostPotByType("");
     }
 
     /**
      * 删除主机蜜罐
+     *
      * @return result
      */
+    @PostMapping("/deletepot")
+    @ResponseBody
+    public String deletepot(@RequestBody String id) {
+
+        System.out.println(id);
+        JSONObject jsonObject = JSONObject.parseObject(id);
+        return potService.deletepotbyid(jsonObject.getInteger("id"));
+
+    }
 }

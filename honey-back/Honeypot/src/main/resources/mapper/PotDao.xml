@@ -29,7 +29,7 @@
     WHERE type = "复合蜜罐" or type = "路由器蜜罐"
 </select>
     <select id="getHostPotByType" resultType="com.honeypot.honeypot.entity.Pot">
-        SELECT ip,uniqueId,domainId,type
+        SELECT *
         FROM pot
         WHERE  type = "win732" or type = "win764" or type = "centos"
 </select>
@@ -39,9 +39,9 @@
         WHERE ip LIKE #{ip}
     </select>
     <!-- 删除一个用户，根据id唯一确定来删除 -->
-    <delete id="delPot" parameterType="string">
+    <delete id="delPot" parameterType="int">
         DELETE
-        FROM ip
-        WHERE ip=#{ip}
+        FROM pot
+        WHERE id=#{id}
     </delete>
 </mapper>
