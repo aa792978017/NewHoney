@@ -30,8 +30,8 @@
     </select>
     <!-- 增加部门 -->
     <insert id="addDept" parameterType="com.honeypot.honeypot.entity.Department">
-        INSERT INTO department(id, dep_name, duty_name)
-        VALUES(#{id}, #{depName}, #{dutyName})
+        INSERT INTO department(dep_name, duty_name)
+        VALUES(#{depName}, #{dutyName})
     </insert>
     <!-- 删除部门，根据id唯一确定 -->
     <delete id="delDept" parameterType="string">

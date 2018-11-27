@@ -22,7 +22,7 @@ Vue.config.productionTip = false
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
-    if (sessionStorage.getItem('username') == '1') {
+    if (sessionStorage.getItem('username') !== 'superadmin') {
 
     }
     return config

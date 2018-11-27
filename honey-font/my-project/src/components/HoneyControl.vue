@@ -15,7 +15,7 @@
           type="card"
           @tab-click="handleClick">
           <!-- 用户管理 -->
-          <el-tab-pane label="用户管理">
+          <el-tab-pane label="用户管理" @tab-click="getAllUsers">
             <div class="tab-1">
               <div class="tab-1-1">
                 <el-row>
@@ -173,19 +173,20 @@
           </el-tab-pane>
 
           <!-- 配置管理 -->
-          <el-tab-pane label="配置管理">
+          <el-tab-pane label="配置管理" @tab-click="getAllDepts">
             <div class="tab-2">
               <div class="tab-2-1 left-nav">
                 <el-tabs tab-position="left" style="height: 500px;width: 100%">
 
-                  <el-tab-pane label="部门管理" >
+                  <el-tab-pane label="部门管理" @tab-click="getAllDepts">
                     <el-main style="width: 100%" >
                       <div  id="main1">
                         <el-row>
                           <el-input v-model="searchDept" class="inputType1" placeholder="请输入查询信息" style="width: 200px" clearable></el-input>
                           <el-button  class="button1" @click="fuzzyQueryDept">查询</el-button>
                           <el-button  class="button1" @click="dialogFormVisible2_0 = true">添加</el-button>
-                          <el-button  class="button1" @click="dialogFormVisible2_1 = true">修改</el-button>
+                          <!-- <el-button  class="button1" @click="dialogFormVisible2_1 = true">修改</el-button> -->
+                          <el-button  class="button1" @click="updateDept">修改</el-button>
                           <el-button  class="button1" @click="delDept">删除</el-button>
                         </el-row>
                         <el-container style="height:100%;" direction="vertrcal">
@@ -246,19 +247,20 @@
                             <el-dialog title="修改部门" :visible.sync="dialogFormVisible2_1"  >
                               <el-form :model="form2_1">
                                 <el-form-item label="部门" :label-width="formLabelWidth">
-                                  <el-select v-model="form2_1.department" placeholder="" >
+                                  <!-- <el-select v-model="form2_1.department" placeholder="" >
                                     <el-option v-for="dept in deptData" :key='dept.department' :label="dept.department"
                                                :value="dept.department" :disabled = true>
                                     </el-option>
-                                  </el-select>
+                                  </el-select> -->
+                                  <el-input v-model="form2_1.department" :placeholder="updateDepartment" :disabled="true"></el-input>
                                 </el-form-item>
                                 <el-form-item label="部门负责人" :label-width="formLabelWidth">
                                   <el-input v-model="form2_1.departmentman" placeholder=""></el-input>
                                 </el-form-item>
                               </el-form>
                               <div slot="footer" class="dialog-footer">
-                                <el-button class="button3" @click="dialogFormVisible2_1 = false">取 消</el-button>
-                                <el-button class="button2" @click="updateDept">确 定</el-button>
+                                <el-button class="button3" @click="cancelUpdateDept">取 消</el-button>
+                                <el-button class="button2" @click="confirmUpdateDept">确 定</el-button>
                               </div>
                             </el-dialog>
                           </el-main>
@@ -295,7 +297,7 @@
                       </div>
                     </el-main>
                   </el-tab-pane>
-                  <el-tab-pane label="安全配置"> <div id="main2">
+                  <el-tab-pane label="安全配置" @tab-click="getSystemSecurityConf"> <div id="main2">
 
                     <i class="el-icon-circle-plus-outline" style="margin-bottom: 5px"></i><span style="color: #909399;">安全配置</span>
                     <table class="td-1">
@@ -843,6 +845,7 @@
 </style>
 <script>
   import '../assets/css/new.css'
+
   export default {
     name: 'honey-admin',
     data () {
@@ -911,11 +914,13 @@
           desc: ''
         },
         formLabelWidth: '120px',
+
         dialogFormVisible2_0: false, // 添加部门对应对话框
         dialogFormVisible2_1: false, // 修改部门信息对应对话框
         // 用于存储每次获取的完整部门数据
         save_deptData: [],
         deptData: [], // 管理配置/部门管理的表格所需数据，并非完整数据，模糊查询时会修改此项
+        updateDepartment: '',
         // 添加部门对应的form
         form2: {
           department: '',
@@ -934,6 +939,7 @@
           resource: '',
           desc: ''
         },
+
         // 安全配置对应的四项数据，这四个初值没用，获取数据后覆盖掉
         num1: 2,
         num2: 2,
@@ -1021,7 +1027,7 @@
       // 检查密码长度是否合法，与系统安全配置中最短密码长度对应
       // 用于添加新用户，修改用户密码时候做检查
       checkPasswordLegal (password) {
-        if (password.length == this.num1) { return true } else { return false }
+        if (password.length >= this.num1) { return true } else { return false }
       },
       // 获取所有用户信息（除super、superadmin外）
       getAllUsers () {
@@ -1194,20 +1200,32 @@
       // 修改部门信息
       updateDept () {
         var that = this
-        var jsondata = {
-          'depName': this.form2_1.department,
-          'dutyName': this.form2_1.departmentman
+        if(this.multipleSelectionDept.length != 1) { alert('修改时请选择一项！') } else{
+          this.updateDepartment = this.multipleSelectionDept[0].department
+          this.dialogFormVisible2_1 = true
         }
-        this.$axios.post('/honeycontrol/updateDept', jsondata)
-          .then(function (response) {
-            alert(response.data['result'])
-            that.dialogFormVisible2_1 = false
-            // 清空数据
-            that.form2_1.department = ''
-            that.form2_1.departmentman = ''
-            // 获取最新数据
-            that.getAllDepts()
-          })
+      },
+      confirmUpdateDept () {
+        var that = this
+        var jsondata = {
+            'depName': this.updateDepartment,
+            'dutyName': this.form2_1.departmentman
+          }
+          this.$axios.post('/honeycontrol/updateDept', jsondata)
+            .then(function (response) {
+              alert(response.data['result'])
+              that.dialogFormVisible2_1 = false
+              // 清空数据
+              that.form2_1.department = ''
+              that.form2_1.departmentman = ''
+              // 获取最新数据
+              that.getAllDepts()
+            })
+      },
+      cancelUpdateDept () {
+        this.form2_1.department = ''
+        this.form2_1.departmentman = ''
+        this.dialogFormVisible2_1 = false
       },
       // 删除部门信息
       delDept () {

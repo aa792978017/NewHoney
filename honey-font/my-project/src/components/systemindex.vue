@@ -14,7 +14,7 @@
                       </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item><router-link to="updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
-                            <el-dropdown-item v-if="dialog"><router-link to="systemindex" style="text-decoration: none;" >注销账号</router-link></el-dropdown-item>
+                            <el-dropdown-item v-if="dialog"><a @click="loginOut" style="text-decoration: none;" >注销账号</a></el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <el-dropdown>
@@ -41,7 +41,7 @@
         <div class="page">
             <img class="logo"  src="../assets/elex.png"/>
         </div>
-        <div class="login">
+        <div class="login" v-if="wheatherLogin">
             <div class="first">
                 <img  class="name" src="../assets/name.png"/>
                 <el-input class="common_input" size="large" v-model="username" style="width:270px" ></el-input>
@@ -56,6 +56,10 @@
                 <el-button  type="danger" class="loginbutton" style="width:273px" @click="login" >&nbsp;&nbsp;&nbsp;&nbsp;登录&nbsp;&nbsp;&nbsp;</el-button>
             </div>
 
+        </div>
+        <div class="login" v-if="!wheatherLogin" style="color: #ffffff">
+            <p>已登入</p>
+            <router-link to="Checkstatus1"> 进入系统</router-link>
         </div>
     </div>
     <div class="footer-1" style=" float: bottom;">
@@ -225,19 +229,36 @@ export default {
           date: {},
           username: '',
           password: '',
-          identityName: '未登录'
+          identityName: '未登录',
+          wheatherLogin: true
         }
       },
-      beforeCreate () {
-        sessionStorage.clear()
-      },
+      // mounted () {
+      //   if (sessionStorage.getItem('username') !== null) {
+      //     this.wheatherLogin = false
+      //     console.log(this.wheatherLogin)
+      //   }
+      // },
       mounted: function () {
+        if (sessionStorage.getItem('username') !== null) {
+          this.wheatherLogin = false
+          this.dialog = true
+          this.identityName = sessionStorage.getItem('username')
+          console.log(this.wheatherLogin)
+        }
         var _this = this
         setInterval(function () {
           _this.date = new Date() // 修改数据date
         }, 1000)
       },
       methods: {
+        loginOut () {
+          this.dialog = !this.dialog
+          this.wheatherLogin = !this.wheatherLogin
+          this.identityName = '未登录'
+          sessionStorage.clear()
+          window.location.href = '#/Checkstatus1'
+        },
         // 用户登录
         login () {
           var that = this
@@ -247,7 +268,8 @@ export default {
           }
           this.$axios.post('/login', json).then(function (response) {
             if (response.data.statusCode === 200) {
-              sessionStorage.setItem('username', '1')
+              sessionStorage.setItem('username', response.data.username)
+              console.log(sessionStorage.getItem('username'))
               that.dialog = true
               alert('登录成功，准备跳转页面')
               if (response.data.authority === 1) {

@@ -6,16 +6,16 @@
 </template>
 
 <script>
-    import "./assets/css/new.css";
-    export default {
-        name: 'App'
+    import './assets/css/new.css'
+export default {
+      name: 'App'
     }
 </script>
 
 <style>
   html,body,#app {
-    max-width: 1920px;
-    max-height: 1080px;
+    max-width: 100%;
+    max-height: 100%;
     height: 100%;
     margin:0 auto;
     font-family: 'Microsoft Yahei' !important;

@@ -1,7 +1,7 @@
 <template>
     <el-container style="height:100%; width:100% ;overflow-y:hidden; " direction="vertrcal">
         <!--******************************* head -->
-        <el-header height=80px; >
+        <!--<el-header height=80px; >-->
       <div class="header-1">
 
           <p class="ps-1">
@@ -40,7 +40,7 @@
           </div>
 
 
-      </el-header>
+      <!--</el-header>-->
     <el-main class="ttt">
         <router-view></router-view>
     </el-main>
@@ -137,7 +137,7 @@
         text-align: right;
         background:url("../assets/back.jpg");
         /*color: rgb(252, 249, 249);*/
-        height: 80px;
+         height: 96px;
         font-family: "微软雅黑";
         width: 100%;
     }
@@ -217,11 +217,11 @@ export default {
         this.identityName = '普通用户[ComUser]'
       }
     },
-    // 清除用户名
-    cleanUserName () {
-      sessionStorage.setItem('username', '0')
-      window.location.href = '#/systemindex'
-    },
+    // // 清除用户名
+    // cleanUserName () {
+    //   sessionStorage.setItem('username', '0')
+    //   window.location.href = '#/systemindex'
+    // },
     // 获取用户信息
     getUser () {
       this.$axios.get('/getuser')
