@@ -43,6 +43,9 @@
                                         prop="warn"
                                         label="实时警告"
                                         width="300">
+                                    <template slot-scope="scope">
+                                        <span><span @click="getDetailWarn(scope.row.warnNum)">{{scope.row.warnNum}}</span>/{{scope.row.warn}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="time"
@@ -80,6 +83,86 @@
                             </div>
                         </el-dialog>
                         <!-- **************表格********* -->
+
+
+
+                        <el-dialog title="详细警告信息" :visible.sync="detailInfoDialog" style="width: 2000px;">
+                            <el-table
+                                    :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF',textAlign:center}"
+                                    height=274
+                                    row-style="30px"
+                                    cell-style="padding:0"
+                                    class="table1"
+                                    :data="detailInfo.slice((currentPageDetail-1)*pagesizeDetail,currentPageDetail*pagesizeDetail)"
+                                    style="width: 100%; ">
+                                <el-table-column
+                                        prop="id"
+                                        label="id"
+                                        width="80"
+                                        :index="indexMethod">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="uniqueId"
+                                        label="uniqueId"
+                                        width="150">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="opType"
+                                        label="opType"
+                                        width="100">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="processName1"
+                                        width="150"
+                                        label="processName1">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="Path"
+                                        width="150"
+                                        label="Path">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="processName2"
+                                        width="150"
+                                        label="processName2">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="time"
+                                        width="150"
+                                        label="创建时间">
+                                </el-table-column>
+                            </el-table>
+                            <div style="width: 100%;height:20px">
+                                <div class="p-page" style="font-size: 12px;padding-left: 10px">显示第{{(currentPageDetail-1) * pagesizeDetail +1}}到第{{((currentPageDetail * pagesizeDetail)<(detailInfo.length))?currentPageDetail * pagesizeDetail:detailInfo.length}}条记录
+                                    <span style="position: relative;left: 33px;font-size: 12px;">每页显示</span>
+                                    <el-select v-model="pagesizeDetail" slot="prepend" placeholder="" id="pagesize" style="width: 65px;height: 30px;border-radius: 0px;font-size: 12px;left: 35px;">
+                                        <el-option label="10" value="10"></el-option>
+                                        <el-option label="20" value="20"></el-option>
+                                    </el-select>
+                                    <span style="margin-left:2px;position: relative;left: 32px">条信息<span style="margin-left: 20px"></span></span>
+                                </div>
+
+                                <div style="float:right;margin-top:-30px;margin-right: 30px;">
+                                    <!-- *********************************分页按钮 -->
+                                    <el-pagination
+                                            background="#E95513"
+                                            prev-text="上一页"
+                                            next-text="下一页"
+                                            jumper-text="转到"
+                                            @size-change="handleSizeChangeDetail"
+                                            @current-change="handleCurrentChangeDetail"
+                                            :current-page="currentPageDetail"
+                                            :page-sizes="[10, 20]"
+                                            :page-size="pagesizeDetail"
+                                            :total="detailInfo.length"
+                                            layout="slot,prev, pager, next,total" >
+                                        <!-- <slot name="as">dddd</slot> -->
+                                    </el-pagination>
+                                </div>
+                            </div>
+                        </el-dialog>
+
+
                         <div class="main-1-1-2">
                             <el-table
                                     :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"
@@ -88,7 +171,7 @@
                                     cell-style="padding:0"
                                     class="table1"
                                     :data="newAlarmData"
-                                    style="width: 100%; ">
+                                    style="width: 100%; text-align: center">
                                 <el-table-column
                                         type="index"
                                         label="编号"
@@ -98,16 +181,19 @@
                                 <el-table-column
                                         prop="warnType"
                                         label="警告类型"
-                                        width="240">
+                                        width="250">
                                 </el-table-column>
                                 <el-table-column
                                         prop="warn"
                                         label="实时警告"
-                                        width="200">
+                                        width="250">
+                                    <template slot-scope="scope">
+                                        <span><span @click="getDetailWarn(scope.row.warnNum)">{{scope.row.warnNum}}</span>/{{scope.row.warn}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="time"
-                                        width="215"
+                                        width="150"
                                         label="创建时间">
                                 </el-table-column>
                             </el-table>
@@ -285,6 +371,9 @@
           currentPage: 1,
           jumper: 1,
           pagesize: 10,
+          currentPageDetail: 1,
+          jumperDetail: 1,
+          pagesizeDetail: 10,
           // 实施警告版更多页面是否显示
           moreAlarmInfoDisplay: false,
           // 一周警告走势
@@ -339,7 +428,9 @@
 
           // 总体走势表格数据
           chart3_timeList: [],
-          chart3_sumList: []
+          chart3_sumList: [],
+          detailInfo: [],
+          detailInfoDialog: false
 
         }
       },
@@ -357,6 +448,20 @@
         }, 1000)
       },
       methods: {
+        // 点击警告码获取详细警告信息
+        getDetailWarn (warnNum) {
+          var that = this
+          var json = {
+            'tempId': warnNum
+          }
+          this.$axios.post('/getDetailWarn', json).then(function (response) {
+            that.detailInfo = response.data
+            for (var i = 0; i < that.detailInfo.length; i++) {
+              that.detailInfo[i].time = that.detailInfo[i].time.substring(0, 10)
+            }
+          })
+          that.detailInfoDialog = true
+        },
         // 实时警告版获取更多警告信息
         getMoreWarnMsg () {
           var that = this
@@ -401,9 +506,15 @@
         handleSizeChange (size) {
           this.pagesize = size
         },
+        handleSizeChangeDetail (size) {
+          this.pagesizeDetail = size
+        },
         // 表格分页跳转
         handleCurrentChange (currentPage) {
           this.currentPage = currentPage
+        },
+        handleCurrentChangeDetail (currentPage) {
+          this.currentPageDetail = currentPage
         },
         // echart 图表绘制
         drawLine () {

@@ -160,14 +160,14 @@ public class WarningServiceImp implements WarningService {
             day = day.substring(day.indexOf("-")+1);
             day = day.substring(day.indexOf("-")+1);
             map.add(Integer.parseInt(day));
-            System.out.println("ddddd: " + num);
+
             map.add(num);
             calendar.setTime(today);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             today = calendar.getTime();
             numList.add(map);
         }
-        System.out.println(numList);
+
         Collections.reverse(numList);
         return numList;
     }
@@ -179,7 +179,7 @@ public class WarningServiceImp implements WarningService {
         while(warningSumList.size() > 8){
             warningSumList.remove(warningSumList.size() - 1);
         }
-        System.out.println(warningSumList.size());
+
         return warningSumList;
     }
 }

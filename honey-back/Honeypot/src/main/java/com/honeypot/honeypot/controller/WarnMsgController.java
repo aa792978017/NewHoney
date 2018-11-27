@@ -1,12 +1,15 @@
 package com.honeypot.honeypot.controller;
 
 import com.honeypot.honeypot.entity.AlarmInfoResult;
+import com.honeypot.honeypot.entity.AlarmextendInfo;
+import com.honeypot.honeypot.entity.Warning;
 import com.honeypot.honeypot.entity.WarningSum;
 import com.honeypot.honeypot.service.WarnMsgService;
 import com.honeypot.honeypot.service.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -125,6 +128,15 @@ public class WarnMsgController {
         return warnMsgService.getMoreWarnMsg();
     }
 
-
+    /**
+     * 实时警告版获取相信警告信息
+     * @param alarmextendInfo
+     * @return
+     * @throws ParseException
+     */
+    @PostMapping("/getDetailWarn")
+    public List<AlarmextendInfo>  getDetailInfo(@RequestBody AlarmextendInfo alarmextendInfo) throws ParseException {
+        return warnMsgService.getDetailInfo(alarmextendInfo.getTempId());
+    }
 
 }

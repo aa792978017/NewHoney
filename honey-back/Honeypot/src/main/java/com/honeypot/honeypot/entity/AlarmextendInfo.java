@@ -11,6 +11,15 @@ public class AlarmextendInfo {
     private String Path;
     private String processName2;
     private Date time;
+    private String warnTime;
+
+    public String getWarnTime() {
+        return warnTime;
+    }
+
+    public void setWarnTime(String warnTime) {
+        this.warnTime = warnTime;
+    }
 
     public int getId() {
         return id;

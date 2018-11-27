@@ -3,12 +3,15 @@ package com.honeypot.honeypot.service.impl;
 import com.honeypot.honeypot.dao.WarnMsgDao;
 import com.honeypot.honeypot.entity.AlarmInfo;
 import com.honeypot.honeypot.entity.AlarmInfoResult;
+import com.honeypot.honeypot.entity.AlarmextendInfo;
+import com.honeypot.honeypot.entity.Warning;
 import com.honeypot.honeypot.service.WarnMsgService;
 import com.honeypot.honeypot.util.AlarmInfoUtil;
 import com.honeypot.honeypot.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.DateFormat;
@@ -85,14 +88,17 @@ public class WarnMsgServiceImpl implements WarnMsgService {
 
     @Override
     public List<AlarmInfoResult> getNewWarnMsg() {
-        List<AlarmInfo> alarmInfoList = warnMsgDao.getNewWarnMsg();
+        List<Warning> warnings = warnMsgDao.getNewWarnMsg();
         List<AlarmInfoResult> alarmInfoResults = new ArrayList<>();
         DateFormat dateFormat = DateFormat.getDateInstance();
-        for (AlarmInfo alarmInfo : alarmInfoList){
+        for (Warning warning :warnings){
+//            List<AlarmextendInfo> alarmextendInfos = warnMsgDao.getAlarmextendInfoByMacAddress(warning.getMacAddress());
+            List<AlarmInfo> alarmInfos = warnMsgDao.getAlarmInfoByMacAddress(warning.getMacAddress());
             AlarmInfoResult alarmInfoResult = new AlarmInfoResult();
             alarmInfoResult.setWarnType("虚拟机警告");
-            alarmInfoResult.setWarn(AlarmInfoUtil.typeMap(alarmInfo));
-            alarmInfoResult.setTime(dateFormat.format(alarmInfo.getTime()));
+            alarmInfoResult.setWarn(AlarmInfoUtil.typeMap(alarmInfos.get(0)));
+            alarmInfoResult.setTime(dateFormat.format(warning.getWarnTime()));
+            alarmInfoResult.setWarnNum(String.valueOf(alarmInfos.get(0).getId()));
             alarmInfoResults.add(alarmInfoResult);
         }
         return alarmInfoResults;
@@ -100,18 +106,41 @@ public class WarnMsgServiceImpl implements WarnMsgService {
 
     @Override
     public List<AlarmInfoResult> getMoreWarnMsg() {
-        List<AlarmInfo> alarmInfoList = warnMsgDao.getMoreWarnMsg();
+        List<Warning> warnings = warnMsgDao.getMoreWarnMsg();
         List<AlarmInfoResult> alarmInfoResultList = new ArrayList<>();
         DateFormat dateFormat = DateFormat.getDateInstance();
         int i = 1;
-        for (AlarmInfo alarmInfo : alarmInfoList){
+        for (Warning warning :warnings){
+//            List<AlarmextendInfo> alarmextendInfos = warnMsgDao.getAlarmextendInfoByMacAddress(warning.getMacAddress());
+            List<AlarmInfo> alarmInfos = warnMsgDao.getAlarmInfoByMacAddress(warning.getMacAddress());
             AlarmInfoResult alarmInfoResult = new AlarmInfoResult();
-            alarmInfoResult.setIndex(i++);
             alarmInfoResult.setWarnType("虚拟机警告");
-            alarmInfoResult.setWarn(AlarmInfoUtil.typeMap(alarmInfo));
-            alarmInfoResult.setTime(dateFormat.format(alarmInfo.getTime()));
+            alarmInfoResult.setWarn(AlarmInfoUtil.typeMap(alarmInfos.get(0)));
+            alarmInfoResult.setTime(dateFormat.format(warning.getWarnTime()));
+            alarmInfoResult.setWarnNum(String.valueOf(alarmInfos.get(0).getId()));
             alarmInfoResultList.add(alarmInfoResult);
+            alarmInfoResult.setIndex(i++);
         }
+//        for (AlarmInfo alarmInfo : alarmInfoList){
+//            AlarmInfoResult alarmInfoResult = new AlarmInfoResult();
+//            alarmInfoResult.setIndex(i++);
+//            alarmInfoResult.setWarnType("虚拟机警告");
+//            alarmInfoResult.setWarn(AlarmInfoUtil.typeMap(alarmInfo));
+//            alarmInfoResult.setTime(dateFormat.format(alarmInfo.getTime()));
+//            alarmInfoResultList.add(alarmInfoResult);
+//        }
         return alarmInfoResultList;
+    }
+
+    @Override
+    public List<AlarmextendInfo> getDetailInfo(Integer tempId) throws ParseException {
+        List<AlarmextendInfo> alarmextendInfos = warnMsgDao.getDetailInfo(tempId);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = DateFormat.getDateInstance();
+//        for (AlarmextendInfo alarmextendInfo : alarmextendInfos) {
+//
+//            alarmextendInfo.setWarnTime(alarmextendInfo.getTime().toString().substring(0,11));
+//        }
+        return warnMsgDao.getDetailInfo(tempId);
     }
 }

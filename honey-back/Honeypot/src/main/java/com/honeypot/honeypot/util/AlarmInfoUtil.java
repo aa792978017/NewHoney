@@ -7,7 +7,7 @@ import com.honeypot.honeypot.entity.AlarmInfo;
  */
 public class AlarmInfoUtil {
     public static String typeMap(AlarmInfo alarmInfo){
-        String typeReturn = ""+alarmInfo.getId()+"/";
+        String typeReturn = "";
         switch (alarmInfo.getType()){
             case 1:
                 typeReturn += "启动自释放文件";

@@ -843,7 +843,6 @@
 </style>
 <script>
   import '../assets/css/new.css'
-
   export default {
     name: 'honey-admin',
     data () {
@@ -912,7 +911,6 @@
           desc: ''
         },
         formLabelWidth: '120px',
-
         dialogFormVisible2_0: false, // 添加部门对应对话框
         dialogFormVisible2_1: false, // 修改部门信息对应对话框
         // 用于存储每次获取的完整部门数据
@@ -936,7 +934,6 @@
           resource: '',
           desc: ''
         },
-
         // 安全配置对应的四项数据，这四个初值没用，获取数据后覆盖掉
         num1: 2,
         num2: 2,

@@ -4,6 +4,15 @@ public class AlarmInfoResult {
     private String warnType;
     private String time;
     private String warn;
+    private String warnNum;
+
+    public String getWarnNum() {
+        return warnNum;
+    }
+
+    public void setWarnNum(String warnNum) {
+        this.warnNum = warnNum;
+    }
 
     public int getIndex() {
         return index;

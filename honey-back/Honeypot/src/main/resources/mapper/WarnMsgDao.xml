@@ -11,10 +11,10 @@
         <result column="time" property="time"/>
     </resultMap>
 
-    <select id="getNewWarnMsg" resultType="com.honeypot.honeypot.entity.AlarmInfo">
-    SELECT id,`Type`,`time`
-    FROM alarminfo
-    where YEAR(`time`)=YEAR(NOW())
-    LIMIT 10
+    <select id="getNewWarnMsg" resultType="com.honeypot.honeypot.entity.Warning">
+        SELECT mac_address, flag, warn_time
+        FROM warning
+        ORDER BY warn_time DESC
+        LIMIT 10
     </select>
 </mapper>

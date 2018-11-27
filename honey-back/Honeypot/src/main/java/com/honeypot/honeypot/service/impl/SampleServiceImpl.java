@@ -15,11 +15,23 @@ public class SampleServiceImpl implements SampleService {
     private SampleDao sampleDao;
     @Override
     public List<Sample> getAllSample() {
-        return sampleDao.getAllSample();
+        List<Sample> sampleList = sampleDao.getAllSample();
+        for (Sample sample : sampleList) {
+            if (sample.getFilePath() == null) {
+                sample.setFilePath("www.baidu.com");
+            }
+        }
+        return sampleList;
     }
 
     @Override
     public List<Sample> getSampleByWords(String words) {
-        return sampleDao.getSample(words);
+        List<Sample> sampleList =  sampleDao.getSample(words);
+        for (Sample sample : sampleList) {
+            if (sample.getFilePath() == null) {
+                sample.setFilePath("www.baidu.com");
+            }
+        }
+        return sampleList;
     }
 }
