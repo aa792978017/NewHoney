@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.*;
 @Service
 public class PotServiceImpl implements PotService {
     @Autowired
@@ -29,7 +29,7 @@ public class PotServiceImpl implements PotService {
         List<Pot> potList = new ArrayList<Pot>();
         potList = potDao.getHostPotByType(type);
         for(int i = 0; i < potList.size();i++){
-            potList.get(i).setId(i+1);
+            potList.get(i);
         }
 
         return potList;
@@ -53,6 +53,12 @@ public class PotServiceImpl implements PotService {
     @Override
     public int addPot(Pot pot) {
         return potDao.addPot(pot);
+    }
+
+    @Override
+    public String deletepotbyid(int id){
+        potDao.delPot(id);
+        return "success";
     }
 
 }

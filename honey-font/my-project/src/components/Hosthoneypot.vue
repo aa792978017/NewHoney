@@ -27,13 +27,15 @@
                   cell-style="padding:0"
                   id="table11"
                   :data="admindata.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  style="width: 100%">
+                  style="width: 100%"
+                  >
                   <el-table-column
-                    prop="id"
+                    prop="num"
                     width="80"
                     label="编号"
                     :index="indexMethod">
                   </el-table-column>
+
                   <el-table-column
                     prop="ip"
                     label="IP"
@@ -56,10 +58,10 @@
                     prop="operater"
                     label="基本操作">
                     <template slot-scope="scope">
-                      <el-button
+                      <el-button 
                         type="text"
                         size="mini"
-                        @click="delHostPotFromHtml(admindata.uniqueId)">删除</el-button>
+                        @click="delHostPotFromHtml(scope.$index,admindata)">删除</el-button>
 
                     </template>
                   </el-table-column>
@@ -161,7 +163,7 @@
                     width="55">
                   </el-table-column>
                   <el-table-column
-                    prop="id"
+                    prop="num"
                     width="80"
                     label="编号"
                     :index="indexMethod">
@@ -732,7 +734,15 @@
                 times: '2018-5-21',
                 dialog: false,
                 show: true,
-                admindata: []
+                admindata: {
+                  id:'',
+                  uniqueId:'',
+                  ip:'',
+                  domainId:'',
+                  type:'',
+                  value:'',
+                  cpu:'',
+                }
 
             }
         },
@@ -754,7 +764,14 @@
                 var that = this
                 this.$axios.get('/getListHostPot')
                     .then(function (response) {
+                      //  console.log(response.data)
                         that.admindata = response.data
+                        // console.log(that.admindata)   
+                        for(var i=1;i<response.data.length+1;i++)
+                        {
+                          that.admindata[i-1].num=i
+                        }
+                       // console.log(that.admindata)
                     })
                     .catch(function (error) {
                         alert('handle error')
@@ -770,36 +787,30 @@
             handleCurrentChange (currentPage) {
                 this.currentPage = currentPage
             },
-            delectServer () {
-                var that = this
-                this.$axios.get('/delServer?id=' + that.multipleSelection[0].id).then(function (response) {
-                    alert('删除成功')
-                    that.getServer()
-                })
-            },
+        
             handleSelectionChange (val) {
                 this.multipleSelection = val
                 // alert(this.multipleSelection[0].id);
                 this.getUniqueId()
             },
-            getUniqueId () {
-                var that = this
-                sessionStorage.setItem('uniqueId', that.multipleSelection[0].uniqueId).then(function (response) {
-                    alert('请选择对应信息')
-                    that.getServer()
-                })
-            },
-           delHostPotFromHtml (uniqueId) {
-          //从前端删除
-            this.$confirm('此操作将永久删除用户,是否继续?', '提示', { type: 'warning' })             
-					  .then(() => {
-              this.$message({
-                      type: 'info',
-                      message: `已删除`});
-                      var index = this.admindata.indexOf(uniqueId)
-                      this.admindata.splice(index, 1);
-            });
-      },
+
+          delHostPotFromHtml (index,rowdata) { 
+            var that = this
+                var params = {
+                  id:''
+                }
+                params.id = rowdata[index].id
+                this.$axios.post("/deletepot",params)
+                  .then(function(response) {
+                        if(response.data==="success"){
+                          alert("删除成功")
+                          that.getListHostPot()
+                        }
+                        else{
+                          alert("删除失败")
+                        }
+                    })     
+          },
 
           /*this.$confirm('此操作将永久删除用户,是否继续?', '提示', { type: 'warning' }) 
           .then(() => { // 向请求服务端删除 

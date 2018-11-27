@@ -36,4 +36,6 @@ public interface PotService {
      */
     int addPot(Pot pot);
 
+    String deletepotbyid(int id);
+
 }
