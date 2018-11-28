@@ -1,26 +1,20 @@
 package com.honeypot.honeypot.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.honeypot.honeypot.dao.SystemSecurityConfDao;
-import com.honeypot.honeypot.entity.SystemSecurityConf;
 import com.honeypot.honeypot.entity.User;
 import com.honeypot.honeypot.service.LoginService;
 import com.honeypot.honeypot.service.SystemSecurityConfService;
 import com.honeypot.honeypot.service.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +53,7 @@ public class LoginController {
         // /返回最终结果给前端
         modelMap = loginService.checkUserNameAndPassword(nowUser,systemSecurityConfs, password);
         modelMap.put("success", true);
+        modelMap.put("username",nowUser.getUsername());
         modelMap.put("authority", nowUser.getAuthority());
         return modelMap;
     }

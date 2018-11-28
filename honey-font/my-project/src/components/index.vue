@@ -10,7 +10,7 @@
                   <span class="el-dropdown-link" >
                       <span class="smallpeople">
                         <img src="../assets/smallpeople.png"/></span>
-                        <span style="color:grey ;font-size:14pt">系统管理员[SysAdmin]</span>&nbsp;&nbsp;
+                        <span style="color:grey ;font-size:14pt">{{identityName}}</span>&nbsp;&nbsp;
                   </span>
                    <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>修改密码</el-dropdown-item>
@@ -200,23 +200,36 @@ export default {
   data () {
     return {
       date: {},
-      identityName: ''
+      identityName: '未登录'
     }
   },
   mounted () {
-    this.setUserType()
+    this.$nextTick(function () {
+      if (sessionStorage.getItem('username') !== null) {
+        console.log(sessionStorage.getItem('username'))
+        this.identityName = sessionStorage.getItem('username')
+      }
+    })
+
+    var _this = this
+    setInterval(function () {
+      _this.date = new Date() // 修改数据date
+    }, 1000)
   },
   method: {
     // 设置身份信息
-    setUserType () {
-      var j = 1
-      alert(j)
-      if (j) {
-        this.identityName = '系统管理员[SysAdmin]'
-      } else {
-        this.identityName = '普通用户[ComUser]'
-      }
-    },
+    // setUserType () {
+    //   if (sessionStorage.getItem('username') !== null) {
+    //     this.identityName = sessionStorage.getItem('username')
+    //   }
+    //   // var j = 1
+    //   // alert(j)
+    //   // if (j) {
+    //   //   this.identityName = '系统管理员[SysAdmin]'
+    //   // } else {
+    //   //   this.identityName = '普通用户[ComUser]'
+    //   // }
+    // },
     // // 清除用户名
     // cleanUserName () {
     //   sessionStorage.setItem('username', '0')
@@ -234,12 +247,7 @@ export default {
         })
     }
   },
-  mounted () {
-    var _this = this
-    setInterval(function () {
-      _this.date = new Date() // 修改数据date
-    }, 1000)
-  },
+
   // 获取当前日期
   filters: {
     formatDate (time) {
