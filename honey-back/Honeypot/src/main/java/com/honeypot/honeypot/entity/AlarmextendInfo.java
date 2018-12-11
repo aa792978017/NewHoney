@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class AlarmextendInfo {
     private int id;
-    private int uniqueId;
-    private int tempId;
+    private long uniqueId;
+    private long tempId;
     private int opType;
     private String processName1;
     private String Path;
@@ -29,19 +29,19 @@ public class AlarmextendInfo {
         this.id = id;
     }
 
-    public int getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 
-    public void setUniqueId(int uniqueId) {
+    public void setUniqueId(long uniqueId) {
         this.uniqueId = uniqueId;
     }
 
-    public int getTempId() {
+    public long getTempId() {
         return tempId;
     }
 
-    public void setTempId(int tempId) {
+    public void setTempId(long tempId) {
         this.tempId = tempId;
     }
 

@@ -28,9 +28,9 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </p>
-                <div class="lefttop"style="overflow: hidden;height: 78px">
+                <div class="lefttop"style="overflow: hidden;height: 78px;margin-right: 500px">
                     <!--<img src="../assets/lefttop.png"/>-->
-                    <img src="../assets/elex.png" style="width:348px;height: 110px;margin-left: 5px;overflow-y: hidden"/>
+                    <img src="../assets/elex.png" style="width:333px;height: 77px;margin-left: 5px;overflow-y: hidden"/>
                 </div>
                 <!-- <i class="el-icon-minus"></i> <i class="el-icon-close"></i>     减号和X号 -->
             </div>
@@ -38,18 +38,21 @@
 
 
 
-        <div class="page">
-            <img class="logo"  src="../assets/elex.png"/>
+        <!--<div class="page">-->
+            <!--<img class="logo"  src="../assets/elex.png"/>-->
+        <!--</div>-->
+        <div style="float:right    ">
+        <img src="../assets/biaoti.png" style="width: 333px;height: 77px;padding-top: 110px;padding-right: 144px;"/>
         </div>
         <div class="login" v-if="wheatherLogin">
             <div class="first">
-                <img  class="name" src="../assets/name.png"/>
+                <img  class="name" src="../assets/name.png" style=""/>
                 <el-input class="common_input" size="large" v-model="username" style="width:270px" ></el-input>
-            </div>
+        </div>
 
             <div class="second">
-                <img  class="password" src="../assets/password.png"/>
-                <el-input class="common_input" v-model="password" style="width:270px;top: -4px;left: -6px" type="password"></el-input>
+                <img  class="password" src="../assets/password.png" style=""/>
+                <el-input class="common_input" v-model="password" style="width:270px;top:5px" type="password"></el-input>
             </div>
 
             <div class="ss">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -91,36 +94,40 @@
     .loginbutton{
         background-color:#e95513;
         color: #eeeeee;
+        margin-top: 20px;
     }
 
     .biggest{
+        background:url("../assets/indexbackground.png");
         width:100%;
         height:100%;
-        background:url("../assets/back.jpg");
     }
     .page{
         position: relative;
         top:120px;
     }
     .login{
+        /*background:url("../assets/indexbackground.png");*/
         position: relative;
-        left:1300px;
-        top:150px;
+        left: 1238px;
+        top: 326px;
     }
     .name{
         position: relative;
         top:18px;
+        width: 40px;height: 40px
     }
     .password{
         position: relative;
         top:20px;
-        right:8px;
+        right:1px;
+        width: 40px;height: 40px
     }
 
     .ss{
         position: relative;
         top:15px;
-        left:30px;
+        left:29px;
     }
     html {
         overflow-y:hidden;
@@ -257,6 +264,7 @@ export default {
           this.wheatherLogin = !this.wheatherLogin
           this.identityName = '未登录'
           sessionStorage.clear()
+          console.log(sessionStorage.getItem('username'))
           window.location.href = '#/Checkstatus1'
         },
         // 用户登录

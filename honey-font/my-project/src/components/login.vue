@@ -4,7 +4,7 @@
 <el-container style="height:100%;" direction="vertrcal">
 <el-main>
 
-      <img class="logo"  src="../assets/elex.png"/>
+      <img class="logo"  src="../assets/elex.png" />
         <div class="login">
             <div>
             <img  class="name" src="../assets/name.png"/>
@@ -39,12 +39,11 @@
     margin-top: 50px;
 }
 .login{
+
     float:right;
     margin-top: 400px;
      position: relative;
-    right:100px;
     /*margin-left: 1250px;*/
-
 }
 .name{
    position: relative;

@@ -15,7 +15,7 @@ spring:
           #基本属性
 
 
-          url: jdbc:mysql://localhost:3306/honey?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=America/New_York
+          url: jdbc:mysql://167.179.76.104:3306/atad?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=America/New_York
 
           username: root
           password: 123456

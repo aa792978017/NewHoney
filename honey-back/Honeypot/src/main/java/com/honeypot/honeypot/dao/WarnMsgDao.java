@@ -53,5 +53,5 @@ public interface WarnMsgDao {
      * @return
      */
     @Select("SELECT * from alarmextendinfo where TempId = #{tempId}")
-    List<AlarmextendInfo> getDetailInfo(Integer tempId);
+    List<AlarmextendInfo> getDetailInfo(long tempId);
 }

@@ -19,7 +19,7 @@
           <el-tab-pane
             label="主机蜜罐管理">
             <div class="tab-1">
-              <div class="tab-1-2" >
+              <div class="tab-1-2">
                 <el-table
                   :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"
                   class="table1"
@@ -105,42 +105,42 @@
                   active-text-color="#E95513"
                   default-active="$route.name"
                   class="el-menu-vertical"
-
+                  @select="handleSelect"
                   @open="handleOpen"
                   @close="handleClose"
                   style="width: 250px;height:100%;background: #f2f2f2; ">
-                  <el-menu-item  class="left-nav" index="test" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 启动自释放文件</span>
+                  <el-menu-item index="1">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" /> 启动自释放文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="2" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 注册服务动态库</span>
+                  <el-menu-item index="2">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" /> 注册服务动态库</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="3" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   添加系统防火墙放过列表</span>
+                  <el-menu-item index="3">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   添加系统防火墙放过列表</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="4" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   禁止服务</span>
+                  <el-menu-item index="4">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   禁止服务</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="5" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   降低系统安全性</span>
+                  <el-menu-item index="5">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   降低系统安全性</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="6" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   修改注册表自启动项</span>
+                  <el-menu-item index="6" >
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   修改注册表自启动项</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="7" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   释放PE文件</span>
+                  <el-menu-item index="7">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   释放PE文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="8" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   入侵进程</span>
+                  <el-menu-item index="8">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   入侵进程</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="9">
-                    <span slot="title"  @click="show2 = flase"><img src="../assets/arrow3.png" class="arrow" />   自我删除</span>
+                  <el-menu-item index="9">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   自我删除</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="10" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   利用互斥量</span>
+                  <el-menu-item index="10">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   利用互斥量</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="11" @click="show2 = flase">
-                    <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   伪装系统服务</span>
+                  <el-menu-item index="11">
+                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   伪装系统服务</span>
                   </el-menu-item>
 
                 </el-menu>
@@ -148,7 +148,7 @@
               </el-aside>
 
               <el-main class="tab-main" >
-                 <div class="tab-1-2"   v-if="show2">
+                 <div class="tab-1-2"   v-if="show">
                 <el-table
                   :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"
                   class="table1"
@@ -294,7 +294,7 @@
                     width="55">
                   </el-table-column>
                   <el-table-column
-                    prop="num"
+                    prop="id"
                     width="80"
                     label="编号"
                     :index="indexMethod">
@@ -734,7 +734,6 @@
                 times: '2018-5-21',
                 dialog: false,
                 show: true,
-                show2:true,
                 admindata: {
                   id:'',
                   uniqueId:'',
@@ -791,7 +790,7 @@
         
             handleSelectionChange (val) {
                 this.multipleSelection = val
-                //alert(this.multipleSelection[0].id);
+                // alert(this.multipleSelection[0].id);
                 this.getUniqueId()
             },
 
@@ -812,6 +811,53 @@
                         }
                     })     
           },
+
+          /*this.$confirm('此操作将永久删除用户,是否继续?', '提示', { type: 'warning' }) 
+          .then(() => { // 向请求服务端删除 
+             var resource = this.$resource(this.url + "{/uniqueId}"); 
+             var params = {uniqueId:admindata.unqueId}; 
+             axios.post("/delHostPot", qs.stringify(params))
+                 .then((response) => { 
+                    this.$message.success('成功删除了用户' + user.username + '!');    
+                    this.getUsers(); }) 
+                 .catch((response) => { 
+                    this.$message.error('删除失败!'); 
+                  }); 
+          }) .catch(() => { 
+              this.$message.info('已取消操作!');
+             }); 
+
+        },
+    }*/
+      /*delHostPot(uniqueId){
+        this.$alert('是否删除这条记录', '信息删除', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',              
+          callback: action => {
+            var params = {
+            uniqueId: admindata.uniqueId
+            };
+            axios.post("/delHostPot", qs.stringify(params)).then((result) => {
+                console.info(result);
+                  if (result.data.success) {
+                    this.$message({
+                      type: 'info',
+                      message: `已删除`
+                    });
+                  } 
+                  else {
+                    this.$message({
+                      type: 'info',
+                      message: `删除失败`
+                    });
+                  }
+          //    this.getListHostPot();
+            });
+ 
+          }
+        });
+      },*/
   }
 }
 </script>

@@ -28,9 +28,9 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </p>
-                    <div class="lefttop"style="overflow: hidden;height: 78px">
+                    <div class="lefttop"style="overflow: hidden;height: 78px;margin-right: 500px">
                         <!--<img src="../assets/lefttop.png"/>-->
-                        <img src="../assets/elex.png" style="width:348px;height: 110px;margin-left: 5px;overflow-y: hidden"/>
+                        <img src="../assets/elex.png" style="width:333px;height: 77px;margin-left: 5px;overflow-y: hidden"/>
                     </div>
                     <!-- <i class="el-icon-minus"></i> <i class="el-icon-close"></i>     减号和X号 -->
                 </div>
@@ -38,10 +38,10 @@
 
 
 
-            <div class="page">
-                <img class="logo"  src="../assets/elex.png"/>
-            </div>
-            <div class="login" >
+            <!--<div class="page">-->
+                <!--<img class="logo"  src="../assets/elex.png"/>-->
+            <!--</div>-->
+            <div class="login"  >
                 <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
                     <el-form-item label="用户名" prop="username" >
                         <el-input v-model.number="ruleForm2.username" style="width: 400px;height: 40px;color: #E95513"></el-input>
@@ -97,9 +97,9 @@
     }
 
     .biggest{
+        background:url("../assets/indexbackground.png");
         width:100%;
         height:100%;
-        background:url("../assets/back.jpg");
     }
     .page{
         position: relative;
@@ -108,11 +108,12 @@
     .login{
         position: relative;
         left:1100px;
+        margin-top: 280px;
         /*top:px;*/
     }
     .name{
         position: relative;
-        top:18px;
+
     }
     .password{
         position: relative;
@@ -278,9 +279,9 @@
           }
         }
   },
-      beforeCreate () {
-        sessionStorage.setItem('username', '0')
-      },
+      // beforeCreate () {
+      //   sessionStorage.setItem('username', '0')
+      // },
       mounted: function () {
         var _this = this
         setInterval(function () {

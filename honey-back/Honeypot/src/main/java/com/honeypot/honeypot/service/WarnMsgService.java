@@ -34,5 +34,5 @@ public interface WarnMsgService {
      * @param tempId
      * @return
      */
-    List<AlarmextendInfo> getDetailInfo(Integer tempId) throws ParseException;
+    List<AlarmextendInfo> getDetailInfo(long tempId) throws ParseException;
 }

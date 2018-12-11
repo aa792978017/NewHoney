@@ -32,6 +32,8 @@ public class WarnMsgServiceImpl implements WarnMsgService {
         alarmInfos = warnMsgDao.getWarnMsgNum();
         DateFormat dateFormat = DateFormat.getDateInstance();
         String now = dateFormat.format(new Date());
+        System.out.println("测试");
+        System.out.println(now);
         int warnDayOne = 0;
         int warnDayTwo = 0;
         int warnDayThree = 0;
@@ -133,7 +135,7 @@ public class WarnMsgServiceImpl implements WarnMsgService {
     }
 
     @Override
-    public List<AlarmextendInfo> getDetailInfo(Integer tempId) throws ParseException {
+    public List<AlarmextendInfo> getDetailInfo(long tempId) throws ParseException {
         List<AlarmextendInfo> alarmextendInfos = warnMsgDao.getDetailInfo(tempId);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat dateFormat = DateFormat.getDateInstance();

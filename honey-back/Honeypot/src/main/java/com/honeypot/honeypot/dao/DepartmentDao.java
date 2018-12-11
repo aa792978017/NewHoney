@@ -32,7 +32,7 @@ public interface DepartmentDao {
      * @param newDepartment
      * @return
      */
-    public boolean addDept(@Param("newDepartment") Department newDepartment);
+    public boolean addDept(Department newDepartment);
 
     /**
      * 删除部门

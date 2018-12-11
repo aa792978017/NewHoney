@@ -16,18 +16,20 @@ public class DateUtil {
      */
     public static String getSpecifiedDayBefore(String specifiedDay, int n){
 
-        StringBuilder stringBuilder = new StringBuilder(specifiedDay);
-        stringBuilder.setCharAt(4,'-');
-        stringBuilder.setCharAt(7,'-');
-        specifiedDay = stringBuilder.substring(0,10);
-        System.out.println(specifiedDay);
+//        StringBuilder stringBuilder = new StringBuilder(specifiedDay);
+//        stringBuilder.setCharAt(4,'-');
+//        stringBuilder.setCharAt(7,'-');
+//        specifiedDay = stringBuilder.substring(0,10);
+//        System.out.println(specifiedDay);
         Calendar c = Calendar.getInstance();
         Date date=null;
+
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         c.setTime(date);
         int day=c.get(Calendar.DATE);
         c.set(Calendar.DATE,day-n);
