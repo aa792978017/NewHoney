@@ -18,7 +18,7 @@
                         <div class="tab-1">
                             <div class="tab-1-1">
                                 <el-button  class="button4"  @click="dialogText1 = true">添加模板</el-button>
-                                <el-dialog title="添加模板" :visible.sync="dialogText1" class="set-net">
+                                <el-dialog title="添加模板" :visible.sync="dialogText1" class="set-net" @close="closeView">
 
 
                                     <div style="position: relative;left: 50px;margin-bottom: 20px">
@@ -27,7 +27,7 @@
                                     </div>
 
 
-                                    <el-form :model="form" v-for="form in forms" :key="form.ip">
+                                    <el-form :model="form" v-for="(form , index) in forms" >
                                         <div>
                                             <el-form-item label="IP" :label-width="formLabelWidth">
                                                 <el-input v-model="form.ip" auto-complete="off" style="display: inline-block;width: 70%"></el-input>
@@ -61,7 +61,7 @@
                                                     </el-option>
                                                 </el-select>
                                                 <img src="../assets/加号.png" @click=" addHoneypot" style="width: 31px;height: 31px;display: inline-block;position: relative;top: 12px;left: 20px"/>
-                                                <img src="../assets/减号.png" @click=" delHoneypot" style="width: 28px;height: 28px;display: inline-block;position: relative;top: 10px;left: 20px"/>
+                                                <img src="../assets/减号.png" @click=" delHoneypot(index)" style="width: 28px;height: 28px;display: inline-block;position: relative;top: 10px;left: 20px"/>
                                             </el-form-item>
                                         </div>
                                     </el-form>
@@ -689,7 +689,6 @@ export default {
       },
 
       mounted () {
-
       },
 
       methods: {
@@ -724,9 +723,9 @@ export default {
           this.selectModuleData = json
         },
         // 删除一个蜜罐模板
-        delHoneypot () {
+        delHoneypot (index) {
           if (this.forms.length > 1) {
-            this.forms.pop()
+            this.forms.splice(index, 1)
           }
         },
         // 添加一个蜜罐模板
@@ -842,11 +841,10 @@ export default {
         delectModel () {
           var that = this
           var jsonDelectId = []
-          alert(this.multipleSelection.length)
           for (var i = 0; i < this.multipleSelection.length; i++) {
-            jsonDelectId.push(this.multipleSelection[i].models[0].id)
+            jsonDelectId.push(this.multipleSelection[i].models[0].name)
           }
-          this.$axios.post('/delectModel', jsonDelectId).then(function (response) {
+          this.$axios.post('/delectModelByName', jsonDelectId).then(function (response) {
             if (response.data) {
               alert('删除成功')
               that.getModel()

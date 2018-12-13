@@ -28,6 +28,13 @@ public interface ModelDao {
     int delectModel(@Param("id") Integer id);
 
     /**
+     * 根据模板名字删除模板信息
+     * @param
+     * @return
+     */
+    int delectModelByName(@Param("name") String name);
+
+    /**
      * 通过modelName查找模板信息
      * @param modelName
      * @return

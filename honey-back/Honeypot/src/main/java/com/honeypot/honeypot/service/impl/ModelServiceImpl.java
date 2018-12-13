@@ -63,6 +63,13 @@ public class ModelServiceImpl implements ModelService {
         return modelDao.delectModel(id);
     }
 
+
+    @Override
+    @Transactional
+    public int delectModelByName(String name) {
+        return modelDao.delectModelByName(name);
+    }
+
     @Override
     public ArrayList<Model> getModelListByName(String modelName) {
         return (ArrayList<Model>) modelDao.getModelListByName(modelName);

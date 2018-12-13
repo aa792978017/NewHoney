@@ -380,7 +380,27 @@ public class HostManageController {
         }
         return modelMap;
     }
-
+    /**
+     * 通过模板名字删除模板
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delectModelByName", method = RequestMethod.POST)
+    public JSONObject delectModelByName(@RequestBody ArrayList<String> arrayList){
+        JSONObject modelMap = new JSONObject();
+        int sum = 0;
+        for (String name: arrayList) {
+            modelService.delectModelByName(name);
+            sum++;
+        }
+        if (sum == arrayList.size()) {
+            modelMap.put("success",true);
+        } else {
+            modelMap.put("success",false);
+        }
+        return modelMap;
+    }
     /**
      * 部署网络功能，需要调用client.py脚本
      * @return

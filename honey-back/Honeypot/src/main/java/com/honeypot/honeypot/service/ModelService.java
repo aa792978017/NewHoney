@@ -27,6 +27,15 @@ public interface ModelService {
      */
     int delectModel(Integer id);
 
+
+    /**
+     * 通过模板名字删除模板
+     * @param name
+     * @return
+     */
+    int delectModelByName(String name);
+
+
     /**
      * 通过模板名字查找模板信息
      * @return

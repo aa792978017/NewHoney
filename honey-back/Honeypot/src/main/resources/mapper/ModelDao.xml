@@ -17,6 +17,12 @@
         WHERE id = #{id}
     </delete>
 
+    <delete id="delectModelByName">
+        DELETE FROM
+        model
+        WHERE name = #{name}
+    </delete>
+
     <select id="getModelList" resultType="com.honeypot.honeypot.entity.Model">
         SELECT *
         FROM model
