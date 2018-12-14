@@ -78,7 +78,7 @@
                                         <el-button
                                           type="text"
                                           size="mini"
-                                          @click="dialog = true"><router-link :to="scope.row.filePath" style="text-decoration: none;color: #E95513">下载</router-link>  详情</el-button>
+                                          @click="dialog = true"><router-link :to="scope.row.filePath"  target="_blank" style="text-decoration: none;color: #E95513 ">下载</router-link>  详情</el-button>
                                         <el-dialog title="查看更多" :visible.sync="dialog">
                                           <el-table
                                             :header-cell-style="{background:'#E95513',padding:0,color:'#FFFFFF'}"

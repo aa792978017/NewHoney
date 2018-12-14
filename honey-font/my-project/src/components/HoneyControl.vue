@@ -13,9 +13,10 @@
           class="tabs-1"
           :tab-position="top"
           type="card"
-          @tab-click="handleClick">
+          @tab-click="checkSystemSecurityConf"
+          >
           <!-- 用户管理 -->
-          <el-tab-pane label="用户管理" @tab-click="getAllUsers">
+          <el-tab-pane label="用户管理">
             <div class="tab-1">
               <div class="tab-1-1">
                 <el-row>
@@ -110,7 +111,7 @@
                     </el-form-item>
                   </el-form>
                   <div slot="footer" class="dialog-footer">
-                    <el-button class="button3" @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button class="button3" @click="cancelAddUser">取 消</el-button>
                     <el-button class="button2" @click="addUser">确 定</el-button>
                   </div>
                 </el-dialog>
@@ -173,12 +174,12 @@
           </el-tab-pane>
 
           <!-- 配置管理 -->
-          <el-tab-pane label="配置管理" @tab-click="getAllDepts">
+          <el-tab-pane label="配置管理">
             <div class="tab-2">
               <div class="tab-2-1 left-nav">
-                <el-tabs tab-position="left" style="height: 500px;width: 100%">
+                <el-tabs tab-position="left" style="height: 500px;width: 100%" @tab-click="checkSystemSecurityConf">
 
-                  <el-tab-pane label="部门管理" @tab-click="getAllDepts">
+                  <el-tab-pane label="部门管理">
                     <el-main style="width: 100%" >
                       <div  id="main1">
                         <el-row>
@@ -238,7 +239,7 @@
                                 </el-form-item>
                               </el-form>
                               <div slot="footer" class="dialog-footer">
-                                <el-button class="button3" @click="dialogFormVisible2_0 = false">取 消</el-button>
+                                <el-button class="button3" @click="cancelAddDept">取 消</el-button>
                                 <el-button class="button2" @click="addDept">确 定</el-button>
                               </div>
                             </el-dialog>
@@ -297,25 +298,25 @@
                       </div>
                     </el-main>
                   </el-tab-pane>
-                  <el-tab-pane label="安全配置" @tab-click="getSystemSecurityConf"> <div id="main2">
+                  <el-tab-pane label="安全配置"> <div id="main2">
 
                     <i class="el-icon-circle-plus-outline" style="margin-bottom: 5px"></i><span style="color: #909399;">安全配置</span>
                     <table class="td-1">
                       <tr >
                         <td >用户密码最小长度(位)</td>
-                        <td ><el-input-number v-model="num1" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
+                        <td ><el-input-number v-model="password_length" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
                       </tr>
                       <tr>
                         <td>登录错误最大尝试错误(次)</td>
-                        <td><el-input-number v-model="num2" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
+                        <td><el-input-number v-model="try_times" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
                       </tr>
                       <tr>
                         <td>密码失效最小周期(天)</td>
-                        <td><el-input-number v-model="num3" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
+                        <td><el-input-number v-model="password_period" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
                       </tr>
                       <tr>
                         <td>用户被冻结最小时间(分钟)</td>
-                        <td><el-input-number v-model="num4" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
+                        <td><el-input-number v-model="lock_period" size="mini" controls-position="right" @change="handleChange" :min="1" :max="100" style="width: 250px"></el-input-number></td>
                       </tr>
 
                     </table>
@@ -940,12 +941,16 @@
           desc: ''
         },
 
-        // 安全配置对应的四项数据，这四个初值没用，获取数据后覆盖掉
-        num1: 2,
-        num2: 2,
-        num3: 2,
-        num4: 2
-
+        // 对应安全配置用于显示的四项数据，这四个初值没用，获取数据后覆盖掉
+        password_length: 2,
+        try_times: 2,
+        password_period: 2,
+        lock_period: 2,
+        // 以下四项存储数据库中的值
+        save_password_length: 2,
+        save_try_times: 2,
+        save_password_period: 2,
+        save_lock_period: 2
       }
   },
     mounted: function () {
@@ -1027,7 +1032,7 @@
       // 检查密码长度是否合法，与系统安全配置中最短密码长度对应
       // 用于添加新用户，修改用户密码时候做检查
       checkPasswordLegal (password) {
-        if (password.length >= this.num1) { return true } else { return false }
+        if (password.length >= this.password_length) { return true } else { return false }
       },
       // 获取所有用户信息（除super、superadmin外）
       getAllUsers () {
@@ -1042,7 +1047,7 @@
       },
       // 添加用户
       addUser () {
-        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form.password)) { alert('密码长度至少为' + this.num1 + '位') } else {
+        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form.password)) { alert('密码长度至少为' + this.password_length + '位') } else {
           var jsondata =
                       {
                         'username': this.form.name,
@@ -1068,6 +1073,15 @@
             })
         }
       },
+      cancelAddUser() {
+        this.form.name = ''
+        this.form.password = ''
+        this.form.password1 = ''
+        this.form.truename = ''
+        this.form.role = ''
+        this.form.department = ''
+        this.dialogFormVisible = false
+      },
       // 修改用户信息
       updateUser () {
         var that = this
@@ -1080,7 +1094,7 @@
       // 确认修改
       confirmUpdateUser () {
         var that = this
-        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form1.newpassword)) { alert('密码长度至少为' + this.num1 + '位') } else {
+        if (this.form1.newpassword != this.form1.newpassword1) { alert('两次密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form1.newpassword)) { alert('密码长度至少为' + this.password_length + '位') } else {
           var jsondata =
                       {
                         // 后端根据用户名唯一确定要修改的用户
@@ -1197,6 +1211,11 @@
             })
         }
       },
+      cancelAddDept() {
+        this.form2.department = ''
+        this.form2.departmentman = ''
+        this.dialogFormVisible2_0 = false
+      },
       // 修改部门信息
       updateDept () {
         var that = this
@@ -1271,11 +1290,16 @@
         this.$axios.get('/honeycontrol/getSystemSecurityConf')
           .then(function (response) {
             var jsondata = response.data
-            // num1 - num4 分别对应四项安全配置
-            that.num1 = jsondata.password_length
-            that.num2 = jsondata.try_times
-            that.num3 = jsondata.password_period
-            that.num4 = jsondata.lock_period
+            // password_length - lock_period 分别对应四项安全配置
+            that.password_length = jsondata.password_length
+            that.try_times = jsondata.try_times
+            that.password_period = jsondata.password_period
+            that.lock_period = jsondata.lock_period
+
+            that.save_password_length = that.password_length
+            that.save_try_times = that.try_times
+            that.save_password_period = that.password_period
+            that.save_lock_period = that.lock_period
           })
       },
       // 修改系统安全配置
@@ -1284,10 +1308,10 @@
         // json的key与数据库system_security_conf表中的名称对应
         // 方便后端处理
         var jsondata = {
-          'password_length': this.num1,
-          'try_times': this.num2,
-          'password_period': this.num3,
-          'lock_period': this.num4
+          'password_length': this.password_length,
+          'try_times': this.try_times,
+          'password_period': this.password_period,
+          'lock_period': this.lock_period
         }
         this.$axios.post('/honeycontrol/updateSystemSecurityConf', jsondata)
           .then(function (response) {
@@ -1295,6 +1319,14 @@
             // 获取最新数据
             that.getSystemSecurityConf()
           })
+      },
+      checkSystemSecurityConf() {
+        if (this.password_length != this.save_password_length || this.try_times != this.save_try_times || this.password_period != this.save_password_period ||
+          this.lock_period != this.save_lock_period)
+          this.password_length = this.save_password_length
+          this.try_times = this.save_try_times
+          this.password_period = this.save_password_period
+          this.lock_period = this.save_lock_period
       },
       // 以上 用户管理和配置管理 xyh完成
       // -----------------------------------

@@ -42,13 +42,23 @@
             <!--<img class="logo"  src="../assets/elex.png"/>-->
         <!--</div>-->
         <div style="float:right    ">
-        <img src="../assets/biaoti.png" style="width: 333px;height: 77px;padding-top: 110px;padding-right: 144px;"/>
+
         </div>
         <div class="login" v-if="wheatherLogin">
+            <div style="height:77px;font-size:20px;">
+                <img src="../assets/biaoti.png" style="height: 77px; display: inline-block"/>
+
+                <!--<span style="font-size:20px;text-align:center;position: relative;top: 25%;transform:translateY(-25%); color: white">博智蜜罐系统</span>-->
+
+                <div style="height: 77px;display: inline-block;line-height: 77px;position: relative;top: -31px">
+                    <span  class="span_biaoti" style="color: white;">博智蜜罐系统</span>
+                </div>
+            </div>
+
             <div class="first">
                 <img  class="name" src="../assets/name.png" style=""/>
                 <el-input class="common_input" size="large" v-model="username" style="width:270px" ></el-input>
-        </div>
+            </div>
 
             <div class="second">
                 <img  class="password" src="../assets/password.png" style=""/>
@@ -110,7 +120,7 @@
         /*background:url("../assets/indexbackground.png");*/
         position: relative;
         left: 1238px;
-        top: 326px;
+        top: 200px;
     }
     .name{
         position: relative;
@@ -220,6 +230,15 @@
 
 
     }
+    .span_biaoti{
+
+        font-size: 20px;
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: center;
+
+    }
+
 
 
 

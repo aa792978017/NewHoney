@@ -16,8 +16,9 @@ export default {
   html,body,#app {
     max-width: 100%;
     max-height: 101%;
-    height: 100%;
-    margin:0 auto;
+    height: 100.7%;
+    margin:0;
+    margin-top: -5px;
     font-family: 'Microsoft Yahei' !important;
     /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
     -webkit-font-smoothing: antialiased;
