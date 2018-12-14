@@ -15,7 +15,7 @@ export default {
 <style>
   html,body,#app {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 101%;
     height: 100%;
     margin:0 auto;
     font-family: 'Microsoft Yahei' !important;
