@@ -29,9 +29,12 @@
                 </el-dropdown>
 
           </p>
-             <div class="lefttop"style="overflow: hidden;height: 78px;margin-right: 500px">
+             <div class="lefttop"style="overflow: hidden;height: 85px;margin-right: 500px">
               <!--<img src="../assets/lefttop.png"/>-->
-               <img src="../assets/elex.png" style="width:333px;height: 77px;margin-left: 5px;overflow-y: hidden"/>
+               <img src="../assets/elex.png" style="width:80px;height: 80px;margin-left: 5px;overflow-y: hidden"/>
+                 <div style="height: 77px;display: inline-block;line-height: 77px;position: relative;top: -31px">
+                     <span  class="span_biaoti" style="color: white;">博智蜜罐系统</span>
+                 </div>
           </div>
 
 
@@ -190,6 +193,14 @@
 
         margin-bottom:40px;
 
+
+    }
+    .span_biaoti{
+
+        font-size: 20px;
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: center;
 
     }
     /* ***************************************foot end */
