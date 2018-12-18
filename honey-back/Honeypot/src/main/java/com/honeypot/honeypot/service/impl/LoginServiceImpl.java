@@ -39,6 +39,7 @@ public class LoginServiceImpl implements LoginService{
     public Map<String,Object> checkUserNameAndPassword(User user, JSONObject systemSecurityConfs, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
         Map<String,Object> resultMap = new HashMap<>();
         LockUser lockInfo = userDao.getLockInfo(user.getId());
+        //判断密码是否失效
         if (SecurityUtil.ifLosePassword(lockInfo, systemSecurityConfs)){
             resultMap.put("message", "密码已经失效");
             user.setPassword("");
