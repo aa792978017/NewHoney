@@ -38,6 +38,7 @@ public class LoginController {
     @PostMapping("/login")
     public Map<String,Object> login(@RequestBody JSONObject updateJson) throws UnsupportedEncodingException, NoSuchAlgorithmException, ParseException {
         Map<String,Object> modelMap = new HashMap<>();
+        //获取安全管理的配置信息，密码失效时间
         JSONObject systemSecurityConfs = systemSecurityConfService.getSystemSecurityConf();
         String password = updateJson.getString("password");
         String userName = updateJson.getString("username");
@@ -45,6 +46,7 @@ public class LoginController {
             modelMap.put("success", false);
             return modelMap;
         }
+        //用户不存在，登录失败
         User nowUser = userService.getUserByUsername(updateJson.getString("username"));
         if (nowUser == null) {
             modelMap.put("success", false);

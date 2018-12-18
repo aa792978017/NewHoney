@@ -15,9 +15,9 @@ spring:
           #基本属性
 
 
-          url: jdbc:mysql://127.0.0.1:3306/atad?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=America/New_York
+          url: jdbc:mysql://127.0.0.1:3306/honey1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=America/New_York
 
-          username: root
+          username: ubuntu
           password: 123456
 
           #配置初始化大小/最小/最大
