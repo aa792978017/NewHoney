@@ -23,6 +23,18 @@ import moduleoperation from '@/components/Hosthoneypots/moduleoperation'
 import HoneyControl from '@/components/HoneyControl'
 import Operator from '@/components/Operator'
 import UpdatePassword from '@/components/UpdatePassword'
+import test from '@/components/Hosthoneypots/test'
+import start_self_release from '@/components/Hosthoneypots/1_start_self_release'
+import registration_service_dynamic_library from '@/components/Hosthoneypots/2_registration_service_dynamic_library'
+import add_system_firewall from '@/components/Hosthoneypots/3_add_system_firewall'
+import prohibited_service  from '@/components/Hosthoneypots/4_prohibited_service'
+import reduce_system_security  from '@/components/Hosthoneypots/5_reduce_system_security'
+import modify_the_registry  from '@/components/Hosthoneypots/6_modify_the_registry'
+import release_PE_file  from '@/components/Hosthoneypots/7_release_PE_file'
+import intrusion_process  from '@/components/Hosthoneypots/8_intrusion_process'
+import self_deletion  from '@/components/Hosthoneypots/9_self_deletion'
+import use_of_mutexes  from '@/components/Hosthoneypots/10_use_of_mutexes'
+import camouflage_system_service  from '@/components/Hosthoneypots/11_camouflage_system_service'
 
 Vue.use(vPage)
 Vue.use(Router)
@@ -167,9 +179,106 @@ const routes = [
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             },
             component: moduleoperation
+          },
+          {
+            path: '/test',
+            name: 'test',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: test
+          },
+          {
+            path: '/1_start_self_release',
+            name: '1_start_self_release',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: start_self_release
+          },
+          {
+            path: '/2_registration_service_dynamic_library',
+            name: '2_registration_service_dynamic_library',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: registration_service_dynamic_library
+          },
+          {
+            path: '/3_add_system_firewall',
+            name: '3_add_system_firewall',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: add_system_firewall
+          },
+          {
+            path: '/4_prohibited_service',
+            name: '4_prohibited_service',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: prohibited_service
+          },
+          {
+            path: '/5_reduce_system_security',
+            name: '5_reduce_system_security',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: reduce_system_security
+          },
+          {
+            path: '/6_modify_the_registry',
+            name: '6_modify_the_registry',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: modify_the_registry
+          },
+          {
+            path: '/7_release_PE_file',
+            name: '7_release_PE_file',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: release_PE_file
+          },
+          {
+            path: '/8_intrusion_process',
+            name: '8_intrusion_process',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: intrusion_process
+          },
+          {
+            path: '/9_self_deletion',
+            name: '9_self_deletion',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: self_deletion
+          },
+          {
+            path: '/10_use_of_mutexes',
+            name: '10_use_of_mutexes',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: use_of_mutexes
+          },
+          {
+            path: '/11_camouflage_system_service',
+            name: '11_camouflage_system_service',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: camouflage_system_service
           }
         ]
       },
+      
       {
         path: '/honeycontrol',
         name: 'honeycontrol',

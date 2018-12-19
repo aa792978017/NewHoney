@@ -211,7 +211,7 @@ export default {
                 that.change()
             })
             .catch(function (error) {
-              alert('handle error')
+              alert('未找到此主机蜜罐的日志信息')
               console.log(error)
             })
             .then(function () {
@@ -241,7 +241,7 @@ export default {
                 that.change()
             })
             .catch(function (error) {
-              alert('handle error')
+              alert('未找到此主机蜜罐的日志信息')
             })
             .then(function () {
             // 什么时候都执行的

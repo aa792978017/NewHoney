@@ -95,7 +95,7 @@ export default {
               that.admindata = response.data.AllNetInfo
             })
             .catch(function (error) {
-              alert('handle error')
+              alert('未找到此主机蜜罐的日志信息')
               console.log(error)
             })
             .then(function () {

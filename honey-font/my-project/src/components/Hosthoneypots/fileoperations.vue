@@ -377,7 +377,7 @@ export default {
               that.change()
             })
             .catch(function (error) {
-              alert('未选择uniqueId')
+              alert('未找到此主机蜜罐的日志信息')
               // console.log('error')
             })
             .then(function () {
@@ -411,7 +411,7 @@ export default {
               that.change()
             })
             .catch(function (error) {
-              alert('未选择uniqueId')
+              alert('未找到此主机蜜罐的日志信息')
               console.log('error')
             })
             .then(function () {

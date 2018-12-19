@@ -14,7 +14,7 @@
           class="tabs-1"
           :tab-position="top"
           type="card"
-          @tab-click="show = true">
+          @tab-click="show = true,show2 = true">
           <!-- 主机蜜罐管理 -->
           <el-tab-pane
             label="主机蜜罐管理">
@@ -27,8 +27,7 @@
                   cell-style="padding:0"
                   id="table11"
                   :data="admindata.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  style="width: 100%"
-                  >
+                  style="width: 100%">
                   <el-table-column
                     prop="num"
                     width="80"
@@ -62,7 +61,6 @@
                         type="text"
                         size="mini"
                         @click="delHostPotFromHtml(scope.$index,admindata)">删除</el-button>
-
                     </template>
                   </el-table-column>
                 </el-table>
@@ -75,7 +73,6 @@
                 </el-select>
                 <span style="margin-left:2px;position: relative;left: 32px">条信息<span style="margin-left: 20px">转到<el-input  v-model="jumper" style="width: 50px;height: 30px;margin-left: 2px;margin-right: 4px"></el-input>页</span><el-button class="button2" style="font-size: 12px;" @click="handleCurrentChange(jumper)">跳转</el-button></span>
               </div>
-
               <div style="float:right;margin-top:10px;margin-right: 30px;">
                 <!-- *********************************分页按钮 -->
                 <el-pagination
@@ -105,41 +102,40 @@
                   active-text-color="#E95513"
                   default-active="$route.name"
                   class="el-menu-vertical"
-
                   @open="handleOpen"
                   @close="handleClose"
                   style="width: 250px;height:100%;background: #f2f2f2; ">
-                  <el-menu-item  class="left-nav" index="test" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="1_start_self_release" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 启动自释放文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="2" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="2_registration_service_dynamic_library" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 注册服务动态库</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="3" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="3_add_system_firewall" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   添加系统防火墙放过列表</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="4" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="4_prohibited_service" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   禁止服务</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="5" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="5_reduce_system_security" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   降低系统安全性</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="6" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="6_modify_the_registry" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   修改注册表自启动项</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="7" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="7_release_PE_file" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   释放PE文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="8" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="8_intrusion_process" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   入侵进程</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="9">
+                  <el-menu-item  class="left-nav" index="9_self_deletion">
                     <span slot="title"  @click="show2 = flase"><img src="../assets/arrow3.png" class="arrow" />   自我删除</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="10" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="10_use_of_mutexes" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   利用互斥量</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="11" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="11_camouflage_system_service" @click="show2 = flase">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   伪装系统服务</span>
                   </el-menu-item>
 
@@ -156,6 +152,7 @@
                   cell-style="padding:0"
                   :data="admindata.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   @select="show = false"
+                  @selection-change="handleSelectionChange"
                   style="width: 100%">
                   <!-- 选择框   -->
                   <el-table-column
@@ -353,11 +350,7 @@
             </el-container>
 
           </el-tab-pane>
-
-
-
           <el-tab-pane label="样本捕获">
-
           </el-tab-pane>
         </el-tabs>
       </div> <!--main-1-->
@@ -734,7 +727,7 @@
                 times: '2018-5-21',
                 dialog: false,
                 show: true,
-                show2:true,
+                show2: true,
                 admindata: {
                   id:'',
                   uniqueId:'',
@@ -793,6 +786,13 @@
                 this.multipleSelection = val
                 //alert(this.multipleSelection[0].id);
                 this.getUniqueId()
+            }, 
+            getUniqueId () {
+                var that = this
+                sessionStorage.setItem('uniqueId', that.multipleSelection[0].uniqueId).then(function (response) {
+                    alert('请选择对应信息')
+                    that.getServer()
+                })
             },
 
           delHostPotFromHtml (index,rowdata) { 

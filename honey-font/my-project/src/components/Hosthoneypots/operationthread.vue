@@ -250,7 +250,7 @@ export default {
               that.filemap = response.data.AimCreateThread
     })
             .catch(function (error) {
-              alert('handle error')
+              alert('未找到此主机蜜罐的日志信息r')
             })
             .then(function () {
             // 什么时候都执行的
