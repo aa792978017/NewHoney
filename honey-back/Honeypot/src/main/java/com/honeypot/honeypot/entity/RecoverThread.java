@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class RecoverThread {
     private Integer Id;
-    private Integer UniqueId;
+    private long UniqueId;
     private Integer CurrentProcessID;
     private String CurrentProcessName;
     private String PendingProcessID;
@@ -21,7 +21,7 @@ public class RecoverThread {
         Id = id;
     }
 
-    public Integer getUniqueId() {
+    public long getUniqueId() {
         return UniqueId;
     }
 

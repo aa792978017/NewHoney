@@ -13,7 +13,7 @@ public interface PendingThreadDao {
      * @param uniqueId
      * @return
      * */
-    List<PendingThread> getAllPendingThread(@Param("uniqueId")Integer uniqueId);
+    List<PendingThread> getAllPendingThread(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取目标挂起线程操作信息
@@ -26,5 +26,5 @@ public interface PendingThreadDao {
      * @param pendingProcessID
      * @return
      * */
-    List<PendingThread> getAimPendingThread(@Param("uniqueId") Integer uniqueid,@Param("currentProcessName") String currentProcessName,@Param("currentProcessID") String currentProcessID,@Param("pendingProcessID") String pendingProcessID,@Param("dependProcessName") String dependProcessName,@Param("dependProcessID") String dependProcessID,@Param("time") String time);
+    List<PendingThread> getAimPendingThread(@Param("uniqueId") long uniqueid,@Param("currentProcessName") String currentProcessName,@Param("currentProcessID") String currentProcessID,@Param("pendingProcessID") String pendingProcessID,@Param("dependProcessName") String dependProcessName,@Param("dependProcessID") String dependProcessID,@Param("time") String time);
 }

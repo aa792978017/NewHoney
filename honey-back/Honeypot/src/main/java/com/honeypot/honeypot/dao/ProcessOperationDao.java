@@ -14,7 +14,7 @@ public interface ProcessOperationDao {
      * @param uniqueId
      * @return
      * */
-    List<ProcessOperation> getAllProcessOperation(@Param("uniqueId")Integer uniqueId);
+    List<ProcessOperation> getAllProcessOperation(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取目标进程操作信息
@@ -27,5 +27,5 @@ public interface ProcessOperationDao {
      * @param objectProcessName
      * @return
      * */
-    List<ProcessOperation> getAimProcessOperation(@Param("uniqueId")Integer uniqueId,@Param("opType")String opType,@Param("currentProcessName")String currentProcessName,@Param("currentProcessID")String currentProcessID,@Param("objectProcessName")String objectProcessName,@Param("objectProcessID")String objectProcessID,@Param("time")String time);
+    List<ProcessOperation> getAimProcessOperation(@Param("uniqueId")long uniqueId,@Param("opType")String opType,@Param("currentProcessName")String currentProcessName,@Param("currentProcessID")String currentProcessID,@Param("objectProcessName")String objectProcessName,@Param("objectProcessID")String objectProcessID,@Param("time")String time);
 }

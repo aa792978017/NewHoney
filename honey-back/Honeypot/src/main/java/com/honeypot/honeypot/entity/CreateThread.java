@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class CreateThread {
     private Integer id;
-    private Integer uniqueId;
+    private long uniqueId;
     private Integer currentProcessID;
     private String currentProcessName;
     private String threadHandle;
@@ -21,7 +21,7 @@ public class CreateThread {
         this.id = id;
     }
 
-    public Integer getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 

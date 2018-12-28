@@ -14,7 +14,7 @@ public interface ModuleDao {
      * @param uniqueId
      * @return
      * */
-    List<Module> getAllModule(@Param("uniqueId")Integer uniqueId);
+    List<Module> getAllModule(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取目标模块操作信息
@@ -26,5 +26,5 @@ public interface ModuleDao {
      * @param regeditName
      * @return
      * */
-    List<Module> getAimModule(@Param("uniqueId")Integer uniqueid,@Param("opType") String opType,@Param("processName") String processName,@Param("processNum") String processNum,@Param("regeditName") String regeditName,@Param("time") String time);
+    List<Module> getAimModule(@Param("uniqueId")long uniqueid,@Param("opType") String opType,@Param("processName") String processName,@Param("processNum") String processNum,@Param("regeditName") String regeditName,@Param("time") String time);
 }

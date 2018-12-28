@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class FileSystemInfo {
         private Integer id;
-        private Integer uniqueId;
+        private long uniqueId;
         private Integer opType;
         private Integer state;
         private Integer removable;
@@ -22,7 +22,7 @@ public class FileSystemInfo {
         this.id = id;
     }
 
-    public Integer getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 

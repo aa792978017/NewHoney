@@ -37,7 +37,7 @@ public class LogQueryController {
     public List<FileSystemInfo> getAllFileOperation(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
 
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<FileSystemInfo> AllFileMapOperation = logQueryService.getAllFileOperation(Integer.valueOf(uniqueId));
+        List<FileSystemInfo> AllFileMapOperation = logQueryService.getAllFileOperation(Long.parseLong(uniqueId));
 
 
         return AllFileMapOperation;
@@ -50,7 +50,7 @@ public class LogQueryController {
     @ResponseBody
     public List<FileSystemInfo> getAimFileOperation(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "opType", required = false, defaultValue = "") String opType, @RequestParam(value = "state", required = false, defaultValue = "") String state, @RequestParam(value = "filePath", required = false, defaultValue = "") String filePath, @RequestParam(value = "processPath", required = false, defaultValue = "") String processPath, @RequestParam(value = "processName", required = false, defaultValue = "")String processName,@RequestParam(value = "time",required = false,defaultValue = "")String time) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<FileSystemInfo> AimFileMapOperation = logQueryService.getAimFileOperation(Integer.valueOf(uniqueId),opType,state,filePath,processPath,processName,time);
+        List<FileSystemInfo> AimFileMapOperation = logQueryService.getAimFileOperation(Long.parseLong(uniqueId),opType,state,filePath,processPath,processName,time);
 //        System.out.println(request.getSession().getAttribute("uniqueId"));
         return AimFileMapOperation;
     }
@@ -62,7 +62,7 @@ public class LogQueryController {
     @ResponseBody
     public List<FileSystemInfo> getAllFileMapOperation(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<FileSystemInfo> AllFileMapOperation = logQueryService.getAllFileMapOperation(Integer.valueOf(uniqueId));
+        List<FileSystemInfo> AllFileMapOperation = logQueryService.getAllFileMapOperation(Long.parseLong(uniqueId));
 //        modelMap.put("AllFileMapOperation",AllFileMapOperation.get(0));
 //        System.out.println(AllFileMapOperation.size());
 //        if (AllFileMapOperation.size() > 0){
@@ -80,7 +80,7 @@ public class LogQueryController {
     @ResponseBody
     public List<FileSystemInfo> getAimFileMapOperation(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "opType", required = false, defaultValue = "") String opType, @RequestParam(value = "state", required = false, defaultValue = "") String state, @RequestParam(value = "filePath", required = false, defaultValue = "") String filePath, @RequestParam(value = "processPath", required = false, defaultValue = "") String processPath, @RequestParam(value = "processName", required = false, defaultValue = "")String processName,@RequestParam(value = "time",required = false,defaultValue = "")String time) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<FileSystemInfo> AimFileMapOperation = logQueryService.getAimFileMapOperation(Integer.valueOf(uniqueId),opType,state,filePath,processPath,processName,time);
+        List<FileSystemInfo> AimFileMapOperation = logQueryService.getAimFileMapOperation(Long.parseLong(uniqueId),opType,state,filePath,processPath,processName,time);
 //        modelMap.put("AllFileMapOperation",AllFileMapOperation.get(0));
 //        System.out.println(AllFileMapOperation.size());
 //        if (AllFileMapOperation.size() > 0){
@@ -97,7 +97,7 @@ public class LogQueryController {
     @GetMapping("/getAllNetInfo")
     public Map<String, Object> getAllNetInfo(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<NetInfo> AllNetInfo = logQueryService.getAllNetInfo(Integer.valueOf(uniqueId));
+        List<NetInfo> AllNetInfo = logQueryService.getAllNetInfo(Long.parseLong(uniqueId));
         modelMap.put("AllNetInfo", AllNetInfo);
         if (AllNetInfo.size() > 0) {
             modelMap.put("success", true);
@@ -114,7 +114,7 @@ public class LogQueryController {
     @GetMapping("/getAllReginfo")
     public Map<String, Object> getAllReginfo(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<Reginfo> AllReginFo = logQueryService.getAllReginFo(Integer.valueOf(uniqueId));
+        List<Reginfo> AllReginFo = logQueryService.getAllReginFo(Long.parseLong(uniqueId));
         modelMap.put("AllReginFo", AllReginFo);
         if (AllReginFo.size() > 0) {
             modelMap.put("success", true);
@@ -132,7 +132,7 @@ public class LogQueryController {
     @GetMapping("/getAllSetRegValueKey")
     public Map<String, Object> getAllSetRegValueKey(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<SetRegValueKey> AllSetRegValueKey = logQueryService.getAllSetRegValueKey(Integer.valueOf(uniqueId));
+        List<SetRegValueKey> AllSetRegValueKey = logQueryService.getAllSetRegValueKey(Long.parseLong(uniqueId));
         modelMap.put("AllSetRegValueKey", AllSetRegValueKey);
         if (AllSetRegValueKey.size() > 0) {
             modelMap.put("success", true);
@@ -149,7 +149,7 @@ public class LogQueryController {
     public Map<String, Object> getAimSetRegValueKey(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "processID", required = false, defaultValue = "") String processID, @RequestParam(value = "processName", required = false, defaultValue = "") String processName, @RequestParam(value = "keyValue", required = false, defaultValue = "") String keyValue, @RequestParam(value = "regPath", required = false, defaultValue = "") String regPath, @RequestParam(value = "time", required = false, defaultValue = "") String time)
     {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<SetRegValueKey> AimSetRegValueKey = logQueryService.getAimSetRegValueKey(Integer.valueOf(uniqueId),processName,processID,keyValue,regPath,time);
+        List<SetRegValueKey> AimSetRegValueKey = logQueryService.getAimSetRegValueKey(Long.parseLong(uniqueId),processName,processID,keyValue,regPath,time);
         modelMap.put("AimSetRegValueKey", AimSetRegValueKey);
         if (AimSetRegValueKey.size() > 0) {
             modelMap.put("success", true);
@@ -165,7 +165,7 @@ public class LogQueryController {
     @GetMapping("/getAllProcessOperation")
     public Map<String, Object> getAllProcessOperation(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId){
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<ProcessOperation> AllProcessOperation = logQueryService.getAllProcessOperation(Integer.valueOf(uniqueId));
+        List<ProcessOperation> AllProcessOperation = logQueryService.getAllProcessOperation(Long.parseLong(uniqueId));
         modelMap.put("AllProcessOperation", AllProcessOperation);
         if (AllProcessOperation.size() > 0) {
             modelMap.put("success", true);
@@ -185,7 +185,7 @@ public class LogQueryController {
 
         Map<String, Object> modelMap = new HashMap<String, Object>();
 
-        List<ProcessOperation> AimProcessOperation = logQueryService.getAimProcessOperation(Integer.valueOf(uniqueId), opType, currentProcessName, currentProcessID, objectProcessName, objectProcessID, time);
+        List<ProcessOperation> AimProcessOperation = logQueryService.getAimProcessOperation(Long.parseLong(uniqueId), opType, currentProcessName, currentProcessID, objectProcessName, objectProcessID, time);
 
         modelMap.put("AimProcessOperation", AimProcessOperation);
 
@@ -209,7 +209,7 @@ public class LogQueryController {
     @GetMapping("/getAllCreateThread")
     public Map<String, Object> getAllCreateThread(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<CreateThread> AllCreateThread = logQueryService.getAllCreaterThread(Integer.valueOf(uniqueId));
+        List<CreateThread> AllCreateThread = logQueryService.getAllCreaterThread(Long.parseLong(uniqueId));
         modelMap.put("AllCreateThread", AllCreateThread);
         if (AllCreateThread.size() > 0) {
             modelMap.put("success", true);
@@ -232,7 +232,7 @@ public class LogQueryController {
 
         Map<String, Object> modelMap = new HashMap<String, Object>();
 
-        List<CreateThread> AimCreateThread = logQueryService.getAimCreateThread(Integer.valueOf(uniqueId), cunrrentProcessName, cunrrentProcessID, threadHandle, targetProcessName, targetProcessID, time);
+        List<CreateThread> AimCreateThread = logQueryService.getAimCreateThread(Long.parseLong(uniqueId), cunrrentProcessName, cunrrentProcessID, threadHandle, targetProcessName, targetProcessID, time);
 
         modelMap.put("AimCreateThread", AimCreateThread);
 
@@ -257,7 +257,7 @@ public class LogQueryController {
     @GetMapping("/getAllPendingThread")
     public Map<String, Object> getAllPendingThread(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<PendingThread> AllPendingThread = logQueryService.getAllPendingThread(Integer.valueOf(uniqueId));
+        List<PendingThread> AllPendingThread = logQueryService.getAllPendingThread(Long.parseLong(uniqueId));
         modelMap.put("AllPendingThread", AllPendingThread);
         if (AllPendingThread.size() > 0) {
             modelMap.put("success", true);
@@ -276,7 +276,7 @@ public class LogQueryController {
     public Map<String, Object> getAimPendingThread(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "cunrrentProcessName", required = false, defaultValue = "") String cunrrentProcessName, @RequestParam(value = "cunrrentProcessID", required = false, defaultValue = "") String cunrrentProcessID, @RequestParam(value = "pendingProcessID", required = false, defaultValue = "") String pendingProcessID, @RequestParam(value = "dependProcessName", required = false, defaultValue = "") String dependProcessName, @RequestParam(value = "dependProcessID", required = false, defaultValue = "") String dependProcessID, @RequestParam(value = "time", required = false, defaultValue = "") String time) {
 
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<PendingThread> AimPendingThread = logQueryService.getAimPendingThread(Integer.valueOf(uniqueId),cunrrentProcessName,cunrrentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
+        List<PendingThread> AimPendingThread = logQueryService.getAimPendingThread(Long.parseLong(uniqueId),cunrrentProcessName,cunrrentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
         modelMap.put("AimPendingThread", AimPendingThread);
         if (AimPendingThread.size() > 0) {
             modelMap.put("success", true);
@@ -293,7 +293,7 @@ public class LogQueryController {
     @GetMapping("/getAllRecoverThread")
     public Map<String, Object> getAllRecoverThread(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<RecoverThread> AllRecoverThread = logQueryService.getAllRecoverThread(Integer.valueOf(uniqueId));
+        List<RecoverThread> AllRecoverThread = logQueryService.getAllRecoverThread(Long.parseLong(uniqueId));
         modelMap.put("AllRecoverThread", AllRecoverThread);
         if (AllRecoverThread.size() > 0) {
             modelMap.put("success", true);
@@ -311,7 +311,7 @@ public class LogQueryController {
     public Map<String, Object> getAimRecoverThread(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "cunrrentProcessName", required = false, defaultValue = "") String cunrrentProcessName, @RequestParam(value = "cunrrentProcessID", required = false, defaultValue = "") String cunrrentProcessID, @RequestParam(value = "pendingProcessID", required = false, defaultValue = "") String pendingProcessID, @RequestParam(value = "dependProcessName", required = false, defaultValue = "") String dependProcessName, @RequestParam(value = "dependProcessID", required = false, defaultValue = "") String dependProcessID, @RequestParam(value = "time", required = false, defaultValue = "") String time) {
 
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<RecoverThread> AimRecoverThread = logQueryService.getAimRecoverThread(Integer.valueOf(uniqueId),cunrrentProcessName,cunrrentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
+        List<RecoverThread> AimRecoverThread = logQueryService.getAimRecoverThread(Long.parseLong(uniqueId),cunrrentProcessName,cunrrentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
         modelMap.put("AimRecoverThread", AimRecoverThread);
         if (AimRecoverThread.size() > 0) {
             modelMap.put("success", true);
@@ -328,7 +328,7 @@ public class LogQueryController {
     @GetMapping("/getAllModule")
     public Map<String, Object> getAllModule(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List< com.honeypot.honeypot.entity.Module> AllModule = logQueryService.getAllModule(Integer.valueOf(uniqueId));
+        List< com.honeypot.honeypot.entity.Module> AllModule = logQueryService.getAllModule(Long.parseLong(uniqueId));
         modelMap.put("AllModule", AllModule);
         if (AllModule.size() > 0) {
             modelMap.put("success", true);
@@ -346,7 +346,7 @@ public class LogQueryController {
     @GetMapping("/getAimModule")
     public Map<String, Object> getAimModule(@RequestParam(value = "uniqueId", required = false, defaultValue = "") String uniqueId,@RequestParam(value = "opType", required = false, defaultValue = "") String opType, @RequestParam(value = "processNum", required = false, defaultValue = "") String processNum, @RequestParam(value = "processName", required = false, defaultValue = "") String processName, @RequestParam(value = "regeditName", required = false, defaultValue = "") String regeditName, @RequestParam(value = "time", required = false, defaultValue = "") String time) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List< com.honeypot.honeypot.entity.Module> AimModule = logQueryService.getAimModule(Integer.valueOf(uniqueId),opType,processName,processNum,regeditName,time);
+        List< com.honeypot.honeypot.entity.Module> AimModule = logQueryService.getAimModule(Long.parseLong(uniqueId),opType,processName,processNum,regeditName,time);
         modelMap.put("AimModule", AimModule);
         if (AimModule.size() > 0) {
             modelMap.put("success", true);

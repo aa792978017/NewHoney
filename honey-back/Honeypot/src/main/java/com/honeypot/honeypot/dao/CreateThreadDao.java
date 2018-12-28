@@ -16,7 +16,7 @@ public interface CreateThreadDao {
      * @param uniqueId
      * @return
      * */
-    List<CreateThread> getAllCreateThread(@Param("uniqueId")Integer uniqueId);
+    List<CreateThread> getAllCreateThread(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取全部进程操作线程信息
@@ -29,6 +29,6 @@ public interface CreateThreadDao {
      * @param threadHandle
      * @return
      * */
-    List<CreateThread> getAimCreateThread(@Param("uniqueId") Integer uniqueid,@Param("currentProcessName") String currentProcessName, @Param("currentProcessID") String currentProcessID, @Param("threadHandle") String threadHandle, @Param("targetProcessName") String targetProcessName, @Param("targetProcessID") String targetProcessID, @Param("time") String time);
+    List<CreateThread> getAimCreateThread(@Param("uniqueId")long uniqueid,@Param("currentProcessName") String currentProcessName, @Param("currentProcessID") String currentProcessID, @Param("threadHandle") String threadHandle, @Param("targetProcessName") String targetProcessName, @Param("targetProcessID") String targetProcessID, @Param("time") String time);
 
 }
