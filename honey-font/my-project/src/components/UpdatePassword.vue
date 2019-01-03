@@ -28,7 +28,7 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </p>
-                    <div class="lefttop"style="overflow: hidden;height: 78px;margin-right: 500px">
+                    <div class="lefttop" style="overflow: hidden;height: 78px;margin-right: 500px">
                         <!--<img src="../assets/lefttop.png"/>-->
                         <img src="../assets/elex.png" style="width:80px;height: 80px;margin-left: 5px;overflow-y: hidden"/>
                         <div style="height: 77px;display: inline-block;line-height: 77px;position: relative;top: -31px">

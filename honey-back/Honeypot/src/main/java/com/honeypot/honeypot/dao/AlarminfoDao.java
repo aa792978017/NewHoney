@@ -13,7 +13,7 @@ public interface AlarminfoDao {
      * 通过类型获取告警分析
      * @param type
      * @param uniqueId
-     * @return
+     * @return0
      */
     List<AlarmInfo> getAlarminfoByUniqueId(@Param("type") int type,@Param("uniqueId") long uniqueId);
     /**
