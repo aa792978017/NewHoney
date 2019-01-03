@@ -14,5 +14,5 @@ public interface ReginfoDao {
      * @param uniqueId
      * @return
      * */
-    List<Reginfo> getAllReginfo(@Param("uniqueId")Integer uniqueId);
+    List<Reginfo> getAllReginfo(@Param("uniqueId")long uniqueId);
 }

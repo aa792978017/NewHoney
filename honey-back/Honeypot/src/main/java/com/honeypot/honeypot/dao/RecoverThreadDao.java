@@ -14,7 +14,7 @@ public interface RecoverThreadDao {
      * @param uniqueId
      * @return
      * */
-    List<RecoverThread> getAllRecoverThread(@Param("uniqueId")Integer uniqueId);
+    List<RecoverThread> getAllRecoverThread(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取目标恢复线程操作信息
@@ -27,5 +27,5 @@ public interface RecoverThreadDao {
      * @param currentProcessName
      * @return
      * */
-    List<RecoverThread> getAimRecoverThread(@Param("uniqueId") Integer uniqueid,@Param("currentProcessName") String currentProcessName,@Param("currentProcessID") String currentProcessID,@Param("pendingProcessID") String pendingProcessID,@Param("dependProcessName") String dependProcessName,@Param("dependProcessID") String dependProcessID,@Param("time") String time);
+    List<RecoverThread> getAimRecoverThread(@Param("uniqueId") long uniqueid,@Param("currentProcessName") String currentProcessName,@Param("currentProcessID") String currentProcessID,@Param("pendingProcessID") String pendingProcessID,@Param("dependProcessName") String dependProcessName,@Param("dependProcessID") String dependProcessID,@Param("time") String time);
 }

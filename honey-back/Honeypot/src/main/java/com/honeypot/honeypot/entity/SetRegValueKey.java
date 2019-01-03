@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class SetRegValueKey {
     private Integer id;
-    private Integer uniqueId;
+    private long uniqueId;
     private Integer processID;
     private String processName;
     private String keyValue;
@@ -22,7 +22,7 @@ public class SetRegValueKey {
         this.id = id;
     }
 
-    public Integer getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 

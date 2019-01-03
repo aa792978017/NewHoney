@@ -14,5 +14,5 @@ public interface NetInfoDao {
      * @param uniqueId
      * @return
      * */
-    List<NetInfo> getAllNetInfo(@Param("uniqueId") Integer uniqueId);
+    List<NetInfo> getAllNetInfo(@Param("uniqueId") long uniqueId);
 }

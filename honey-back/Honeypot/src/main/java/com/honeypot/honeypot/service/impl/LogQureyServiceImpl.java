@@ -34,92 +34,92 @@ public class LogQureyServiceImpl implements LogQueryService {
     private SetRegValueKeyDao setRegValueKeyDao;
 
     @Override
-    public List<FileSystemInfo> getAllFileOperation(Integer uniqueid) {
+    public List<FileSystemInfo> getAllFileOperation(long uniqueid) {
         return fileSystemInfoDao.getAllFileOperation(uniqueid);
     }
 
     @Override
-    public List<FileSystemInfo> getAimFileOperation(Integer uniqueId, String opType, String state, String filePath, String processPath, String processName, String time) {
+    public List<FileSystemInfo> getAimFileOperation(long uniqueId, String opType, String state, String filePath, String processPath, String processName, String time) {
         return fileSystemInfoDao.getAimFileOperation(uniqueId,opType,state,filePath,processPath,processName,time);
     }
 
     @Override
-    public List<FileSystemInfo> getAllFileMapOperation(Integer uniqueid) {
+    public List<FileSystemInfo> getAllFileMapOperation(long uniqueid) {
         return fileSystemInfoDao.getAllFileMapOperation(uniqueid);
     }
 
     @Override
-    public List<FileSystemInfo> getAimFileMapOperation(Integer uniqueId, String opType, String state, String filePath, String processPath, String processName, String time) {
+    public List<FileSystemInfo> getAimFileMapOperation(long uniqueId, String opType, String state, String filePath, String processPath, String processName, String time) {
         return fileSystemInfoDao.getAimFileMapOperation(uniqueId,opType,state,filePath,processPath,processName,time);
     }
 
     @Override
-    public List<NetInfo> getAllNetInfo(Integer uniqueId) {
+    public List<NetInfo> getAllNetInfo(long uniqueId) {
         return netinfoDao.getAllNetInfo(uniqueId);
     }
 
     @Override
-    public List<Reginfo> getAllReginFo(Integer uniqueid) {
+    public List<Reginfo> getAllReginFo(long uniqueid) {
         return reginfoDao.getAllReginfo(uniqueid);
     }
 
     @Override
-    public List<SetRegValueKey> getAllSetRegValueKey(Integer uniqueid) {
+    public List<SetRegValueKey> getAllSetRegValueKey(long uniqueid) {
         return setRegValueKeyDao.getAllSetRegValueKey(uniqueid);
     }
 
     @Override
-    public List<SetRegValueKey> getAimSetRegValueKey(Integer uniqueid, String processName, String processID, String keyValue, String regPath, String time) {
+    public List<SetRegValueKey> getAimSetRegValueKey(long uniqueid, String processName, String processID, String keyValue, String regPath, String time) {
         return setRegValueKeyDao.getAimSetRegValueKey(uniqueid,processName,processID,keyValue,regPath,time);
     }
 
     @Override
-    public List<ProcessOperation> getAllProcessOperation(Integer uniqueid) {
+    public List<ProcessOperation> getAllProcessOperation(long uniqueid) {
         return processOperationDao.getAllProcessOperation(uniqueid);
     }
 
     @Override
-    public List<ProcessOperation> getAimProcessOperation(Integer uniqueid, String opType, String currentProcessName, String currentProcessID, String objectProcessName, String objectProcessID, String time) {
+    public List<ProcessOperation> getAimProcessOperation(long uniqueid, String opType, String currentProcessName, String currentProcessID, String objectProcessName, String objectProcessID, String time) {
         return processOperationDao.getAimProcessOperation(uniqueid,opType,currentProcessName,currentProcessID,objectProcessName,objectProcessID,time);
     }
 
     @Override
-    public List<PendingThread> getAllPendingThread(Integer uniqueid) {
+    public List<PendingThread> getAllPendingThread(long uniqueid) {
         return pendingThreadDao.getAllPendingThread(uniqueid);
     }
 
     @Override
-    public List<PendingThread> getAimPendingThread(Integer uniqueid, String currentProcessName, String currentProcessID, String pendingProcessID, String dependProcessName, String dependProcessID, String time) {
+    public List<PendingThread> getAimPendingThread(long uniqueid, String currentProcessName, String currentProcessID, String pendingProcessID, String dependProcessName, String dependProcessID, String time) {
         return pendingThreadDao.getAimPendingThread(uniqueid,currentProcessName,currentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
     }
 
     @Override
-    public List<RecoverThread> getAllRecoverThread(Integer uniqueid) {
+    public List<RecoverThread> getAllRecoverThread(long uniqueid) {
         return recoverThreadDao.getAllRecoverThread(uniqueid);
     }
 
     @Override
-    public List<RecoverThread> getAimRecoverThread(Integer uniqueid, String currentProcessName, String currentProcessID, String pendingProcessID, String dependProcessName, String dependProcessID, String time) {
+    public List<RecoverThread> getAimRecoverThread(long uniqueid, String currentProcessName, String currentProcessID, String pendingProcessID, String dependProcessName, String dependProcessID, String time) {
         return recoverThreadDao.getAimRecoverThread(uniqueid,currentProcessName,currentProcessID,pendingProcessID,dependProcessName,dependProcessID,time);
     }
 
     @Override
-    public List<CreateThread> getAllCreaterThread(Integer uniqueid) {
+    public List<CreateThread> getAllCreaterThread(long uniqueid) {
         return createThreadDao.getAllCreateThread(uniqueid);
     }
 
     @Override
-    public List<CreateThread> getAimCreateThread(Integer uniqueid,String currentProcessName, String currentProcessID, String threadHandle, String targetProcessName, String  targetProcessID, String time) {
+    public List<CreateThread> getAimCreateThread(long uniqueid,String currentProcessName, String currentProcessID, String threadHandle, String targetProcessName, String  targetProcessID, String time) {
         return createThreadDao.getAimCreateThread(uniqueid,currentProcessName,currentProcessID,threadHandle,targetProcessName,targetProcessID,time);
     }
 
     @Override
-    public List<Module> getAllModule(Integer uniqueid) {
+    public List<Module> getAllModule(long uniqueid) {
         return moduleDao.getAllModule(uniqueid);
     }
 
     @Override
-    public List<Module> getAimModule(Integer uniqueid, String opType, String processName, String processNum, String regeditName, String time) {
+    public List<Module> getAimModule(long uniqueid, String opType, String processName, String processNum, String regeditName, String time) {
         return moduleDao.getAimModule(uniqueid,opType,processName,processNum,regeditName,time);
     }
 }

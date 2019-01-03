@@ -14,7 +14,7 @@ public interface LogQueryService {
      * 根据uniqueid，获取全部文件操作信息
      * @param uniqueid
      * */
-    List<FileSystemInfo> getAllFileOperation(Integer uniqueid);
+    List<FileSystemInfo> getAllFileOperation(long uniqueid);
 
     /**
      * 根据查询条件,获取目标文件操作信息
@@ -27,14 +27,14 @@ public interface LogQueryService {
      * @param time
      * @return
      * */
-    List<FileSystemInfo> getAimFileOperation(Integer uniqueId,String opType,String state,String filePath,String processPath,String processName, String time);
+    List<FileSystemInfo> getAimFileOperation(long uniqueId,String opType,String state,String filePath,String processPath,String processName, String time);
 
     /**
      * 根据uniqueid,获取全部文件map操作信息
      * @param uniqueid
      * @return
      * */
-    List<FileSystemInfo> getAllFileMapOperation(Integer uniqueid);
+    List<FileSystemInfo> getAllFileMapOperation(long uniqueid);
 
     /**
      * 根据查询条件，获取目标文件map操作详情
@@ -47,28 +47,28 @@ public interface LogQueryService {
      * @param time
      * @return
      * */
-    List<FileSystemInfo> getAimFileMapOperation(Integer uniqueId,String opType,String state,String filePath,String processPath,String processName,String time);
+    List<FileSystemInfo> getAimFileMapOperation(long uniqueId,String opType,String state,String filePath,String processPath,String processName,String time);
 
     /**
      * 根据uniqueid,获取全部网络使用情况
      * @param uniqueId
      * @return
      * */
-    List<NetInfo> getAllNetInfo(Integer uniqueId);
+    List<NetInfo> getAllNetInfo(long uniqueId);
 
     /**
      * 根据uniqueid,获取全部注册表基本信息
      * @param uniqueid
      * @return
      * */
-    List<Reginfo> getAllReginFo( Integer uniqueid);
+    List<Reginfo> getAllReginFo( long uniqueid);
 
     /**
      * 根据uniqueid,获取全部注册表赋值操作
      * @param uniqueid
      * @return
      * */
-    List<SetRegValueKey> getAllSetRegValueKey( Integer uniqueid);
+    List<SetRegValueKey> getAllSetRegValueKey( long uniqueid);
 
     /**
      * 根据查询条件，获取目标注册表赋值操作
@@ -80,14 +80,14 @@ public interface LogQueryService {
      * @param time
      * @return
      * */
-    List<SetRegValueKey> getAimSetRegValueKey( Integer uniqueid,String processName,String processID,String keyValue,String regPath,String time);
+    List<SetRegValueKey> getAimSetRegValueKey( long uniqueid,String processName,String processID,String keyValue,String regPath,String time);
 
     /**
      * 根据uniqueid,获取全部进程操作信息
      * @param uniqueid
      * @return
      * */
-    List<ProcessOperation> getAllProcessOperation( Integer uniqueid);
+    List<ProcessOperation> getAllProcessOperation( long uniqueid);
 
     /**
      * 根据查询条件，获取目标进程操作信息
@@ -100,14 +100,14 @@ public interface LogQueryService {
      * @param objectProcessName
      * @return
      * */
-    List<ProcessOperation> getAimProcessOperation(Integer uniqueid,String opType,String currentProcessName,String currentProcessID,String objectProcessName,String objectProcessID,String time);
+    List<ProcessOperation> getAimProcessOperation(long uniqueid,String opType,String currentProcessName,String currentProcessID,String objectProcessName,String objectProcessID,String time);
 
     /**
      * 根据uniqueid,获取挂起线程操作信息
      * @param uniqueid
      * @return
      * */
-    List<PendingThread> getAllPendingThread( Integer uniqueid);
+    List<PendingThread> getAllPendingThread( long uniqueid);
 
     /**
      * 根据查询条件，获取目标挂起线程操作信息
@@ -120,14 +120,14 @@ public interface LogQueryService {
      * @param pendingProcessID
      * @return
      * */
-    List<PendingThread> getAimPendingThread(Integer uniqueid,String currentProcessName,String currentProcessID,String pendingProcessID,String dependProcessName,String dependProcessID,String time);
+    List<PendingThread> getAimPendingThread(long uniqueid,String currentProcessName,String currentProcessID,String pendingProcessID,String dependProcessName,String dependProcessID,String time);
 
     /**
      * 根据uniqueid,获取全部恢复线程操作信息
      * @param uniqueid
      * @return
      * */
-    List<RecoverThread> getAllRecoverThread( Integer uniqueid);
+    List<RecoverThread> getAllRecoverThread( long uniqueid);
 
     /**
      * 根据查询条件，获取目标恢复线程操作信息
@@ -140,14 +140,14 @@ public interface LogQueryService {
      * @param currentProcessName
      * @return
      * */
-    List<RecoverThread> getAimRecoverThread(Integer uniqueid,String currentProcessName,String currentProcessID,String pendingProcessID,String dependProcessName,String dependProcessID,String time);
+    List<RecoverThread> getAimRecoverThread(long uniqueid,String currentProcessName,String currentProcessID,String pendingProcessID,String dependProcessName,String dependProcessID,String time);
 
     /**
      * 根据uniqueid,获取全部进程操作线程信息
      * @param uniqueid
      * @return
      * */
-    List<CreateThread> getAllCreaterThread( Integer uniqueid);
+    List<CreateThread> getAllCreaterThread( long uniqueid);
 
     /**
      * 根据查询条件，获取全部进程操作线程信息
@@ -160,14 +160,14 @@ public interface LogQueryService {
      * @param threadHandle
      * @return
      * */
-    List<CreateThread> getAimCreateThread(Integer uniqueid,String currentProcessName, String currentProcessID, String threadHandle, String targetProcessName, String targetProcessID, String time);
+    List<CreateThread> getAimCreateThread(long uniqueid,String currentProcessName, String currentProcessID, String threadHandle, String targetProcessName, String targetProcessID, String time);
 
     /**
      * 根据uniqueid,获取全部模块操作信息
      * @param uniqueid
      * @return
      * */
-    List<Module> getAllModule(Integer uniqueid);
+    List<Module> getAllModule(long uniqueid);
 
     /**
      * 根据查询条件，获取目标模块操作信息
@@ -179,5 +179,5 @@ public interface LogQueryService {
      * @param regeditName
      * @return
      * */
-    List<Module> getAimModule(Integer uniqueid, String opType, String processName, String processNum, String regeditName, String time);
+    List<Module> getAimModule(long uniqueid, String opType, String processName, String processNum, String regeditName, String time);
 }

@@ -6,7 +6,7 @@ import java.util.Objects;
 //注册表基本信息实体类
 public class Reginfo {
     private Integer id ;
-    private Integer uniqueId;
+    private long uniqueId;
     private Integer processId;
     private String processName;
     private String regPath;
@@ -20,7 +20,7 @@ public class Reginfo {
         this.id = id;
     }
 
-    public Integer getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 

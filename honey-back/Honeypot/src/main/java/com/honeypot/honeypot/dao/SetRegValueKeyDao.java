@@ -15,7 +15,7 @@ public interface SetRegValueKeyDao {
      * @param uniqueId
      * @return
      * */
-    List<SetRegValueKey> getAllSetRegValueKey(@Param("uniqueId")Integer uniqueId);
+    List<SetRegValueKey> getAllSetRegValueKey(@Param("uniqueId")long uniqueId);
 
     /**
      * 根据查询条件，获取目标注册表赋值操作
@@ -27,5 +27,5 @@ public interface SetRegValueKeyDao {
      * @param time
      * @return
      * */
-    List<SetRegValueKey> getAimSetRegValueKey(@Param("uniqueId") Integer uniqueid,@Param("processName")String processName,@Param("processID")String processID,@Param("keyValue")String keyValue,@Param("regPath")String regPath,@Param("time")String time);
+    List<SetRegValueKey> getAimSetRegValueKey(@Param("uniqueId") long uniqueid,@Param("processName")String processName,@Param("processID")String processID,@Param("keyValue")String keyValue,@Param("regPath")String regPath,@Param("time")String time);
 }
