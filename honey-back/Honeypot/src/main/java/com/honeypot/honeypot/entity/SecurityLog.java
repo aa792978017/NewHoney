@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SecurityLog {
@@ -7,6 +9,7 @@ public class SecurityLog {
     private String operationUser;
     private String userDuty;
     private String operationName;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date operationTime;
     private String remark;
     public Integer getId() {

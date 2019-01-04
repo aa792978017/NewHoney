@@ -1,11 +1,14 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SystemLog {
     private Integer id;
     private String operationUser;
     private String operationName;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date operationTime;
     private String remark;
     public Integer getId() {

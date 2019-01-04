@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,6 +13,7 @@ public class ProcessOperation {
     private Integer opType;
     private Integer objectProcessID;
     private String objectProcessName;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date time;
 
     public String getObjectProcessName() {
