@@ -13,8 +13,8 @@
                             <span style="color:grey ;font-size:14pt">{{identityName}}</span>
                       </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item><router-link to="updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
-                            <el-dropdown-item v-if="dialog"><a @click="loginOut" style="text-decoration: none;" >注销账号</a></el-dropdown-item>
+                            <el-dropdown-item><router-link to="/updatepassword" style="text-decoration: none;">修改密码</router-link></el-dropdown-item>
+                            <el-dropdown-item v-if="dialog" style="padding: 0px"><a @click="loginOut" style="text-decoration: none; width: 100%; height: 100%;padding: 20px" >注销账号</a></el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <el-dropdown>

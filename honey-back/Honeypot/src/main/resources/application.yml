@@ -43,6 +43,7 @@ mybatis:
   type-aliases-package: com.honeypot.honeypot.entity  # 注意：对应实体类的路径
   configuration:
     map-underscore-to-camel-case: true   #识别驼峰命名法
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 #pagehelper   分页功能，可有可无

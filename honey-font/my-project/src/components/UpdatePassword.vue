@@ -302,9 +302,9 @@
             }
             this.$axios.post('/updatepassword', json).then(function (response) {
               if (response.data.statusCode === 200) {
-                sessionStorage.setItem('username', '1')
+                sessionStorage.setItem('username', response.data.user.username)
                 alert('修改成功，准备跳转到登录页面')
-                window.location.href = '#/systemindex'
+                window.location.href = '#/systemindex?'
               } else {
                 alert(response.data.message)
               }

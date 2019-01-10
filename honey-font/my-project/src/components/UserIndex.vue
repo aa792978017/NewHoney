@@ -14,7 +14,7 @@
                   </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item>修改密码</el-dropdown-item>
-                            <el-dropdown-item><router-link to="systemindex" style="text-decoration: none;"  >注销账号</router-link></el-dropdown-item>
+                            <el-dropdown-item style="padding: 0px"><router-link to="systemindex" style="text-decoration: none; width: 100%; height: 100%;padding: 20px" >注销账号</router-link></el-dropdown-item>
                         </el-dropdown-menu>
 
                     </el-dropdown>

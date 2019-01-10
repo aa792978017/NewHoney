@@ -1047,7 +1047,7 @@
       },
       // 添加用户
       addUser () {
-        if (this.form.password != this.form.password1) { alert('密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form.password)) { alert('密码长度至少为' + this.password_length + '位') } else {
+        if (this.form.password !== this.form.password1) { alert('密码不一致，请重新输入！') } else if (!this.checkPasswordLegal(this.form.password)) { alert('密码长度至少为' + this.password_length + '位') } else {
           var jsondata =
                       {
                         'username': this.form.name,

@@ -4,6 +4,7 @@ package com.honeypot.honeypot.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.honeypot.honeypot.dao.UserDao;
+import com.honeypot.honeypot.entity.LockUser;
 import com.honeypot.honeypot.entity.User;
 
 import com.honeypot.honeypot.service.DepartmentManagementService;
@@ -12,8 +13,12 @@ import com.honeypot.honeypot.service.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +90,7 @@ public class UserServiceImpl implements UserService {
      * @return result 一个json数据，用于显示添加是否成功
      */
     @Override
+    @Transactional
     public JSONObject addUser(JSONObject userJson){
         User newUser = new User();
         JSONObject result = new JSONObject();
@@ -97,8 +103,20 @@ public class UserServiceImpl implements UserService {
         newUser.setAuthority(userJson.getIntValue("authority"));
         newUser.setDept(userJson.getIntValue("dept"));
 
-        if(userDao.addUser(newUser))
+        if(userDao.addUser(newUser)){
+            LockUser lockUser = new LockUser();
+            lockUser.setPwdLoginDate(new Date());
+            lockUser.setUserId(newUser.getId());
+            lockUser.setTryTimes(0);
+            lockUser.setLocked(0);
+            lockUser.setPwdLoginTime(new Date());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            lockUser.setPwdStartTime(dateFormat.format(new Date()));
+            userDao.insertLockInfo(lockUser);
             result.put("result", "添加用户成功！");
+
+        }
         else
             result.put("result", "添加用户失败！");
 
@@ -116,13 +134,17 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
     public JSONObject delUser(JSONArray delArray){
         JSONObject result = new JSONObject();
         for(int i = 0; i < delArray.size(); i++){
             JSONObject obj = delArray.getJSONObject(i);
-            if(!userDao.delUser(obj.getString("username"))){
+            User user = userDao.getUserByUsername(obj.getString("username"));
+            if( user != null){
+                userDao.delLockInfo(userDao.getUserByUsername(obj.getString("username")).getId());
+                userDao.delUser(obj.getString("username"));
                 result.put("result", obj.getString("username"));
-                return result;
+
             }
         }
         result.put("result", "success");
@@ -145,6 +167,7 @@ public class UserServiceImpl implements UserService {
      * @return 返回json供前端显示结果
      */
     @Override
+    @Transactional
     public JSONObject updateUser(JSONObject updateJson){
         JSONObject result = new JSONObject();
         User update = new User();
@@ -175,6 +198,7 @@ public class UserServiceImpl implements UserService {
      * @return 一个json对象，返回是否被锁定，以及是否成功解锁
      */
     @Override
+    @Transactional
     public JSONObject unlockUser(JSONObject unlockJson){
         JSONObject result = new JSONObject();
         int userId = unlockJson.getIntValue("userId");

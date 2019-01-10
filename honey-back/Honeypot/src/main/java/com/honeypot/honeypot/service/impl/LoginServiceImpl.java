@@ -40,15 +40,22 @@ public class LoginServiceImpl implements LoginService{
         Map<String,Object> resultMap = new HashMap<>();
         LockUser lockInfo = userDao.getLockInfo(user.getId());
         //判断密码是否失效
-        if (SecurityUtil.ifLosePassword(lockInfo, systemSecurityConfs)){
-            resultMap.put("message", "密码已经失效");
-            user.setPassword("");
+        try {
+            if (SecurityUtil.ifLosePassword(lockInfo, systemSecurityConfs)){
+                resultMap.put("message", "密码已经失效");
+                user.setPassword("");
 
-            if (userDao.updateUser(user)){
-                //1 表示需要修改密码
-                resultMap.put("statusCode",001);
-                return resultMap;
+                if (userDao.updateUser(user)){
+                    //1 表示需要修改密码
+                    resultMap.put("statusCode",001);
+                    return resultMap;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("statusCode", 404);
+            resultMap.put("message", "您的用户数据异常，请联系系统管理员");
+            return resultMap;
         }
         Base64 base64 = new Base64();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -125,6 +132,7 @@ public class LoginServiceImpl implements LoginService{
             resultMap.put("statusCode", 200);
             resultMap.put("success", true);
             resultMap.put("message", "密码修改成功");
+            resultMap.put("user", userInfo);
         }else {
             resultMap.put("statusCode", 400);
             resultMap.put("success", false);

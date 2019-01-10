@@ -33,6 +33,9 @@
     </select>
     <!-- 添加新用户 -->
     <insert id="addUser" parameterType="com.honeypot.honeypot.entity.User">
+        <selectKey resultType="int" order="AFTER" keyProperty="id" keyColumn="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO user (username, password, realName, authority, dept)
         VALUES (#{username}, #{password}, #{realName}, #{authority}, #{dept})
     </insert>

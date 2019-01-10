@@ -278,7 +278,7 @@ const routes = [
           }
         ]
       },
-      
+
       {
         path: '/honeycontrol',
         name: 'honeycontrol',
@@ -437,7 +437,10 @@ const routes = [
   {
     path: '/systemindex',
     name: 'systemindex',
-    component: systemindex
+    component: systemindex,
+    meta: {
+
+    }
   },
   {
     path: '/userindex/systemindex',

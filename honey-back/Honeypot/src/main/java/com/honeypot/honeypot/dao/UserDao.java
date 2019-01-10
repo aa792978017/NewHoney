@@ -4,12 +4,12 @@ package com.honeypot.honeypot.dao;
 import com.alibaba.fastjson.JSONObject;
 import com.honeypot.honeypot.entity.LockUser;
 import com.honeypot.honeypot.entity.User;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 
 public interface UserDao {
@@ -90,5 +90,19 @@ public interface UserDao {
      * @return
      */
      int updatePasswrod(@Param(("user")) User user);
+
+    /**
+     * 插入用户账号锁信息
+     * @param lockUser
+     * @return
+     */
+    @Insert("insert into lock_user (user_id, pwd_start_time, pwd_login_time, pwd_login_date, try_times, locked)" +
+            "values (#{userId}, #{pwdStartTime}, #{pwdLoginTime}, #{pwdLoginDate}, #{tryTimes}, #{locked})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+     int insertLockInfo(LockUser lockUser);
+
+
+    @Delete("delete from lock_user where user_id = #{userId}")
+    int delLockInfo(@Param("userId") int userId);
 }
 
