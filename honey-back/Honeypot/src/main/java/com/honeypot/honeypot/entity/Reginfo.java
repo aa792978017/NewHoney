@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,6 +13,7 @@ public class Reginfo {
     private String processName;
     private String regPath;
     private Integer opType;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date time;
     public Integer getId() {
         return id;

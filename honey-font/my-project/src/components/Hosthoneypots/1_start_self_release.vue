@@ -261,7 +261,7 @@ export default {
              }
      })
              .then(function (response) {
-               that.Alarminfo = response.data
+                that.Alarminfo = response.data
                for(var i=1;i<response.data.length+1;i++)
               {
                 that.Alarminfo[i-1].num=i

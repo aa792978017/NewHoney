@@ -1,12 +1,16 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class LockUser {
     private int id;
     private int userId;
     private String pwdStartTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date pwdLoginTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date pwdLoginDate;
     private int tryTimes;
     // 1表示锁了，0表示未锁

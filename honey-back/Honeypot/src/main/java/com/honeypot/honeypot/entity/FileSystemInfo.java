@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,6 +14,7 @@ public class FileSystemInfo {
         private String filePath;
         private String processPath;
         private String processName;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
         private Date time;
 
     public Integer getId() {

@@ -30,7 +30,7 @@
                     </el-dropdown>
 
                 </p>
-                <div class="lefttop"style="overflow: hidden;height: 78px">
+                <div class="lefttop" style="overflow: hidden;height: 78px">
                     <!--<img src="../assets/lefttop.png"/>-->
                     <img src="../assets/elex.png" style="width:348px;height: 110px;margin-left: 5px;overflow-y: hidden"/>
                 </div>

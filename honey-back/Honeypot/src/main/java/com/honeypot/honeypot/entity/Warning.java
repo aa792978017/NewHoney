@@ -2,6 +2,8 @@ package com.honeypot.honeypot.entity;
 // default package
 // Generated 2015-10-13 16:33:40 by Hibernate Tools 3.4.0.CR1
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -11,6 +13,7 @@ public class Warning {
 
 	private Integer id;
 	private String warnContent;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date warnTime;
 	private String macAddress;
 	private Integer flag;

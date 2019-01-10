@@ -1,5 +1,6 @@
 package com.honeypot.honeypot.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.honeypot.honeypot.entity.AlarmInfo;
 import com.honeypot.honeypot.entity.AlarmextendInfo;
 import com.honeypot.honeypot.service.AlarminfoService;
@@ -20,6 +21,7 @@ public class AlarminfoController {
      * 主机蜜罐-主机告警信息页面
      * @return
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @GetMapping("/getAlarmInfo")
     @ResponseBody
     public List<AlarmInfo> listAlarmInfo(@RequestParam(value="type") int type, @RequestParam(value="uniqueId") long uniqueId ) {
@@ -31,6 +33,7 @@ public class AlarminfoController {
      * 主机蜜罐-主机告警详细信息页面
      * @return
      */
+
     @GetMapping("/getAlarmExtendInfo")
     @ResponseBody
     public List<AlarmextendInfo> listAlarmExtendInfo(@RequestParam(value="id") int id ) {

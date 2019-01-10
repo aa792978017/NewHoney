@@ -1,4 +1,6 @@
 package com.honeypot.honeypot.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AlarmInfo {
@@ -9,6 +11,7 @@ public class AlarmInfo {
     private String path;
     private String explain1;
     private String explain2;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date time;
 
     public int getId() {

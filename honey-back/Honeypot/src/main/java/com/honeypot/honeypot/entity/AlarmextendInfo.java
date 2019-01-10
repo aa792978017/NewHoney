@@ -1,5 +1,7 @@
 package com.honeypot.honeypot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class AlarmextendInfo {
@@ -10,6 +12,7 @@ public class AlarmextendInfo {
     private String processName1;
     private String Path;
     private String processName2;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date time;
     private String warnTime;
 

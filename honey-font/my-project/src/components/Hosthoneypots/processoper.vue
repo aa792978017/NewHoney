@@ -233,8 +233,7 @@ export default {
     this.$axios.get('/getAllProcessOperation',
             {
               params: {
-                uniqueId:
-                    sessionStorage.getItem('uniqueId')
+                uniqueId:sessionStorage.getItem('uniqueId')
               }
             })
             .then(function (response) {
