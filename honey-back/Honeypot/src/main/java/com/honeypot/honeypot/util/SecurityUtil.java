@@ -1,9 +1,10 @@
 package com.honeypot.honeypot.util;
+
 import com.alibaba.fastjson.JSONObject;
 import com.honeypot.honeypot.entity.LockUser;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
+
 public class SecurityUtil {
 
     /**
@@ -41,15 +42,24 @@ public class SecurityUtil {
      * @return
      */
     public static boolean ifLosePassword(LockUser lockUser, JSONObject systemSecurityConfs) {
-        int dayNum = Integer.parseInt(systemSecurityConfs.getString("lock_period"));
+      //  System.out.println(systemSecurityConfs.toString());
+        Long dayNum = Long.valueOf(Integer.parseInt(systemSecurityConfs.getString("lock_period")));
         //获取当前用户上一次登录的日期
         Date currentDate = lockUser.getPwdLoginDate();
-        System.out.println(" 用户最后一次登录时间："+currentDate);
+       // System.out.println(" 用户最后一次登录时间："+currentDate);
         boolean bo  = false;
         Date now = new Date();
-        System.out.println("当前时间：" + now.toString());
-        Date endDate = new Date(currentDate.getTime() + 60 * 1000 * dayNum * 60 *24);
-        if (now.getTime() >= endDate.getTime()){
+//        System.out.println("当前时间：" + now.toString());
+//
+//
+//        System.out.println(currentDate.getTime());
+//        System.out.println(dayNum);
+//        System.out.println( now.getTime());
+//        System.out.println(currentDate.getTime() +(60 * 1000 * dayNum * 60 *24));
+
+        Long resultTime= 60 * 1000 * dayNum * 60 *24;
+        //System.out.println(resultTime);
+        if (now.getTime() >= (currentDate.getTime() + resultTime)){
             bo =  true;
         }
         return bo;
