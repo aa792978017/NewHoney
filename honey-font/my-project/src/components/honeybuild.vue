@@ -4,7 +4,7 @@
         <!-- main -->
         <el-main class="el-main-2" >
             <div class="header-2">
-                <p class="menu-1" style="font-size:18pt;position: relative;top: -15px;left:17px;"><i class="iconfont"style="margin-right: 2px">&#xe603;</i>蜜网构建</p>
+                <p class="menu-1" style="font-size:18pt;position: relative;top: -15px;left:17px;"><i class="iconfont" style="margin-right: 2px">&#xe603;</i>蜜网构建</p>
             </div>
             <hr style="margin-bottom:0;"/>
             <div class="main-1">

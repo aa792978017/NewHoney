@@ -14,7 +14,7 @@
           class="tabs-1"
           :tab-position="top"
           type="card"
-          @tab-click="show = true,show2 = true">
+          @tab-click="show = true,show2 = true,able = true">
           <!-- 主机蜜罐管理 -->
           <el-tab-pane
             label="主机蜜罐管理">
@@ -100,42 +100,43 @@
                 <el-menu
                   router
                   active-text-color="#E95513"
-                  default-active="$route.name"
+                  :default-active="$route.name"
                   class="el-menu-vertical"
+                  @select="handleSelect"
                   @open="handleOpen"
                   @close="handleClose"
                   style="width: 250px;height:100%;background: #f2f2f2; ">
-                  <el-menu-item  class="left-nav" index="1_start_self_release" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="1_start_self_release" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 启动自释放文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="2_registration_service_dynamic_library" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="2_registration_service_dynamic_library" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" /> 注册服务动态库</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="3_add_system_firewall" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="3_add_system_firewall" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   添加系统防火墙放过列表</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="4_prohibited_service" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="4_prohibited_service" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   禁止服务</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="5_reduce_system_security" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="5_reduce_system_security" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   降低系统安全性</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="6_modify_the_registry" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="6_modify_the_registry" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   修改注册表自启动项</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="7_release_PE_file" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="7_release_PE_file" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   释放PE文件</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="8_intrusion_process" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="8_intrusion_process" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   入侵进程</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="9_self_deletion">
-                    <span slot="title"  @click="show2 = flase"><img src="../assets/arrow3.png" class="arrow" />   自我删除</span>
+                  <el-menu-item  class="left-nav" index="9_self_deletion" @click="show2 = false" :disabled= "able">
+                    <span slot="title"  ><img src="../assets/arrow3.png" class="arrow" />   自我删除</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="10_use_of_mutexes" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="10_use_of_mutexes" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   利用互斥量</span>
                   </el-menu-item>
-                  <el-menu-item  class="left-nav" index="11_camouflage_system_service" @click="show2 = flase">
+                  <el-menu-item  class="left-nav" index="11_camouflage_system_service" @click="show2 = false" :disabled = "able">
                     <span slot="title"><img src="../assets/arrow3.png" class="arrow" />   伪装系统服务</span>
                   </el-menu-item>
 
@@ -150,12 +151,12 @@
                   class="table1"
                   row-style="30px"
                   cell-style="padding:0"
+                  id="table11"
                   :data="admindata.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  @select="show = false"
-                  @selection-change="handleSelectionChange"
+                  @select="handleSelectionChange"
                   style="width: 100%">
                   <!-- 选择框   -->
-                  <el-table-column
+                  <el-table-column :max="1"
                     type="selection"
                     width="55">
                   </el-table-column>
@@ -208,7 +209,7 @@
                 </el-pagination>
               </div>
               </div><!--table-1-2-->
-                <router-view v-else>
+                <router-view v-else >
 
                 </router-view>
 
@@ -228,7 +229,7 @@
                 <el-menu
                   router
                   active-text-color="#E95513"
-                  default-active="$route.name"
+                  :default-active="$route.name"
                   class="el-menu-vertical"
                   @select="handleSelect"
                   @open="handleOpen"
@@ -236,40 +237,40 @@
                   style="width: 250px;height:100%;background: #f2f2f2; ">
                   <el-submenu index="1">
                     <template slot="title">
-                                <span @click="show = flase">
+                                <span @click="show = false" :disabled = "able">
                                   <img src="../assets/arrow3.png" class="arrow" />
                                     文件操作信息</span>
                     </template>
                     <el-menu-item-group>
-                      <el-menu-item  class="left-nav" index="fileoperations" @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>文件操作详情</el-menu-item>
-                      <el-menu-item class="left-nav" index="filemap"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>文件map操作详情</el-menu-item>
+                      <el-menu-item  class="left-nav" index="fileoperations" @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>文件操作详情</el-menu-item>
+                      <el-menu-item class="left-nav" index="filemap"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>文件map操作详情</el-menu-item>
                     </el-menu-item-group>
                   </el-submenu>
                   <el-menu-item index="networkusage" class="left-nav">
-                    <span slot="title" @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   网络使用信息</span>
+                    <span slot="title" @click="show = false" :disabled="able"><img src="../assets/arrow3.png" class="arrow" />   网络使用信息</span>
                   </el-menu-item>
                   <el-submenu index="3">
                     <template slot="title">
-                      <span><img src="../assets/arrow3.png" class="arrow" />   注册表信息</span>
+                      <span @click="show = false" :disabled = "able"><img src="../assets/arrow3.png" class="arrow" />   注册表信息</span>
                     </template>
                     <el-menu-item-group>
-                      <el-menu-item class="left-nav" index="registryinfo"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>注册表基本信息</el-menu-item>
-                      <el-menu-item class="left-nav" index="registryassignment"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>注册表赋值操作</el-menu-item>
+                      <el-menu-item class="left-nav" index="registryinfo"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>注册表基本信息</el-menu-item>
+                      <el-menu-item class="left-nav" index="registryassignment"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>注册表赋值操作</el-menu-item>
                     </el-menu-item-group>
                   </el-submenu>
                   <el-submenu index="4">
                     <template slot="title">
-                      <span><img src="../assets/arrow3.png" class="arrow" />   进程操作信息</span>
+                      <span @click="show = false" :disabled = "able"><img src="../assets/arrow3.png" class="arrow" />   进程操作信息</span>
                     </template>
                     <el-menu-item-group>
-                      <el-menu-item class="left-nav" index="processoper"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>进程操作信息</el-menu-item>
-                      <el-menu-item class="left-nav" index="operationthread"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>进程操作线程信息</el-menu-item>
-                      <el-menu-item class="left-nav" index="Hungthread"  @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>挂起线程操作信息</el-menu-item>
-                      <el-menu-item cclass="left-nav" index="replythread" @click="show = flase"><img src="../assets/arrow4.png" class="arrow1"/>恢复线程操作信息</el-menu-item>
+                      <el-menu-item class="left-nav" index="processoper"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>进程操作信息</el-menu-item>
+                      <el-menu-item class="left-nav" index="operationthread"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>进程操作线程信息</el-menu-item>
+                      <el-menu-item class="left-nav" index="Hungthread"  @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>挂起线程操作信息</el-menu-item>
+                      <el-menu-item cclass="left-nav" index="replythread" @click="show = false" :disabled="able"><img src="../assets/arrow4.png" class="arrow1"/>恢复线程操作信息</el-menu-item>
                     </el-menu-item-group>
                   </el-submenu>
                   <el-menu-item index="moduleoperation" class="left-nav">
-                    <span slot="title"  @click="show = flase"><img src="../assets/arrow3.png" class="arrow" />   模块操作</span>
+                    <span slot="title"  @click="show = false" :disabled="able"><img src="../assets/arrow3.png" class="arrow" />   模块操作</span>
                   </el-menu-item>
                 </el-menu>
                 <!-- </el-col> -->
@@ -282,7 +283,7 @@
                   row-style="30px"
                   cell-style="padding:0"
                   id="table11"
-                  @selection-change="handleSelectionChange"
+                  @select="handleSelectionChange"
                   :data="admindata.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   style="width: 100%">
                   <!-- 选择框   -->
@@ -339,7 +340,7 @@
                 </el-pagination>
               </div>
               </div><!--table-1-2-->
-                <router-view v-else>
+                <router-view v-else >
 
                 </router-view>
 
@@ -728,6 +729,8 @@
                 dialog: false,
                 show: true,
                 show2: true,
+                able: false,
+
                 admindata: {
                   id:'',
                   uniqueId:'',
@@ -741,14 +744,13 @@
             }
         },
         created () {
-            this.getListHostPot()
             this.delHostPot()
         },
         mounted: function () {
             this.getListHostPot()
         },
         methods: {
-            handleSlect (key, keypath) {
+            handleSelect (key, keypath) {
                 this.$emit('updata:activ', key)
             },
             indexMethod (index) {
@@ -785,10 +787,16 @@
             handleSelectionChange (val) {
                 this.multipleSelection = val
                 //alert(this.multipleSelection[0].id);
+                this.able = false
                 this.getUniqueId()
+                
             }, 
+            disabledChange(){
+                this.able = false
+            },
             getUniqueId () {
                 var that = this
+                
                 sessionStorage.setItem('uniqueId', that.multipleSelection[0].uniqueId).then(function (response) {
                     alert('请选择对应信息')
                     that.getServer()

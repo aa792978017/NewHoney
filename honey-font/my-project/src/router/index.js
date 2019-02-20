@@ -419,6 +419,94 @@ const routes = [
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             },
             component: moduleoperation
+          },
+          {
+            path: '/userindex/1_start_self_release',
+            name: '1_start_self_release',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: start_self_release
+          },
+          {
+            path: '/userindex/2_registration_service_dynamic_library',
+            name: '2_registration_service_dynamic_library',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: registration_service_dynamic_library
+          },
+          {
+            path: '/userindex/3_add_system_firewall',
+            name: '3_add_system_firewall',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: add_system_firewall
+          },
+          {
+            path: '/userindex/4_prohibited_service',
+            name: '4_prohibited_service',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: prohibited_service
+          },
+          {
+            path: '/userindex/5_reduce_system_security',
+            name: '5_reduce_system_security',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: reduce_system_security
+          },
+          {
+            path: '/userindex/6_modify_the_registry',
+            name: '6_modify_the_registry',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: modify_the_registry
+          },
+          {
+            path: '/userindex/7_release_PE_file',
+            name: '7_release_PE_file',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: release_PE_file
+          },
+          {
+            path: '/userindex/8_intrusion_process',
+            name: '8_intrusion_process',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: intrusion_process
+          },
+          {
+            path: '/userindex/9_self_deletion',
+            name: '9_self_deletion',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: self_deletion
+          },
+          {
+            path: '/userindex/10_use_of_mutexes',
+            name: '10_use_of_mutexes',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: use_of_mutexes
+          },
+          {
+            path: '/userindex/11_camouflage_system_service',
+            name: '11_camouflage_system_service',
+            meta: {
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
+            component: camouflage_system_service
           }
         ]
       },

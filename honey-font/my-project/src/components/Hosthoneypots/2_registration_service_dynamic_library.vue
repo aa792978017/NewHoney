@@ -86,7 +86,7 @@
         row-style="30px"
         cell-style="padding:0"
         id="table11"
-        :data="Alarmextendinfo.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+        :data="Alarmextendinfo.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)"
         style="width: 100%;margin-top:30px">
         <el-table-column
           prop="num"
@@ -129,13 +129,13 @@
         </el-table-column>
        
       </el-table>
-      <div class="p-page" style="font-size: 12px;padding-left: 34px;margin-top:15px">显示第{{(currentPage-1) * pagesize +1}}到第{{((currentPage * pagesize)<(Alarmextendinfo.length))?currentPage * pagesize:Alarmextendinfo.length}}条记录，总共{{Alarmextendinfo.length}}条记录
+      <div class="p-page" style="font-size: 12px;padding-left: 34px;margin-top:15px">显示第{{(currentPage2-1) * pagesize2 +1}}到第{{((currentPage2 * pagesize2)<(Alarmextendinfo.length))?currentPage2 * pagesize2:Alarmextendinfo.length}}条记录，总共{{Alarmextendinfo.length}}条记录
             <span style="position: relative;left: 33px;font-size: 12px;">每页显示</span>
-            <el-select v-model="pagesize" slot="prepend" placeholder="" id="pagesize" style="width: 65px;height: 30px;border-radius: 0px;font-size: 12px;left: 35px;">
+            <el-select v-model="pagesize2" slot="prepend" placeholder="" id="pagesize" style="width: 65px;height: 30px;border-radius: 0px;font-size: 12px;left: 35px;">
               <el-option label="10" value="10"></el-option>
               <el-option label="20" value="20"></el-option>
             </el-select>
-            <span style="margin-left:2px;position: relative;left: 32px">条信息<span style="margin-left: 20px">转到<el-input  v-model="jumper" style="width: 50px;height: 30px;margin-left: 2px;margin-right: 4px"></el-input>页</span><el-button class="button2" style="font-size: 12px;" @click="handleCurrentChange(jumper)">跳转</el-button></span>
+            <span style="margin-left:2px;position: relative;left: 32px">条信息<span style="margin-left: 20px">转到<el-input  v-model="jumper2" style="width: 50px;height: 30px;margin-left: 2px;margin-right: 4px"></el-input>页</span><el-button class="button2" style="font-size: 12px;" @click="handleCurrentChange2(jumper2)">跳转</el-button></span>
           
             <div style="float:right;margin-top:10px;margin-right: 30px;">
               <!-- *********************************分页按钮 -->
@@ -144,11 +144,11 @@
               prev-text="上一页"
               next-text="下一页"
               jumper-text="转到"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage"
+              @size-change="handleSizeChange2"
+              @current-change="handleCurrentChange2"
+              :current-page="currentPage2"
               :page-sizes="[10, 20]"
-              :page-size="pagesize"
+              :page-size="pagesize2"
               :total="Alarmextendinfo.length"
               layout="slot,prev, pager, next">
               <!-- <slot name="as">dddd</slot> -->
@@ -222,6 +222,9 @@ export default {
           jumper: 1,
           pagesize: 10,
           currentPage: 1,
+          jumper2: 1,
+          pagesize2: 10,
+          currentPage2: 1,
           dialog: false,
           dialogFormVisible: false,
           dialogText: false,
@@ -304,6 +307,14 @@ export default {
     },
         handleCurrentChange (currentPage) {
           this.currentPage = currentPage
+        },
+           // 分页2
+        handleSizeChange2 (size2) {
+          this.pagesize2 = size2
+    console.log(`每页 ${val} 条`)
+    },
+        handleCurrentChange2 (currentPage2) {
+          this.currentPage2 = currentPage2
     console.log(`当前页: ${val}`)
     },
     handleSlect (key, keypath) {
