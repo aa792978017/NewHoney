@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.OsDao">
+
+
+    <select id="getAllTypes" resultType="com.honeypot.honeypot.entity.OsType">
+        SELECT *
+        FROM os_type
+    </select>
+    <select id="getOsTypeCountByOsType" resultType="com.honeypot.honeypot.entity.OsType">
+        SELECT *
+        FROM os_type
+        WHERE id = #{osType}
+    </select>
+</mapper>

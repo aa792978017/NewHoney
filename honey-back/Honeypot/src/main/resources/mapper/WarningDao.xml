@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.WarningDao">
+    <select id="getWarningSum" resultType="com.honeypot.honeypot.entity.WarningSum">
+       SELECT *
+       FROM warning_sum
+       where time like #{time} and flag = #{flag}
+    </select>
+    <select id="getNumForOneDay" resultType="java.lang.Integer">
+        SELECT *
+       FROM warning
+       where warn_time like #{warn_time} and flag = #{flag}
+    </select>
+    <select id="getLastWarning" resultType="com.honeypot.honeypot.entity.WarningCriterial">
+        SELECT *
+        FROM  warning
+        order by  warn_time desc
+    </select>
+    <!--<select id="getWarningByType" resultType="com.honeypot.honeypot.entity.WarningSum">-->
+        <!--SELECT *-->
+        <!--FROM warning_sum-->
+        <!--WHERE flag = #{flag}-->
+        <!--ORDER BY id DESC-->
+    <!--</select>-->
+
+</mapper>

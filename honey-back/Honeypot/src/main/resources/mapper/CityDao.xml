@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.CityDao">
+
+
+    <select id="getAllTypes" resultType="com.honeypot.honeypot.entity.City">
+        SELECT *
+        FROM city
+    </select>
+    <select id="getAllTypeByProvinceId" resultType="com.honeypot.honeypot.entity.City">
+        SELECT *
+        FROM city
+        WHERE province_id = #{provinceId}
+    </select>
+    <select id="getCity" resultType="com.honeypot.honeypot.entity.City">
+        SELECT *
+        FROM city
+        WHERE id = #{cityId}
+    </select>
+</mapper>

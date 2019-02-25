@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+<mapper namespace="com.honeypot.honeypot.dao.NetInfoDao">
+    <select id="getAllNetInfo" resultType="com.honeypot.honeypot.entity.NetInfo">
+        select *
+        from pot
+        where uniqueId = #{uniqueId}
+    </select>
+</mapper>

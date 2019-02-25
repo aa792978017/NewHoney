@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.honeypot.honeypot.dao.ServerDao">
+    <insert id="addServer" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO
+        server(server,server_ip)
+        VALUES (#{server.server},#{server.serverIp})
+    </insert>
+    <delete id="delServerByServerId">
+        DELETE FROM server
+        WHERE id = #{serverId}
+    </delete>
+
+    <delete id="delServerByServerName">
+        DELETE FROM server
+        WHERE  server = #{serverName}
+    </delete>
+
+
+    <select id="getServerByServerId" resultType="com.honeypot.honeypot.entity.Server">
+        SELECT *
+        FROM server
+        WHERE id = #{serverId}
+    </select>
+
+    <select id="getAllServer" resultType="com.honeypot.honeypot.entity.Server">
+        SELECT  *
+        FROM server
+    </select>
+
+    <select id="getServerByServerName" resultType="com.honeypot.honeypot.entity.Server">
+        SELECT *
+        FROM server
+        WHERE server = #{serverName}
+    </select>
+
+</mapper>

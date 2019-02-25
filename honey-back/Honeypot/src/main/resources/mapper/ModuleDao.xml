@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+<mapper namespace="com.honeypot.honeypot.dao.ModuleDao">
+    <select id="getAllModule" resultType="com.honeypot.honeypot.entity.Module">
+        select *
+        from module
+        where uniqueId = #{uniqueId}
+    </select>
+    <select id="getAimModule" resultType="com.honeypot.honeypot.entity.Module">
+        select *
+        from module
+        where uniqueId = #{uniqueId} and opType  like concat('%',#{opType},'%') and processNum  like concat('%',#{processNum},'%') and processName  like concat('%',#{processName},'%') and regeditName  like concat('%',#{regeditName},'%') and `time`  like concat('%',#{time},'%')
+    </select>
+</mapper>
